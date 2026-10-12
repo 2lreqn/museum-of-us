@@ -1,4 +1,4 @@
-32wex<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="th">
 <head>
   <meta charset="UTF-8">
@@ -950,5 +950,54 @@
     `;
     document.head.appendChild(heartStyle);
   </script>
+  <!-- เพลงโปรดของเรา 💜 -->
+<div style="
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  z-index: 9999;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6B46C1, #8B5CF6);
+  box-shadow: 0 0 20px #8B5CF688;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+">
+  <button id="music-toggle" aria-label="เปิดเพลง" style="
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+  ">♫</button>
+</div>
+
+<iframe
+  id="love-song"
+  width="1"
+  height="1"
+  src="https://www.youtube.com/embed/iBllY1Z9MsY?autoplay=1&playsinline=1&enablejsapi=1"
+  title="Our song"
+  allow="autoplay; encrypted-media"
+  style="position:fixed; left:-10px; bottom:0; opacity:0.01; pointer-events:none;"
+></iframe>
+
+<script>
+  const musicFrame = document.getElementById("love-song");
+  const musicButton = document.getElementById("music-toggle");
+
+  musicButton.addEventListener("click", function () {
+    musicFrame.contentWindow.postMessage(
+      JSON.stringify({
+        event: "command",
+        func: "playVideo",
+        args: ""
+      }),
+      "https://www.youtube.com"
+    );
+  });
+</script>
 </body>
 </html>
