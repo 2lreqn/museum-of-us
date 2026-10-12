@@ -647,28 +647,37 @@
         "Hint: วันสำคัญของเรา 💜";
     }
 
-    function checkPin() {
-      if (enteredPin.length !== 4) return;
+   function checkPin() {
+  if (enteredPin.length !== 4) return;
 
-      if (enteredPin === CORRECT_PIN) {
-        document.getElementById("lockScreen").classList.add("hidden");
-        document.getElementById("museum").classList.add("unlocked");
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      } else {
-        document.getElementById("lockMessage").textContent =
-          "รหัสยังไม่ถูกนะ ลองอีกครั้งสิ ♡";
-        const card = document.querySelector(".lock-card");
-        card.classList.remove("shake");
-        void card.offsetWidth;
-        card.classList.add("shake");
+  if (enteredPin === CORRECT_PIN) {
+    document.getElementById("lockScreen").classList.add("hidden");
 
-        setTimeout(() => {
-          enteredPin = "";
-          updateDots();
-          card.classList.remove("shake");
-        }, 650);
-      }
-    }
+    const museum = document.getElementById("museum");
+    museum.classList.add("unlocked");
+
+    // บังคับให้หน้าเว็บแสดงเนื้อหา
+    museum.style.display = "block";
+    museum.style.visibility = "visible";
+    museum.style.opacity = "1";
+
+    window.scrollTo(0, 0);
+  } else {
+    document.getElementById("lockMessage").textContent =
+      "รหัสยังไม่ถูกนะ ลองอีกครั้งสิ ♡";
+
+    const card = document.querySelector(".lock-card");
+    card.classList.remove("shake");
+    void card.offsetWidth;
+    card.classList.add("shake");
+
+    setTimeout(() => {
+      enteredPin = "";
+      updateDots();
+      card.classList.remove("shake");
+    }, 650);
+  }
+}
 
     function walkTogether() {
       const message = document.getElementById("walkMessage");
