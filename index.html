@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Museum of Us 💜</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #09070f;
+      --card: #15101f;
+      --purple: #a78bfa;
+      --purple-dark: #6d28d9;
+      --white: #f7f3ff;
+      --muted: #aaa0bd;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Kanit', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .glow {
+      position: fixed;
+      width: 350px;
+      height: 350px;
+      background: #6d28d9;
+      filter: blur(150px);
+      opacity: 0.15;
+      border-radius: 50%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .glow.one {
+      top: 5%;
+      left: -180px;
+    }
+
+    .glow.two {
+      right: -180px;
+      top: 55%;
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .serif {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .eyebrow {
+      color: var(--purple);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 11px;
+    }
+
+    /* หน้ากรอกรหัส */
+
+    #lockScreen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .lock-card {
+      width: 100%;
+      max-width: 390px;
+      padding: 35px 25px;
+      border: 1px solid #35254c;
+      background: rgba(21, 16, 31, 0.82);
+      border-radius: 26px;
+      box-shadow: 0 0 70px #6d28d91a;
+    }
+
+    .lock-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .lock-card h1 {
+      font-size: clamp(34px, 8vw, 48px);
+      margin: 12px 0;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 13px;
+      margin: 28px 0;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border: 1px solid var(--purple);
+      border-radius: 50%;
+      transition: 0.2s;
+    }
+
+    .dot.filled {
+      background: var(--purple);
+      box-shadow: 0 0 12px var(--purple);
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 260px;
+      margin: auto;
+    }
+
+    .key {
+      height: 58px;
+      border-radius: 15px;
+      border: 1px solid #342746;
+      color: var(--white);
+      background: #21182e;
+      font-size: 19px;
+      transition: 0.2s;
+    }
+
+    .key:hover {
+      background: #392451;
+      border-color: var(--purple);
+    }
+
+    .key:active {
+      transform: scale(0.95);
+    }
+
+    .key.special {
+      color: var(--purple);
+    }
+
+    #lockMessage {
+      min-height: 24px;
+      color: #d8b4fe;
+      margin-top: 18px;
+      font-size: 13px;
+    }
+
+    /* เนื้อหาเว็บไซต์ */
+
+    #museum {
+      display: none;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      max-width: 1050px;
+      margin: auto;
+      padding: 10px 0 30px;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 1px;
+      font-size: 18px;
+    }
+
+    .logo span {
+      color: var(--purple);
+    }
+
+    .top-date {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: right;
+    }
+
+    .hero {
+      max-width: 1050px;
+      margin: 0 auto;
+      min-height: 68vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 45px 10px 70px;
+    }
+
+    .hero-heart {
+      color: var(--purple);
+      font-size: 28px;
+      margin-bottom: 22px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 9vw, 86px);
+      font-weight: 400;
+      line-height: 1.15;
+      margin: 20px 0;
+    }
+
+    .hero h1 span {
+      color: var(--purple);
+      font-style: italic;
+    }
+
+    .hero p {
+      max-width: 480px;
+      color: var(--muted);
+      line-height: 2;
+      font-size: 14px;
+    }
+
+    .date-pill {
+      margin-top: 28px;
+      padding: 10px 20px;
+      border: 1px solid #4b3268;
+      border-radius: 30px;
+      color: #e9d5ff;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    .section {
+      max-width: 950px;
+      margin: 0 auto;
+      padding: 65px 0;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(29px, 6vw, 42px);
+      font-weight: 400;
+      margin: 10px 0;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* แกลเลอรี */
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .memory {
+      background: var(--card);
+      border: 1px solid #30223f;
+      border-radius: 18px;
+      padding: 10px;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+
+    .memory:hover {
+      transform: translateY(-5px);
+      border-color: #7652a0;
+    }
+
+    .memory img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      border-radius: 12px;
+      background: #24182f;
+    }
+
+    .memory h3 {
+      font-size: 15px;
+      font-weight: 400;
+      margin: 13px 5px 3px;
+    }
+
+    .memory p {
+      color: var(--muted);
+      font-size: 12px;
+      margin: 0 5px 7px;
+    }
+
+    .memory-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 20px;
+      line-height: 1.8;
+    }
+
+    /* ปุ่ม WALK */
+
+    .walk-area {
+      text-align: center;
+      padding: 70px 15px;
+      border-top: 1px solid #241a31;
+      border-bottom: 1px solid #241a31;
+      background: linear-gradient(180deg, transparent, #20132e55, transparent);
+    }
+
+    .walk-area h2 {
+      font-size: clamp(30px, 6vw, 42px);
+      font-weight: 400;
+      margin: 12px 0;
+    }
+
+    .walk-area p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.9;
+      margin-bottom: 25px;
+    }
+
+    .walk-button {
+      padding: 14px 35px;
+      color: white;
+      border: 1px solid #b99aff;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #7c3aed, #4c1d95);
+      letter-spacing: 2px;
+      font-size: 13px;
+      box-shadow: 0 0 30px #7c3aed35;
+      transition: 0.3s;
+    }
+
+    .walk-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 40px #7c3aed70;
+    }
+
+    #walkMessage {
+      margin-top: 20px;
+      color: #e9d5ff;
+      font-size: 14px;
+      min-height: 25px;
+    }
+
+    /* จดหมาย */
+
+    .letter-card {
+      max-width: 650px;
+      margin: auto;
+      padding: clamp(22px, 6vw, 45px);
+      background: linear-gradient(145deg, #1b1427, #100c18);
+      border: 1px solid #493260;
+      border-radius: 22px;
+      box-shadow: 0 20px 70px #00000030;
+    }
+
+    .letter-card .letter-top {
+      color: var(--purple);
+      letter-spacing: 3px;
+      font-size: 11px;
+      margin-bottom: 25px;
+    }
+
+    .letter-card h2 {
+      font-size: 30px;
+      font-weight: 400;
+      margin-bottom: 22px;
+    }
+
+    .letter-card p {
+      color: #d2c7e0;
+      font-size: 14px;
+      line-height: 2.1;
+      margin-bottom: 15px;
+      white-space: pre-line;
+    }
+
+    .signature {
+      text-align: right;
+      color: var(--purple);
+      margin-top: 30px;
+      line-height: 1.9;
+    }
+
+    footer {
+      text-align: center;
+      padding: 35px 15px 45px;
+      color: #766b86;
+      font-size: 11px;
+      line-height: 2;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 520px) {
+      .page {
+        padding: 18px;
+      }
+
+      .gallery {
+        gap: 10px;
+      }
+
+      .memory {
+        padding: 7px;
+        border-radius: 14px;
+      }
+
+      .memory img {
+        border-radius: 9px;
+      }
+
+      .memory h3 {
+        font-size: 13px;
+      }
+
+      .memory p {
+        font-size: 11px;
+      }
+
+      .hero {
+        min-height: 60vh;
+      }
+
+      .topbar {
+        padding-bottom: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+
+  <!-- หน้าใส่รหัสผ่าน -->
+  <main id="lockScreen" class="page">
+    <div class="lock-card">
+      <div class="lock-icon">♡</div>
+      <div class="eyebrow">A little place for us</div>
+      <h1 class="serif">Museum of Us</h1>
+      <p class="subtitle">
+        พิพิธภัณฑ์เล็ก ๆ ที่เก็บเรื่องราวของเราไว้<br>
+        ใส่รหัสเพื่อเข้ามาดูความทรงจำของเรานะ
+      </p>
+
+      <div class="dots" id="dots">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+
+      <div class="keypad">
+        <button class="key" onclick="pressKey('1')">1</button>
+        <button class="key" onclick="pressKey('2')">2</button>
+        <button class="key" onclick="pressKey('3')">3</button>
+        <button class="key" onclick="pressKey('4')">4</button>
+        <button class="key" onclick="pressKey('5')">5</button>
+        <button class="key" onclick="pressKey('6')">6</button>
+        <button class="key" onclick="pressKey('7')">7</button>
+        <button class="key" onclick="pressKey('8')">8</button>
+        <button class="key" onclick="pressKey('9')">9</button>
+        <button class="key special" onclick="clearPin()">ลบ</button>
+        <button class="key" onclick="pressKey('0')">0</button>
+        <button class="key special" onclick="checkPin()">♡</button>
+      </div>
+
+      <p id="lockMessage">Hint: วันสำคัญของเรา 💜</p>
+    </div>
+  </main>
+
+  <!-- หน้าเว็บไซต์หลัก -->
+  <main id="museum" class="page">
+    <header class="topbar">
+      <div class="logo">Museum <span>of Us ♡</span></div>
+      <div class="top-date">28 MAY 2026<br>OUR LITTLE WORLD</div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-heart">♡</div>
+      <div class="eyebrow">To my favorite person</div>
+      <h1 class="serif">Our love,<br><span>our story.</span></h1>
+      <p>
+        บางความทรงจำอาจเป็นเรื่องธรรมดาสำหรับคนอื่น<br>
+        แต่สำหรับเรา มันมีความหมายมากกว่าที่คิด
+      </p>
+      <div class="date-pill">28 MAY 2026 · MADE WITH LOVE</div>
+    </section>
+
+    <section class="section" id="memories">
+      <div class="section-heading">
+        <div class="eyebrow">Chapter 01</div>
+        <h2 class="serif">Our Memories</h2>
+        <p>รวมเรื่องราวเล็ก ๆ ที่มีความหมายกับเรา</p>
+      </div>
+
+      <div class="gallery">
+        <article class="memory">
+          <img
+            src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=85"
+            alt="คู่รักจับมือกัน"
+          >
+          <h3>Our beginning ♡</h3>
+          <p>จุดเริ่มต้นของเรื่องราวของเรา</p>
+        </article>
+
+        <article class="memory">
+          <img
+            src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=800&q=85"
+            alt="ความทรงจำของคนที่รักกัน"
+          >
+          <h3>Little moments</h3>
+          <p>ช่วงเวลาธรรมดาที่พิเศษเสมอ</p>
+        </article>
+
+        <article class="memory">
+          <img
+            src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=800&q=85"
+            alt="ท้องฟ้ายามพระอาทิตย์ตก"
+          >
+          <h3>Golden days ✨</h3>
+          <p>อยากมีวันดี ๆ แบบนี้กับเธออีกเยอะ ๆ</p>
+        </article>
+
+        <article class="memory">
+          <img
+            src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=85"
+            alt="ดอกไม้สีชมพู"
+          >
+          <h3>For you, always</h3>
+          <p>ของขวัญเล็ก ๆ สำหรับคนพิเศษ</p>
+        </article>
+      </div>
+
+      <p class="memory-note">
+        รูปในเว็บตอนนี้เป็นรูปตัวอย่างนะ<br>
+        เปลี่ยนเป็นรูปคู่ของเราได้ โดยใส่ลิงก์รูปของตัวเองแทน
+      </p>
+    </section>
+
+    <section class="walk-area">
+      <div class="eyebrow">Chapter 02</div>
+      <h2 class="serif">Shall we keep walking?</h2>
+      <p>
+        เรื่องราวของเรายังมีอีกหลายบทให้เขียน<br>
+        พร้อมจะเดินไปด้วยกันต่อไหม
+      </p>
+      <button class="walk-button" onclick="walkTogether()">
+        WALK WITH ME ↗
+      </button>
+      <div id="walkMessage"></div>
+    </section>
+
+    <section class="section" id="letter">
+      <div class="section-heading">
+        <div class="eyebrow">Chapter 03</div>
+        <h2 class="serif">A Letter For You</h2>
+        <p>มีบางอย่างที่อยากบอกเธอ</p>
+      </div>
+
+      <div class="letter-card">
+        <div class="letter-top">DEAR MY FAVORITE PERSON ♡</div>
+        <h2 class="serif">ถึงเลม่อนของเค้า</h2>
+
+        <p>ขอบคุณนะที่เข้ามาเป็นส่วนหนึ่งในชีวิตของเค้า 💜
+
+ขอบคุณสำหรับทุกช่วงเวลาที่เราได้ใช้ด้วยกัน ทั้งวันที่มีความสุข วันที่หัวเราะด้วยกัน และวันที่อาจจะไม่เข้าใจกันบ้าง
+
+เค้าอาจไม่ได้เป็นคนที่เก่งเรื่องการพูดความรู้สึก แต่เค้าอยากให้เธอรู้ว่าเธอเป็นคนสำคัญสำหรับเค้ามาก ๆ
+
+เค้าไม่รู้ว่าอนาคตจะเป็นยังไง แต่เค้าอยากค่อย ๆ เรียนรู้กันไป เติบโตไปด้วยกัน และสร้างความทรงจำดี ๆ เพิ่มขึ้นเรื่อย ๆ
+
+ขอให้เราเป็นพื้นที่สบายใจให้กันในวันที่เหนื่อย เป็นรอยยิ้มให้กันในวันที่ไม่ดี และอย่าลืมใส่ใจกัน แม้ในวันที่ทุกอย่างดูธรรมดา
+
+สุดท้ายนี้ ขอบคุณที่เป็นเธอนะ
+ดีใจที่ได้มีเธออยู่ในเรื่องราวของเค้า รักนะ ♡</p>
+
+        <div class="signature">
+          <div>with all my love,</div>
+          <div class="serif">Your Lemon ♡</div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      MADE WITH LOVE, JUST FOR YOU ♡<br>
+      Museum of Us · 28 May 2026
+    </footer>
+  </main>
+
+  <script>
+    // เปลี่ยนรหัสผ่านตรงนี้ได้
+    const CORRECT_PIN = "2805";
+
+    let enteredPin = "";
+
+    function updateDots() {
+      const dots = document.querySelectorAll(".dot");
+
+      dots.forEach((dot, index) => {
+        dot.classList.toggle("filled", index < enteredPin.length);
+      });
+    }
+
+    function pressKey(number) {
+      if (enteredPin.length >= 4) return;
+
+      enteredPin += number;
+      updateDots();
+
+      if (enteredPin.length === 4) {
+        setTimeout(checkPin, 200);
+      }
+    }
+
+    function clearPin() {
+      enteredPin = "";
+      updateDots();
+      document.getElementById("lockMessage").textContent =
+        "Hint: วันสำคัญของเรา 💜";
+    }
+
+    function checkPin() {
+      if (enteredPin === CORRECT_PIN) {
+        document.getElementById("lockMessage").textContent =
+          "Welcome to our little world ♡";
+
+        document.getElementById("lockScreen").style.display = "none";
+        document.getElementById("museum").style.display = "block";
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        document.getElementById("lockMessage").textContent =
+          "รหัสยังไม่ถูก ลองใหม่อีกครั้งนะ ♡";
+
+        enteredPin = "";
+        updateDots();
+      }
+    }
+
+    function walkTogether() {
+      const message = document.getElementById("walkMessage");
+
+      message.textContent =
+        "จับมือกันไว้ แล้วไปสร้างความทรงจำบทต่อไปด้วยกันนะ ♡";
+
+      setTimeout(() => {
+        document.getElementById("letter").scrollIntoView({
+          behavior: "smooth"
+        });
+      }, 900);
+    }
+  </script>
+</body>
+</html>
