@@ -799,7 +799,7 @@
   </main>
   <script>
     // เปลี่ยนรหัสผ่านตรงนี้ได้
-    const CORRECT_PIN = "28052569";
+    const CORRECT_PIN = "2805";
     let enteredPin = "";
 
     function updateDots() {
@@ -810,12 +810,12 @@
     }
 
     function pressKey(number) {
-      if (enteredPin.length >= 8) return;
+      if (enteredPin.length >= 4) return;
 
       enteredPin += number;
       updateDots();
 
-      if (enteredPin.length === 8) {
+      if (enteredPin.length === 4) {
         setTimeout(checkPin, 180);
       }
     }
