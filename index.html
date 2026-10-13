@@ -960,7 +960,11 @@
         dot.classList.toggle("active", index < enteredPin.length);
       });
     }
-
+function openLetter() {
+  document.getElementById("letterScreen").classList.add("hidden");
+  document.getElementById("lockScreen").classList.remove("hidden");
+  window.scrollTo(0, 0);
+}
     function pressKey(number) {
       if (enteredPin.length >= 8) return;
 
