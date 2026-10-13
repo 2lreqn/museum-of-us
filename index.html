@@ -605,7 +605,7 @@
       มีจดหมายฉบับหนึ่งที่เราอยากให้เธอเปิด ♡
     </p>
 
-    <button class="open-letter-btn" onclick="openLetter()">
+    <button class="open-letter-btn" onclick="function openLetter()">
       OPEN YOUR LETTER ♡
     </button>
 
@@ -947,7 +947,7 @@
   </main>
   <script>
     // เปลี่ยนรหัสผ่านตรงนี้ได้
-    const CORRECT_PIN = "2805";
+    const CORRECT_PIN = "28052026";
     let enteredPin = "";
 
     function updateDots() {
@@ -958,7 +958,7 @@
     }
 
     function pressKey(number) {
-      if (enteredPin.length >= 4) return;
+      if (enteredPin.length >= 8) return;
 
       enteredPin += number;
       updateDots();
@@ -976,7 +976,7 @@
     }
 
    function checkPin() {
-  if (enteredPin.length !== 4) return;
+  if (enteredPin.length !== 8) return;
 
   if (enteredPin === CORRECT_PIN) {
     document.getElementById("lockScreen").classList.add("hidden");
