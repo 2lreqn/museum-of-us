@@ -458,12 +458,160 @@
   background: #08060C;
   border-radius: 12px;
 }
+  /* ===== MUSEUM OF US: LETTER SCREEN ===== */
+.letter-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px 20px;
+  box-sizing: border-box;
+  background:
+    radial-gradient(ellipse at center, #24123d 0%, #100a1b 55%, #050407 100%);
+  color: #f5edff;
+}
+
+.envelope-wrap {
+  width: 100%;
+  max-width: 420px;
+  margin: auto;
+  animation: letterFadeIn 1.2s ease both;
+}
+
+.letter-small {
+  color: #c4a7ff;
+  letter-spacing: 4px;
+  font-size: 10px;
+  margin-bottom: 32px;
+}
+
+.envelope {
+  position: relative;
+  width: min(260px, 75vw);
+  height: 165px;
+  margin: 0 auto 35px;
+  background: linear-gradient(145deg, #8b5cf6, #4c267e);
+  border: 1px solid #c4a7ff;
+  border-radius: 8px;
+  box-shadow: 0 0 35px #8b5cf655;
+}
+
+.envelope::before,
+.envelope::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+.envelope::before {
+  left: 0;
+  border-width: 82px 130px 0 0;
+  border-color: #a78bfa transparent transparent transparent;
+}
+
+.envelope::after {
+  right: 0;
+  border-width: 0 130px 82px 0;
+  border-color: transparent #6d42b5 transparent transparent;
+}
+
+.envelope-flap {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 130px solid transparent;
+  border-right: 130px solid transparent;
+  border-top: 95px solid #c4a7ff;
+  transform-origin: top center;
+}
+
+.envelope-heart {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 52%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 27px;
+  text-shadow: 0 0 15px #fff;
+}
+
+.letter-screen h1 {
+  font-size: clamp(24px, 6vw, 34px);
+  color: #e9d5ff;
+  margin-bottom: 12px;
+}
+
+.letter-message {
+  color: #d8c9e8;
+  line-height: 1.9;
+  font-size: 14px;
+}
+
+.open-letter-btn {
+  margin-top: 22px;
+  padding: 14px 24px;
+  border: 1px solid #b794ff;
+  border-radius: 30px;
+  background: #6b46c1;
+  color: white;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 0 20px #8b5cf644;
+  transition: transform .25s, box-shadow .25s;
+}
+
+.open-letter-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 28px #a78bfa88;
+}
+
+.letter-date {
+  margin-top: 28px;
+  color: #a99ab9;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+@keyframes letterFadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
   </style>
 </head>
 <body>
   <div class="glow one"></div>
   <div class="glow two"></div>
 
+  <!-- หน้าเปิดซองจดหมาย -->
+<section id="letterScreen" class="page letter-screen">
+  <div class="envelope-wrap">
+    <p class="letter-small">A LITTLE SURPRISE FOR YOU</p>
+
+    <div class="envelope">
+      <div class="envelope-flap"></div>
+      <div class="envelope-heart">♥</div>
+    </div>
+
+    <h1>To My Favorite Person</h1>
+    <p class="letter-message">
+      มีจดหมายฉบับหนึ่งที่เราอยากให้เธอเปิด ♡
+    </p>
+
+    <button class="open-letter-btn" onclick="openLetter()">
+      OPEN YOUR LETTER ♡
+    </button>
+
+    <p class="letter-date">28 MAY 2026 · MUSEUM OF US</p>
+  </div>
+</section>
   <main id="lockScreen" class="page">
     <div class="lock-card">
       <div class="lock-icon">♡</div>
