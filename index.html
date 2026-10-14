@@ -1362,6 +1362,20 @@
 ];
 
 let lastJarMessage = -1;
+      function drawMessage() {
+  const messageBox = document.getElementById("jarMessage");
+  if (!messageBox || !Array.isArray(jarMessages) || jarMessages.length === 0) {
+    console.log("ไม่พบกล่องข้อความหรือรายการข้อความขวดโหล");
+    return;
+  }
+  let index;
+  do {
+    index = Math.floor(Math.random() * jarMessages.length);
+  } while (jarMessages.length > 1 && index === lastJarMessage);
+  lastJarMessage = index;
+  messageBox.textContent = jarMessages[index];
+  messageBox.hidden = false;
+}
 
         <div class="love-card">
           <p class="gift-label">A LITTLE REMINDER</p>
