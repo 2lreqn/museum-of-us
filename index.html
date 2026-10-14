@@ -1012,8 +1012,110 @@
   </div>
 </div>
    </div>
-      <script>
-  const jarMessages = [
+
+        
+
+        <div class="love-card">
+          <p class="gift-label">A LITTLE REMINDER</p>
+          <h3 class="serif">♡ LOVE ♡</h3>
+          <p>กดหัวใจที่ชอบ แล้วรับข้อความจากเค้า</p>
+          <div class="heart-list">
+            <button onclick="showLove(0)">💗</button>
+            <button onclick="showLove(1)">💜</button>
+             <button onclick="showLove(2)">💖</button>
+          </div>
+          <p id="heartMessage" class="heart-message">เลือกหัวใจสักดวงสิสิ ♡</p>
+        </div>
+
+        <div class="postcard">
+          <div class="postcard-stamp">♡</div>
+          <p class="postcard-label">A POSTCARD FOR YOU</p>
+          <h3 class="serif">To my favorite person</h3>
+          <p class="postcard-text">ขอบคุณที่อยู่ด้วยกันมาจนถึงวันนี้
+
+ไม่ว่าจะสุขหรือเหนื่อย
+เค้าก็ยังอยากมีเธออยู่ในวันต่อ ๆ ไป
+
+ขอให้เราได้สร้างความทรงจำดี ๆ
+ด้วยกันอีกเยอะเลยนะ
+
+รักนะไออ้วน ♡</p>
+          <p class="postcard-bottom">HAPPY 5 month ♡</p>
+        </div>
+
+        <p class="gift-ending serif">Forever is a beautiful place<br><span>when I'm with you ♡</span></p>
+      </div>
+    </section>
+
+    <footer>MADE WITH LOVE, JUST FOR YOU ♡<br>Museum of Us · 28 May 2026</footer>
+  </main>
+  <script>
+    // เปลี่ยนรหัสผ่านตรงนี้ได้
+    const CORRECT_PIN = "28052026";
+    let enteredPin = "";
+
+    function updateDots() {
+      const dots = document.querySelectorAll("#dots .dot");
+      dots.forEach((dot, index) => {
+        dot.classList.toggle("active", index < enteredPin.length);
+      });
+    }
+function openLetter() {
+  document.getElementById("letterScreen").classList.add("hidden");
+  document.getElementById("lockScreen").classList.remove("hidden");
+  window.scrollTo(0, 0);
+}
+    function pressKey(number) {
+      if (enteredPin.length >= 8) return;
+
+      enteredPin += number;
+      updateDots();
+
+      if (enteredPin.length === 8) {
+        setTimeout(checkPin, 180);
+      }
+    }
+
+    function clearPin() {
+      enteredPin = "";
+      updateDots();
+      document.getElementById("lockMessage").textContent =
+        "Hint: วันสำคัญของเรา 💜";
+    }
+
+   function checkPin() {
+  if (enteredPin.length !== 8) return;
+
+  if (enteredPin === CORRECT_PIN) {
+    document.getElementById("lockScreen").classList.add("hidden");
+
+    const museum = document.getElementById("museum");
+    museum.classList.add("unlocked");
+
+    // บังคับให้หน้าเว็บแสดงเนื้อหา
+    museum.style.display = "block";
+    museum.style.visibility = "visible";
+    museum.style.opacity = "1";
+
+    window.scrollTo(0, 0);
+  } else {
+    document.getElementById("lockMessage").textContent =
+      "รหัสยังไม่ถูกนะ ลองอีกครั้งสิ ♡";
+
+    const card = document.querySelector(".lock-card");
+    card.classList.remove("shake");
+    void card.offsetWidth;
+    card.classList.add("shake");
+
+    setTimeout(() => {
+      enteredPin = "";
+      updateDots();
+      card.classList.remove("shake");
+    }, 650);
+  }
+}
+   
+const jarMessages = [
   "ขอบคุณที่เข้ามาเป็นความสุขของเค้านะ 💜",
   "วันนี้เหนื่อยมั้ยอ้วน เก่งมากแล้วนะคนเก่ง ♡",
   "อย่าลืมกินข้าวด้วยนะ เค้าเป็นห่วง",
@@ -1374,116 +1476,7 @@
   "ครบ 356 ข้อความแล้วนะ แต่เรื่องราวเค้ากับเธอยังไปต่อเสมอ",
   "ขอบคุณที่เป็นคนพิเศษใน Museum of Us นะ 💜",
 ];
-
 let lastJarMessage = -1;
-      function drawMessage() {
-  const messageBox = document.getElementById("jarMessage");
-  if (!messageBox || !Array.isArray(jarMessages) || jarMessages.length === 0) {
-    console.log("ไม่พบกล่องข้อความหรือรายการข้อความขวดโหล");
-    return;
-  }
-        </script>
-
-        <div class="love-card">
-          <p class="gift-label">A LITTLE REMINDER</p>
-          <h3 class="serif">♡ LOVE ♡</h3>
-          <p>กดหัวใจที่ชอบ แล้วรับข้อความจากเค้า</p>
-          <div class="heart-list">
-            <button onclick="showLove(0)">💗</button>
-            <button onclick="showLove(1)">💜</button>
-             <button onclick="showLove(2)">💖</button>
-          </div>
-          <p id="heartMessage" class="heart-message">เลือกหัวใจสักดวงสิสิ ♡</p>
-        </div>
-
-        <div class="postcard">
-          <div class="postcard-stamp">♡</div>
-          <p class="postcard-label">A POSTCARD FOR YOU</p>
-          <h3 class="serif">To my favorite person</h3>
-          <p class="postcard-text">ขอบคุณที่อยู่ด้วยกันมาจนถึงวันนี้
-
-ไม่ว่าจะสุขหรือเหนื่อย
-เค้าก็ยังอยากมีเธออยู่ในวันต่อ ๆ ไป
-
-ขอให้เราได้สร้างความทรงจำดี ๆ
-ด้วยกันอีกเยอะเลยนะ
-
-รักนะไออ้วน ♡</p>
-          <p class="postcard-bottom">HAPPY 5 month ♡</p>
-        </div>
-
-        <p class="gift-ending serif">Forever is a beautiful place<br><span>when I'm with you ♡</span></p>
-      </div>
-    </section>
-
-    <footer>MADE WITH LOVE, JUST FOR YOU ♡<br>Museum of Us · 28 May 2026</footer>
-  </main>
-  <script>
-    // เปลี่ยนรหัสผ่านตรงนี้ได้
-    const CORRECT_PIN = "28052026";
-    let enteredPin = "";
-
-    function updateDots() {
-      const dots = document.querySelectorAll("#dots .dot");
-      dots.forEach((dot, index) => {
-        dot.classList.toggle("active", index < enteredPin.length);
-      });
-    }
-function openLetter() {
-  document.getElementById("letterScreen").classList.add("hidden");
-  document.getElementById("lockScreen").classList.remove("hidden");
-  window.scrollTo(0, 0);
-}
-    function pressKey(number) {
-      if (enteredPin.length >= 8) return;
-
-      enteredPin += number;
-      updateDots();
-
-      if (enteredPin.length === 8) {
-        setTimeout(checkPin, 180);
-      }
-    }
-
-    function clearPin() {
-      enteredPin = "";
-      updateDots();
-      document.getElementById("lockMessage").textContent =
-        "Hint: วันสำคัญของเรา 💜";
-    }
-
-   function checkPin() {
-  if (enteredPin.length !== 8) return;
-
-  if (enteredPin === CORRECT_PIN) {
-    document.getElementById("lockScreen").classList.add("hidden");
-
-    const museum = document.getElementById("museum");
-    museum.classList.add("unlocked");
-
-    // บังคับให้หน้าเว็บแสดงเนื้อหา
-    museum.style.display = "block";
-    museum.style.visibility = "visible";
-    museum.style.opacity = "1";
-
-    window.scrollTo(0, 0);
-  } else {
-    document.getElementById("lockMessage").textContent =
-      "รหัสยังไม่ถูกนะ ลองอีกครั้งสิ ♡";
-
-    const card = document.querySelector(".lock-card");
-    card.classList.remove("shake");
-    void card.offsetWidth;
-    card.classList.add("shake");
-
-    setTimeout(() => {
-      enteredPin = "";
-      updateDots();
-      card.classList.remove("shake");
-    }, 650);
-  }
-}
-   
 
 function drawMessage() {
   const messageBox = document.getElementById("jarMessage");
