@@ -937,7 +937,81 @@
 
   <div class="jar-message-box">
     <p id="jarMessage" hidden></p>
+ 
+  let index;
+  do {
+    index = Math.floor(Math.random() * jarMessages.length);
+  } while (jarMessages.length > 1 && index === lastJarMessage);
+  lastJarMessage = index;
+  messageBox.textContent = jarMessages[index];
+  messageBox.hidden = false;
+}
+</section>
+
+    <section class="walk-area">
+      <div class="eyebrow">Chapter 02</div>
+      <h2 class="serif">Shall we keep walking?</h2>
+      <p>เรื่องราวของเรายังมีอีกหลายบทให้เขียน<br>พร้อมจะเดินไปด้วยกันต่อมั้ยย</p>
+      <button class="walk-button" onclick="walkTogether()">WALK WITH ME ↗</button>
+      <div id="walkMessage"></div>
+    </section>
+
+    <section class="section" id="letter">
+      <div class="section-heading">
+        <div class="eyebrow">Chapter 03</div>
+        <h2 class="serif">A Letter For You</h2>
+        <p>มีบางอย่างที่อยากบอกเธอ</p>
+      </div>
+
+      <div class="letter-card">
+        <div class="letter-top">DEAR MY FAVORITE PERSON ♡</div>
+        <h2 class="serif">ถึงฟิล์มของเค้า</h2>
+        <p>ขอบคุณนะที่เข้ามาเป็นส่วนหนึ่งในชีวิตของเค้า 💜
+
+ขอบคุณสำหรับทุกช่วงเวลาที่เราได้ใช้ด้วยกัน ทั้งวันที่มีความสุข วันที่หัวเราะด้วยกัน และวันที่อาจจะไม่เข้าใจกันบ้าง
+
+เค้าอาจไม่ได้เป็นคนที่เก่งเรื่องการพูดความรู้สึก แต่เค้าอยากให้เธอรู้ว่าเธอเป็นคนสำคัญสำหรับเค้ามาก ๆ
+
+เค้าไม่รู้ว่าอนาคตจะเป็นยังไง แต่เค้าอยากค่อย ๆ เรียนรู้กันไป เติบโตไปด้วยกัน และสร้างความทรงจำดี ๆ เพิ่มขึ้นเรื่อย ๆ
+
+ขอให้เราเป็นพื้นที่สบายใจให้กันในวันที่เหนื่อย เป็นรอยยิ้มให้กันในวันที่ไม่ดี และอย่าลืมใส่ใจกัน แม้ในวันที่ทุกอย่างดูธรรมดา
+
+สุดท้ายนี้ ขอบคุณที่เป็นเธอนะ
+ดีใจที่ได้มีเธออยู่ในเรื่องราวของเค้า รักนะ ♡</p>
+        <div class="signature">
+          <div>with all my love,</div>
+          <div class="serif">Your Film ♡</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gift-section" id="gift">
+      <p class="gift-label">SPECIAL FOR YOU ♡</p>
+      <h2 class="serif">A Little Gift For You</h2>
+      <p class="gift-subtitle">ของขวัญชิ้นเล็ก ๆ ที่เค้าตั้งใจทำให้เธอ</p>
+
+      <div class="gift-card" id="giftCard">
+        <div class="gift-icon">🎁</div>
+        <p class="gift-label">MADE WITH LOVE</p>
+        <h3 class="serif">For my Lemon</h3>
+        <p>พร้อมเปิดของขวัญหรือยังคะ ♡</p>
+        <button class="gift-button" onclick="openGift()">OPEN MY GIFT →</button>
+      </div>
+
+    <div class="gift-content hidden" id="giftContent">
+        <div class="gift-photo">
+  <div class="memory-video-frame">
+    <video controls playsinline preload="metadata">
+      <source src="ม่อน.mp4" type="video/mp4">
+    </video>
   </div>
+
+  <div class="photo-caption">
+    <span>NO. 01 — MY FAVORITE MEMORY</span>
+    <p>ความทรงจำที่อยากเก็บไว้ตลอดไป ♡</p>
+  </div>
+</div>
+   </div>
   const jarMessages = [
   "ขอบคุณที่เข้ามาเป็นความสุขของเค้านะ 💜",
   "วันนี้เหนื่อยมั้ยอ้วน เก่งมากแล้วนะคนเก่ง ♡",
@@ -1307,80 +1381,6 @@ let lastJarMessage = -1;
     console.log("ไม่พบกล่องข้อความหรือรายการข้อความขวดโหล");
     return;
   }
-  let index;
-  do {
-    index = Math.floor(Math.random() * jarMessages.length);
-  } while (jarMessages.length > 1 && index === lastJarMessage);
-  lastJarMessage = index;
-  messageBox.textContent = jarMessages[index];
-  messageBox.hidden = false;
-}
-</section>
-
-    <section class="walk-area">
-      <div class="eyebrow">Chapter 02</div>
-      <h2 class="serif">Shall we keep walking?</h2>
-      <p>เรื่องราวของเรายังมีอีกหลายบทให้เขียน<br>พร้อมจะเดินไปด้วยกันต่อมั้ยย</p>
-      <button class="walk-button" onclick="walkTogether()">WALK WITH ME ↗</button>
-      <div id="walkMessage"></div>
-    </section>
-
-    <section class="section" id="letter">
-      <div class="section-heading">
-        <div class="eyebrow">Chapter 03</div>
-        <h2 class="serif">A Letter For You</h2>
-        <p>มีบางอย่างที่อยากบอกเธอ</p>
-      </div>
-
-      <div class="letter-card">
-        <div class="letter-top">DEAR MY FAVORITE PERSON ♡</div>
-        <h2 class="serif">ถึงฟิล์มของเค้า</h2>
-        <p>ขอบคุณนะที่เข้ามาเป็นส่วนหนึ่งในชีวิตของเค้า 💜
-
-ขอบคุณสำหรับทุกช่วงเวลาที่เราได้ใช้ด้วยกัน ทั้งวันที่มีความสุข วันที่หัวเราะด้วยกัน และวันที่อาจจะไม่เข้าใจกันบ้าง
-
-เค้าอาจไม่ได้เป็นคนที่เก่งเรื่องการพูดความรู้สึก แต่เค้าอยากให้เธอรู้ว่าเธอเป็นคนสำคัญสำหรับเค้ามาก ๆ
-
-เค้าไม่รู้ว่าอนาคตจะเป็นยังไง แต่เค้าอยากค่อย ๆ เรียนรู้กันไป เติบโตไปด้วยกัน และสร้างความทรงจำดี ๆ เพิ่มขึ้นเรื่อย ๆ
-
-ขอให้เราเป็นพื้นที่สบายใจให้กันในวันที่เหนื่อย เป็นรอยยิ้มให้กันในวันที่ไม่ดี และอย่าลืมใส่ใจกัน แม้ในวันที่ทุกอย่างดูธรรมดา
-
-สุดท้ายนี้ ขอบคุณที่เป็นเธอนะ
-ดีใจที่ได้มีเธออยู่ในเรื่องราวของเค้า รักนะ ♡</p>
-        <div class="signature">
-          <div>with all my love,</div>
-          <div class="serif">Your Film ♡</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="gift-section" id="gift">
-      <p class="gift-label">SPECIAL FOR YOU ♡</p>
-      <h2 class="serif">A Little Gift For You</h2>
-      <p class="gift-subtitle">ของขวัญชิ้นเล็ก ๆ ที่เค้าตั้งใจทำให้เธอ</p>
-
-      <div class="gift-card" id="giftCard">
-        <div class="gift-icon">🎁</div>
-        <p class="gift-label">MADE WITH LOVE</p>
-        <h3 class="serif">For my Lemon</h3>
-        <p>พร้อมเปิดของขวัญหรือยังคะ ♡</p>
-        <button class="gift-button" onclick="openGift()">OPEN MY GIFT →</button>
-      </div>
-
-    <div class="gift-content hidden" id="giftContent">
-        <div class="gift-photo">
-  <div class="memory-video-frame">
-    <video controls playsinline preload="metadata">
-      <source src="ม่อน.mp4" type="video/mp4">
-    </video>
-  </div>
-
-  <div class="photo-caption">
-    <span>NO. 01 — MY FAVORITE MEMORY</span>
-    <p>ความทรงจำที่อยากเก็บไว้ตลอดไป ♡</p>
-  </div>
-</div>
-  
 
         <div class="love-card">
           <p class="gift-label">A LITTLE REMINDER</p>
@@ -1485,6 +1485,16 @@ function openLetter() {
 
 function drawMessage() {
   const messageBox = document.getElementById("jarMessage");
+
+  if (!messageBox) {
+    alert("หาไม่เจอกล่องข้อความของขวดโหล 🫙");
+    return;
+  }
+
+  if (typeof jarMessages === "undefined" || jarMessages.length === 0) {
+    alert("ไม่พบรายการข้อความ 💌");
+    return;
+  }
 
   let index;
   do {
