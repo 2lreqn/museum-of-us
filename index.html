@@ -920,6 +920,12 @@
     const CORRECT_PIN = "28052026";
     let enteredPin = "";
 
+    function openLetterScreen() {
+  document.getElementById("letterScreen").style.display = "none";
+  document.getElementById("lockScreen").style.display = "block";
+  window.scrollTo(0, 0);
+}
+    
     function updateDots() {
       const dots = document.querySelectorAll("#dots .dot");
       dots.forEach((dot, index) => {
