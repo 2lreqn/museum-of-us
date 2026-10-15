@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Museum of Us 💜</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #09070f;
+      --card: #15101f;
+      --purple: #a78bfa;
+      --purple-dark: #6d28d9;
+      --white: #f7f3ff;
+      --muted: #aaa0bd;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Kanit', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    button { font-family: inherit; cursor: pointer; }
+
+    .glow {
+      position: fixed;
+      width: 350px;
+      height: 350px;
+      background: #6d28d9;
+      filter: blur(150px);
+      opacity: .15;
+      border-radius: 50%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .glow.one { top: 5%; left: -180px; }
+    .glow.two { right: -180px; top: 55%; }
+
+    .page { min-height: 100vh; padding: 24px; }
+    .serif { font-family: 'Playfair Display', serif; }
+
+    .eyebrow {
+      color: var(--purple);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 11px;
+    }
+
+    /* หน้ากรอกรหัสผ่าน */
+    #lockScreen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .lock-card {
+      width: 100%;
+      max-width: 390px;
+      padding: 35px 25px;
+      border: 1px solid #35254c;
+      background: rgba(21,16,31,.82);
+      border-radius: 26px;
+      box-shadow: 0 0 70px #6d28d91a;
+    }
+
+    .lock-icon { font-size: 48px; margin-bottom: 20px; }
+
+    .lock-card h1 {
+      font-size: clamp(34px,8vw,48px);
+      margin: 12px 0;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 13px;
+      margin: 28px 0;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border: 1px solid var(--purple);
+      border-radius: 50%;
+      transition: .2s;
+    }
+
+    .dot.filled {
+      background: var(--purple);
+      box-shadow: 0 0 12px var(--purple);
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 12px;
+      max-width: 260px;
+      margin: auto;
+    }
+
+    .key {
+      height: 58px;
+      border-radius: 15px;
+      border: 1px solid #342746;
+      color: var(--white);
+      background: #21182e;
+      font-size: 19px;
+      transition: .2s;
+    }
+
+    .key:hover {
+      background: #392451;
+      border-color: var(--purple);
+    }
+
+    .key:active { transform: scale(.95); }
+    .key.special { color: var(--purple); }
+
+    #lockMessage {
+      min-height: 24px;
+      color: #d8b4fe;
+      margin-top: 18px;
+      font-size: 13px;
+    }
+
+    #museum { display: none; }
+    #lockScreen { display: none; }
+    #letterScreen { display:flex; }
+
+    /* แถบด้านบน */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      max-width: 1050px;
+      margin: auto;
+      padding: 10px 0 30px;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 1px;
+      font-size: 18px;
+    }
+
+    .logo span { color: var(--purple); }
+
+    .top-date {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: right;
+    }
+
+    /* หน้าเปิดเว็บไซต์ */
+    .hero {
+      max-width: 1050px;
+      margin: 0 auto;
+      min-height: 68vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 45px 10px 70px;
+    }
+
+    .hero-heart {
+      color: var(--purple);
+      font-size: 28px;
+      margin-bottom: 22px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    .hero h1 {
+      font-size: clamp(42px,9vw,86px);
+      font-weight: 400;
+      line-height: 1.15;
+      margin: 20px 0;
+    }
+
+    .hero h1 span {
+      color: var(--purple);
+      font-style: italic;
+    }
+
+    .hero p {
+      max-width: 480px;
+      color: var(--muted);
+      line-height: 2;
+      font-size: 14px;
+    }
+
+    .date-pill {
+      margin-top: 28px;
+      padding: 10px 20px;
+      border: 1px solid #4b3268;
+      border-radius: 30px;
+      color: #e9d5ff;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    /* หัวข้อและแกลเลอรี */
+    .section {
+      max-width: 950px;
+      margin: 0 auto;
+      padding: 65px 0;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(29px,6vw,42px);
+      font-weight: 400;
+      margin: 10px 0;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 18px;
+    }
+
+    .memory {
+      background: var(--card);
+      border: 1px solid #30223f;
+      border-radius: 18px;
+      padding: 10px;
+      overflow: hidden;
+      transition: .3s;
+    }
+
+    .memory:hover {
+      transform: translateY(-5px);
+      border-color: #7652a0;
+    }
+
+    .memory img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      border-radius: 12px;
+      background: #24182f;
+    }
+
+    .memory h3 {
+      font-size: 15px;
+      font-weight: 400;
+      margin: 13px 5px 3px;
+    }
+
+    .memory p {
+      color: var(--muted);
+      font-size: 12px;
+      margin: 0 5px 7px;
+    }
+
+    .memory-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 20px;
+      line-height: 1.8;
+    }
+
+    /* ปุ่ม WALK */
+    .walk-area {
+      text-align: center;
+      padding: 70px 15px;
+      border-top: 1px solid #241a31;
+      border-bottom: 1px solid #241a31;
+      background: linear-gradient(180deg,transparent,#20132e55,transparent);
+    }
+
+    .walk-area h2 {
+      font-size: clamp(30px,6vw,42px);
+      font-weight: 400;
+      margin: 12px 0;
+    }
+
+    .walk-area p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.9;
+      margin-bottom: 25px;
+    }
+
+    .walk-button {
+      padding: 14px 35px;
+      color: white;
+      border: 1px solid #b99aff;
+      border-radius: 30px;
+      background: linear-gradient(135deg,#7c3aed,#4c1d95);
+      letter-spacing: 2px;
+      font-size: 13px;
+      box-shadow: 0 0 30px #7c3aed35;
+      transition: .3s;
+    }
+
+    .walk-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 40px #7c3aed70;
+    }
+
+    #walkMessage {
+      margin-top: 20px;
+      color: #e9d5ff;
+      font-size: 14px;
+      min-height: 25px;
+    }
+
+    /* จดหมาย */
+    .letter-card {
+      max-width: 650px;
+      margin: auto;
+      padding: clamp(22px,6vw,45px);
+      background: linear-gradient(145deg,#1b1427,#100c18);
+      border: 1px solid #493260;
+      border-radius: 22px;
+      box-shadow: 0 20px 70px #00000030;
+    }
+
+    .letter-card .letter-top {
+      color: var(--purple);
+      letter-spacing: 3px;
+      font-size: 11px;
+      margin-bottom: 25px;
+    }
+
+    .letter-card h2 {
+      font-size: 30px;
+      font-weight: 400;
+      margin-bottom: 22px;
+    }
+
+    .letter-card p {
+      color: #d2c7e0;
+      font-size: 14px;
+      line-height: 2.1;
+      margin-bottom: 15px;
+      white-space: pre-line;
+    }
+
+    .signature {
+      text-align: right;
+      color: var(--purple);
+      margin-top: 30px;
+      line-height: 1.9;
+    }
+
+    footer {
+      text-align: center;
+      padding: 35px 15px 45px;
+      color: #766b86;
+      font-size: 11px;
+      line-height: 2;
+    }
+
+    .hidden { display: none !important; }
+      /* ของขวัญท้ายเว็บ */
+    .gift-section { max-width:680px; margin:0 auto; padding:80px 0 60px; text-align:center; }
+    .gift-section h2 { font-size:clamp(30px,7vw,44px); font-weight:400; margin:12px 0; }
+    .gift-label { color:#c4a1ff; font-size:11px; letter-spacing:3px; }
+    .gift-subtitle { color:#aaa0bd; font-size:13px; margin-bottom:30px; }
+    .gift-card { padding:38px 22px; margin:30px auto; max-width:430px; background:linear-gradient(145deg,#1d132b,#0d0914); border:1px solid #bd8cff; border-radius:24px; box-shadow:0 0 35px #8b5cf633; }
+    .gift-icon { font-size:55px; margin-bottom:20px; }
+    .gift-card h3 { font-size:30px; font-weight:400; margin:12px 0; }
+    .gift-card > p:not(.gift-label) { color:#c7bad8; font-size:13px; margin:15px 0 24px; }
+    .gift-button { color:white; background:transparent; border:1px solid #c4a1ff; border-radius:30px; padding:13px 28px; letter-spacing:2px; transition:.25s; }
+    .gift-button:hover { background:#6d28d9; transform:translateY(-2px); }
+    .gift-content { animation:giftReveal .8s ease both; }
+    @keyframes giftReveal { from{opacity:0;transform:translateY(25px)} to{opacity:1;transform:translateY(0)} }
+    .gift-photo { margin:35px 0; padding:10px; border:1px solid #c4a1ff; border-radius:18px; background:#171020; transform:rotate(-1deg); text-align:left; }
+    .gift-photo img { width:100%; display:block; aspect-ratio:4/3; object-fit:cover; border-radius:10px; }
+    .photo-caption { padding:15px 8px 8px; }
+    .photo-caption span { color:#c4a1ff; font-size:10px; letter-spacing:2px; }
+    .photo-caption p { margin-top:8px; font-size:13px; }
+    .love-card { margin:35px 0; padding:30px 15px; border:1px solid #6f4a91; border-radius:20px; background:linear-gradient(145deg,#f5dcff,#d9c0ff); color:#402455; }
+    .love-card h3 { font-size:30px; margin:10px 0; }
+    .love-card .gift-label { color:#75459a; }
+    .love-card > p:not(.gift-label) { font-size:12px; }
+    .heart-list { display:flex; justify-content:center; gap:12px; margin:22px 0; }
+    .heart-list button { width:75px; height:75px; border-radius:15px; border:1px solid #b58bd4; background:#ffffff8c; font-size:32px; transition:.2s; }
+    .heart-list button:hover { transform:scale(1.12); background:white; }
+    .heart-message { min-height:28px; color:#57316f; line-height:1.8; }
+    .postcard { position:relative; margin:35px 0; padding:35px 22px; color:#4c355c; background:linear-gradient(135deg,#fff1fa,#eadbff); border:2px solid #c5a0df; border-radius:8px; box-shadow:0 12px 35px #00000035; transform:rotate(1deg); }
+    .postcard-stamp { position:absolute; top:15px; right:15px; width:38px; height:45px; display:grid; place-items:center; border:1px dashed #a678c6; color:#a678c6; font-size:22px; }
+    .postcard-label { letter-spacing:4px; font-size:11px; margin-bottom:20px; }
+    .postcard h3 { font-size:23px; font-weight:400; margin-bottom:20px; }
+    .postcard-text { white-space:pre-line; line-height:2.1; font-size:13px; }
+    .postcard-bottom { margin-top:25px; letter-spacing:2px; font-size:11px; color:#9463b5; }
+    .gift-ending { margin-top:45px; font-size:25px; line-height:1.8; color:#d8b4fe; }
+    .gift-ending span { font-size:15px; color:#a99bbd; }
+
+    @media (max-width:520px) {
+      .page { padding:18px; }
+      .gallery { gap:10px; }
+      .memory { padding:7px; border-radius:14px; }
+      .memory img { border-radius:9px; }
+      .memory h3 { font-size:13px; }
+      .memory p { font-size:11px; }
+      .hero { min-height:60vh; }
+      .topbar { padding-bottom:15px; }
+      .gift-section { padding:55px 0 35px; }
+      .heart-list button { width:65px; height:65px; }
+      .postcard { padding:30px 16px; }
+    }
+    .memory-video-frame {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 4px;
+  background: linear-gradient(135deg, #6B46C1, #C4A7FF, #8B5CF6);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.memory-video-frame video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  object-fit: contain;
+  background: #08060C;
+  border-radius: 12px;
+}
+
+    /* Envelope and extra interactive rooms */
+    .envelope-screen { min-height:100vh; display:flex; align-items:center; justify-content:center; text-align:center; }
+    .envelope-wrap { max-width:520px; width:100%; padding:30px 18px; }
+    .envelope-glow { font-size:42px; color:var(--purple); margin-bottom:18px; animation:pulse 2s infinite; }
+    .envelope-title { font-size:clamp(38px,8vw,65px); line-height:1.15; margin:18px 0; }
+    .envelope-title span { color:var(--purple); font-style:italic; }
+    .envelope-art { position:relative; width:180px; height:125px; margin:32px auto 28px; background:linear-gradient(145deg,#8b5cf6,#4c1d95); border-radius:8px; box-shadow:0 15px 40px #6d28d955; overflow:hidden; }
+    .envelope-letter { position:absolute; left:25px; right:25px; top:12px; height:90px; display:grid; place-items:center; background:#f2e9ff; color:#7c3aed; font-size:30px; border-radius:5px; }
+    .envelope-flap { position:absolute; inset:0; background:linear-gradient(135deg,#c4b5fd,#7c3aed); clip-path:polygon(0 0,100% 0,50% 65%); }
+    .extra-section { padding-top:50px; }
+    .feature-card { max-width:650px; margin:auto; padding:28px 22px; text-align:center; background:linear-gradient(145deg,#1b1427,#100c18); border:1px solid #493260; border-radius:22px; box-shadow:0 15px 50px #0002; }
+    .feature-message { color:#e9d5ff; line-height:2; min-height:28px; margin:16px 0; white-space:pre-line; }
+    .jar-emoji { font-size:58px; margin:4px 0 12px; }
+    .quiz-question { font-size:19px; margin-bottom:18px; }
+    .quiz-options { display:grid; gap:10px; max-width:390px; margin:auto; }
+    .quiz-options button { padding:13px 15px; color:#f7f3ff; background:#21182e; border:1px solid #62447f; border-radius:14px; }
+    .quiz-options button:hover { background:#392451; }
+    .coupon-grid,.door-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+    .coupon { min-height:150px; padding:18px 10px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; color:#4c355c; border:1px dashed #c5a0df; border-radius:16px; background:linear-gradient(135deg,#fff1fa,#eadbff); transition:transform .35s; }
+    .coupon span,.coupon small { font-size:10px; letter-spacing:1px; }.coupon strong { font-size:18px; font-weight:500; }.coupon.flipped { transform:rotateY(180deg); background:linear-gradient(135deg,#d9c0ff,#f5dcff); }
+    .time-number { font-family:'Playfair Display',serif; font-size:clamp(56px,12vw,90px); color:#d8b4fe; line-height:1.2; }
+    .time-caption { letter-spacing:4px; color:#c4a1ff; font-size:11px; margin:10px 0 16px; }
+    .time-card p { color:var(--muted); font-size:13px; }
+    .puzzle-board { width:min(90vw,330px); aspect-ratio:1; margin:10px auto 18px; display:grid; grid-template-columns:repeat(3,1fr); gap:4px; padding:4px; background:#4b3268; border-radius:12px; }
+    .puzzle-tile { border:0; border-radius:6px; min-width:0; min-height:0; background-size:300% 300%; background-repeat:no-repeat; cursor:pointer; }
+    .puzzle-tile.empty { background:#0b0811!important; border:1px dashed #8b5cf6; }
+    .door { min-height:150px; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:10px; color:#f7f3ff; border:1px solid #62447f; border-radius:18px; background:linear-gradient(180deg,#291b3a,#130d1d); }
+    .door span { font-size:42px; }.door small { color:#c4a1ff; }
+    .song-art { width:90px; height:90px; margin:0 auto 18px; border-radius:50%; display:grid; place-items:center; font-size:42px; color:#e9d5ff; background:radial-gradient(circle,#a78bfa,#4c1d95); box-shadow:0 0 35px #8b5cf655; }
+    .song-card h3 { font-size:24px; margin-bottom:10px; }.song-card>p:not(.feature-message) { color:var(--muted); line-height:1.9; font-size:13px; margin-bottom:20px; }
+    .hidden-heart-row { display:flex; justify-content:center; gap:22px; }
+    .hidden-heart { width:62px; height:62px; border:1px solid #8b5cf6; border-radius:50%; color:#d8b4fe; background:#21182e; font-size:34px; transition:.2s; }
+    .hidden-heart.found { color:white; background:#7c3aed; box-shadow:0 0 22px #8b5cf6; transform:scale(1.1); }
+    .hidden-heart-row button:nth-child(2) { transform:translateY(18px); }.hidden-heart-row button:nth-child(2).found { transform:translateY(18px) scale(1.1); }
+    .question-mark { color:#c4a1ff; font:60px 'Playfair Display',serif; }
+    .final-card>p { color:var(--muted); line-height:1.9; margin-bottom:20px; }.final-reveal { margin-top:25px; padding:24px 12px; border-top:1px solid #493260; }.final-reveal h3 { font-size:27px; color:#d8b4fe; margin-bottom:15px; }.final-reveal p { line-height:2; font-size:14px; color:#e3d8f0; white-space:pre-line; }.final-video { width:100%; max-width:500px; margin-top:20px; border-radius:14px; background:#08060c; }
+    .dog-helper { position:fixed; left:12px; bottom:16px; z-index:9998; display:flex; align-items:center; gap:7px; padding:7px 11px 7px 7px; border:1px solid #8b5cf6; border-radius:30px; background:#171020ed; box-shadow:0 5px 24px #0005; cursor:pointer; animation:dogBob 3s ease-in-out infinite; }
+    .dog-emoji { font-size:30px; filter:drop-shadow(0 2px 4px #0005); }.dog-label { color:#e9d5ff; font-size:11px; }
+    @keyframes dogBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+    .easter-egg { position:fixed; right:22px; top:28%; z-index:9998; font-size:35px; border:1px solid #c4a1ff; border-radius:50%; width:60px; height:60px; background:#21182e; animation:pulse 1s infinite; }
+    .toast-message { position:fixed; left:50%; bottom:90px; transform:translateX(-50%); z-index:10000; width:max-content; max-width:90vw; padding:12px 18px; color:#f7f3ff; text-align:center; background:#2b1b3d; border:1px solid #8b5cf6; border-radius:16px; box-shadow:0 10px 35px #0006; opacity:0; pointer-events:none; transition:opacity .25s; }
+    .toast-message.show { opacity:1; }
+    .quest-glow { outline:2px solid #c4a1ff; box-shadow:0 0 25px #8b5cf6!important; }
+    /* Updated interactions: readable coupons, randomized puzzle and hidden-heart clues */
+    .coupon { transform:none!important; position:relative; overflow:hidden; }
+    .coupon.flipped { transform:none!important; background:linear-gradient(135deg,#d9c0ff,#f5dcff); border-style:solid; }
+    .coupon .coupon-back { display:none; }
+    .coupon.flipped .coupon-front { display:none; }
+    .coupon.flipped .coupon-back { display:flex; flex-direction:column; gap:10px; align-items:center; color:#40264f; }
+    .puzzle-preview { width:min(70vw,220px); aspect-ratio:1; object-fit:cover; border-radius:16px; border:2px solid #8b5cf6; box-shadow:0 0 25px #8b5cf644; display:block; margin:12px auto; }
+    .hidden-heart-row { display:none!important; }
+    .scattered-heart { position:absolute; z-index:8; width:30px; height:30px; border:1px solid #8b5cf677; border-radius:50%; color:#c4a1ff; background:#21182eaa; font-size:19px; opacity:.48; cursor:pointer; box-shadow:0 0 12px #8b5cf622; }
+    .scattered-heart:hover,.scattered-heart:focus { opacity:1; transform:scale(1.12); }
+    .scattered-heart.found { opacity:1; color:#fff; background:#7c3aed; }
+    .quiz-progress { color:#c4a1ff; letter-spacing:2px; font-size:12px; margin-bottom:12px; }
+    .quiz-options button.correct { background:#234d3d; border-color:#58c995; }
+    .quiz-options button.wrong { background:#512536; border-color:#f18ba8; }
+    .quiz-next { margin-top:14px; }
+    .quest-step { color:#c4a1ff; font-size:12px; letter-spacing:2px; }
+    @media(max-width:520px){.coupon-grid,.door-grid{gap:8px}.coupon{min-height:135px;padding:12px 5px}.coupon strong{font-size:14px}.coupon span,.coupon small{font-size:9px}.door{min-height:125px}.door span{font-size:34px}.dog-label{max-width:85px}.feature-card{padding:23px 15px}}
+
+  </style>
+</head>
+<body>
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+
+  <main id="letterScreen" class="page envelope-screen">
+    <div class="envelope-wrap">
+      <div class="envelope-glow">♡</div>
+      <p class="eyebrow">A LETTER JUST FOR YOU</p>
+      <h1 class="serif envelope-title">Something made<br><span>with love.</span></h1>
+      <p class="subtitle">มีจดหมายเล็ก ๆ รอเธอเปิดอยู่นะ<br>พร้อมเข้าไปในโลกของเราหรือยัง 💜</p>
+      <div class="envelope-art" aria-hidden="true"><div class="envelope-letter">♡</div><div class="envelope-flap"></div></div>
+      <button class="walk-button" onclick="openLetterScreen()">OPEN YOUR LETTER ♡</button>
+    </div>
+  </main>
+
+  <main id="lockScreen" class="page">
+    <div class="lock-card">
+      <div class="lock-icon">♡</div>
+      <div class="eyebrow">A little place for us</div>
+      <h1 class="serif">Museum of Us</h1>
+      <p class="subtitle">พิพิธภัณฑ์เล็ก ๆ ที่เก็บเรื่องราวของเราไว้<br>ใส่รหัสเพื่อเข้ามาดูความทรงจำของเรานะ</p>
+
+      <div class="dots" id="dots">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+
+      <div class="keypad">
+        <button class="key" onclick="pressKey('1')">1</button>
+        <button class="key" onclick="pressKey('2')">2</button>
+        <button class="key" onclick="pressKey('3')">3</button>
+        <button class="key" onclick="pressKey('4')">4</button>
+        <button class="key" onclick="pressKey('5')">5</button>
+        <button class="key" onclick="pressKey('6')">6</button>
+        <button class="key" onclick="pressKey('7')">7</button>
+        <button class="key" onclick="pressKey('8')">8</button>
+        <button class="key" onclick="pressKey('9')">9</button>
+        <button class="key special" onclick="clearPin()">ลบ</button>
+        <button class="key" onclick="pressKey('0')">0</button>
+        <button class="key special" onclick="checkPin()">♡</button>
+      </div>
+
+      <p id="lockMessage">Hint: วันสำคัญของเรา 💜</p>
+    </div>
+  </main>
+
+  <main id="museum" class="page">
+    <header class="topbar">
+      <div class="logo">Museum <span>of Us ♡</span></div>
+      <div class="top-date">28 MAY 2026<br>OUR LITTLE WORLD</div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-heart">♡</div>
+      <div class="eyebrow">To my favorite person</div>
+      <h1 class="serif">Our love,<br><span>our story.</span></h1>
+      <p>บางความทรงจำอาจเป็นเรื่องธรรมดาสำหรับคนอื่น<br>แต่สำหรับเค้ามันมีความหมายมากก</p>
+      <div class="date-pill">28 MAY 2026 · MADE WITH LOVE</div>
+    </section>
+
+    <section class="section" id="memories">
+      <div class="section-heading">
+        <div class="eyebrow">Chapter 01</div>
+        <h2 class="serif">Our Memories</h2>
+        <p>รวมเรื่องราวเล็ก ๆ ที่มีความหมายกับเราสองคนน</p>
+      </div>
+
+      <div class="gallery">
+        <article class="memory">
+          <img src="S__46497823.jpg" alt="แชท">
+          <h3>ตอนเธอทักมาครั้งแรก</h3>
+          <p>คืองงมาก อยู่ ๆ ทักมาชงกับคนอื่น</p>
+        </article>
+         <article class="memory">
+          <img src="S__46497824.jpg" alt="โทร">
+          <h3>โทรกันครั้งแรก</h3>
+          <p>เขินจัดด ล่ะอย่างหล่อ จะตาย</p>
+        </article>
+        <article class="memory">
+          <img src="S__46497827.jpg" alt="แชท">
+          <h3>ตอนบอกชอบกัน</h3>
+          <p>คือคาสายทุกวัน บอกเค้าชอบคนอื่น งงใจ</p>
+        </article>
+        <article class="memory">
+          <img src="S__46497826.jpg" alt="ดอกไม้สีชมพู">
+          <h3>เธอส่งรูปมาครั้งแรก</h3>
+          <p>ตอนนั้นยังไม่ได้คบแต่คืออยากได้เป็นแฟนอ่ะ คนอะไรหล่อจัง</p>
+        </article>
+        <article class="memory">
+          <img src="S__46497828.jpg" alt="คู่รักจับมือกัน">
+          <h3>เธอขอเป็นแฟนน ♡</h3>
+          <p> เค้าเขินมาก จังหวะนั้นคือมือสั่นไปหมด</p>
+        </article>
+        <article class="memory">
+          <img src="S__46497829.jpg" alt="ความทรงจำของคนที่รักกัน">
+          <h3>ร้องเพลงให้ฟังครั้งแรก</h3>
+          <p>ตอนอ้วนดีดกีต้าร์ร้องเพลงให้ฟังคือโครตหล่อ โครตฟินน</p>
+        </article>
+        <article class="memory">
+          <img src="S__46497830.jpg" alt="ท้องฟ้ายามพระอาทิตย์ตก">
+          <h3>ซ้อนมอไซค์ครั้งแรก</h3>
+          <p>เค้าถ่ายอวดฉ่ำทั้ง ๆ ที่ยังไม่ได้คบด้วยซ้ำจะบ้า</p>
+        </article>
+        <article class="memory">
+          <img src="S__46497831.jpg" alt="ดอกไม้สีชมพู">
+          <h3>ไปเดทครั้งแรก ิิ</h3>
+          <p>เค้าโครตเขินน จัดอันดับการถ่ายโฟโต้บูธที่เขินที่สุด</p>
+        </article>
+         <article class="memory">
+          <img src="S__46497832.jpg" alt="ดอกไม้สีชมพู">
+          <h3>มาบ้านครั้งแรก</h3>
+          <p>ตอนเธอมาคือโครตตื่นเต้น ล่ะเธออย่างหล่อจะตาย</p>
+        </article>
+         <article class="memory">
+          <img src="S__46497833.jpg" alt="ดอกไม้สีชมพู">
+          <h3>นั่งกินข้าวด้วยกันครั้งแรก</h3>
+          <p>เค้าโครตอายตอนนั้น เธอต้องมาเห็นเค้ากินข้าว</p>
+        </article>
+       <article class="memory">
+          <img src="S__46497834.jpg" alt="ดอกไม้สีชมพู">
+          <h3>รูปคู่ ๆๆ</h3>
+          <p>รูปนี้เค้าชอบมากก ไม่รู้ทำไมแต่ชอบสุด ๆ</p>
+        </article>
+         <article class="memory">
+          <img src="S__46497835.jpg" alt="ดอกไม้สีชมพู">
+          <h3>วาดรูปให้เค้าครั้งแรก</h3>
+          <p>คิดยังไงไม่รู้วาดให้เค้า แต่เค้าชอบมาก น่ารักจัง555</p>
+        </article>
+        <article class="memory">
+          <img src="S__46497837.jpg" alt="ดอกไม้สีชมพู">
+          <h3>เธอยอมเปียกแทนเค้า</h3>
+          <p>ฝนตกปรอย ๆ เธอก้ถอดหมวกมาให้เค้าใส่แทนเพราะกลัวเค้าป่วย น่ารักจัง</p>
+        </article>
+        <article class="memory">
+          <img src="S__46497838.jpg" alt="ดอกไม้สีชมพู">
+          <h3>กินข้าวกับครอบครัวเค้าครั้งแรก</h3>
+          <p>เธอเข้ากับคนที่บ้านเค้าได้เร็วมากก เก่งสุด ๆ อ่ะ</p>
+        </article>
+         <article class="memory">
+          <img src="S__46497839.jpg" alt="ดอกไม้สีชมพู">
+          <h3>นั่งเรียนด้วยกันครั้งแรก</h3>
+          <p>คือเป็นครั้งแรกที่รอมาเนิ่นนานน ฟินที่สุด</p>
+        </article>
+        <article class="memory">
+          <img src="S__46497840.jpg" alt="ดอกไม้สีชมพู">
+          <h3>รูปเธออ</h3>
+          <p>เป็นรูปที่เค้าชอบตั้งแต่ตอนเห็นครั้งแรกจนวันนี้</p>
+        </article>
+        <article class="memory">
+          <img src="S__46497841.jpg" alt="ดอกไม้สีชมพู">
+          <h3>หาไรกินกันตอนเลิกเรียน</h3>
+          <p>เป็นวันที่มีความสุขมาก ได้ทำนู่นทำนี่กับเธอ ยิ้มจนปวดแก้ม</p>
+        </article>
+        <article class="memory">
+          <img src="S__46497842.jpg" alt="ดอกไม้สีชมพู">
+          <h3>มาบ้านครั้งที่สอง</h3>
+          <p>มีครั้งแรกก็ต้องมีครั้งที่สองอ่ะเนอะ น่ารักเหมือนเดิม</p>
+        </article>
+         <article class="memory">
+          <img src="S__46497843.jpg" alt="ดอกไม้สีชมพู">
+          <h3>ไปเดทกันครั้งที่สองง</h3>
+          <p>อันนี้ครบรอบ 1 เดือน ทะเลาะบ้างแต่มีความสุขข</p>
+        </article>
+        <article class="memory">
+          <img src="S__46497844.jpg" alt="ดอกไม้สีชมพู">
+          <h3>คาราโอเกะครั้งแรก</h3>
+          <p>เค้าเขินเค้าไม่ค่อยกล้าร้อง นั่งฟังเธออย่างเดียว</p>
+        </article>
+         <article class="memory">
+          <img src="S__46497845.jpg" alt="ดอกไม้สีชมพู">
+          <h3>เฝ้าเธอตัดผมม</h3>
+          <p>ตัวติดกันทุกที่จริง ๆๆ นั่งรอจนจาหลับ</p>
+        </article>
+         <article class="memory">
+          <img src="S__46505996.jpg" alt="ดอกไม้สีชมพู">
+          <h3>ถือพานด้วยกัน</h3>
+          <p>คนอย่างเยอะทั้งเขินเธอทั้งเขินคนในหอ จะบ้า</p>
+        </article>
+         <article class="memory">
+          <img src="S__46497846.jpg" alt="ดอกไม้สีชมพู">
+          <h3>เดทรอบสามม</h3>
+          <p>ครบรอบสองเดือนน ร้ากเธอ</p>
+        </article>
+         <article class="memory">
+          <img src="S__46497848.jpg" alt="ดอกไม้สีชมพู">
+          <h3>ไปกินหมูทะกับครอบครัวเค้า</h3>
+          <p>เธอกินคุ้มมากก เค้าภูมิจัยในตัวเธอ</p>
+        </article>
+         <article class="memory">
+          <img src="S__46497849.jpg" alt="ดอกไม้สีชมพู">
+          <h3>หนังเรื่องแรกก</h3>
+          <p>หนังอาจจะไม่หนุกเท่าไหร่ แต่ คนข้าง ๆ น่ารักคือจบ</p>
+        </article>
+        <article class="memory">
+          <img src="S__46497850.jpg" alt="ดอกไม้สีชมพู">
+          <h3>หนังเรื่องสองง</h3>
+          <p>อันนี้อย่างหนุกก หนังดีมากก คนข้าง ๆ ก็ยังน่ารักเหมือนเดิม</p>
+        </article>
+        <article class="memory">
+          <img src="S__46497851.jpg" alt="ดอกไม้สีชมพู">
+          <h3>หนังเรื่องสามม</h3>
+          <p>อันนี้ก็สนุกนะ หักมุมมาก แต่ผีแอบตลก</p>
+        </article>
+        <article class="memory">
+          <img src="S__46497852.jpg" alt="ดอกไม้สีชมพู">
+          <h3>เธอนวดเท้าให้เค้าา</h3>
+          <p>ใส่คัทชูแล้วปวดเท้า เธอเลยนวดให้ ฟินจ้า</p>
+        </article>
+        <article class="memory">
+          <img src="S__46497853.jpg" alt="ดอกไม้สีชมพู">
+          <h3>หาไรกินกันตอนเย็นคือเก่า</h3>
+          <p>ซื้ออย่างเยอะ แต่ก็กินหมด เก่งจัด</p>
+        </article>
+        <article class="memory">
+          <img src="S__46497854.jpg" alt="ดอกไม้สีชมพู">
+          <h3>กินหมุทะะ</h3>
+          <p>มาบ้านรอบที่ n แต่แฟนเค้าหล่อจุง</p>
+        </article>
+        <article class="memory">
+          <img src="S__46497855.jpg" alt="ดอกไม้สีชมพู">
+          <h3>มาส่งเค้าถึงบีทุกวัน</h3>
+          <p>แถมยังรอบ้ายบายเค้าตอนเดินขึ้นไปอีก น่ารักจัง</p>
+        </article>
+        <article class="memory">
+          <img src="S__46497856.jpg" alt="ดอกไม้สีชมพู">
+          <h3>มาบ้านรอบที่เท่าไหร่แล้วไม่รู้</h3>
+          <p>พากันไปนววดดด คนแก่ก็จะแบบนี้</p>
+        </article>
+        <article class="memory">
+          <img src="S__46497857.jpg" alt="ดอกไม้สีชมพู">
+          <h3>ไปเที่ยววัดด</h3>
+          <p>ไหว้พระตั้งแต่องค์แรกยันองค์สุดท้าย ร้อนมากก</p>
+        </article>
+        <article class="memory">
+          <img src="S__46497859.jpg" alt="ดอกไม้สีชมพู">
+          <h3>กินสเวนเซ่นน</h3>
+          <p>สรุปเค้าอีทคนเดียว เธอไม่ช่วยเรยย โกรธ</p>
+        </article>
+        <article class="memory">
+          <img src="S__46497860.jpg" alt="ดอกไม้สีชมพู">
+          <h3>พาเธอมากินเอ็มเคครั้งแรกก</h3>
+          <p>สรุปไม่ถูกปากแฟนชั้น ไม่แซ่บเลย 5555</p>
+        </article>
+      </div>
+
+      <p class="memory-note">5เดือนแล้ววว<br>อยู่กับเค้าไปนาน ๆ นะ บักอ้วน</p>
+    </section>
+
+    <section class="walk-area">
+      <div class="eyebrow">Chapter 02</div>
+      <h2 class="serif">Shall we keep walking?</h2>
+      <p>เรื่องราวของเรายังมีอีกหลายบทให้เขียน<br>พร้อมจะเดินไปด้วยกันต่อมั้ยย</p>
+      <button class="walk-button" onclick="walkTogether()">WALK WITH ME ↗</button>
+      <div id="walkMessage"></div>
+    </section>
+
+    <section class="section" id="letter">
+      <div class="section-heading">
+        <div class="eyebrow">Chapter 03</div>
+        <h2 class="serif">A Letter For You</h2>
+        <p>มีบางอย่างที่อยากบอกเธอ</p>
+      </div>
+
+      <div class="letter-card">
+        <div class="letter-top">DEAR MY FAVORITE PERSON ♡</div>
+        <h2 class="serif">ถึงฟิล์มของเค้า</h2>
+        <p>ขอบคุณนะที่เข้ามาเป็นส่วนหนึ่งในชีวิตของเค้า 💜
+
+ขอบคุณสำหรับทุกช่วงเวลาที่เราได้ใช้ด้วยกัน ทั้งวันที่มีความสุข วันที่หัวเราะด้วยกัน และวันที่อาจจะไม่เข้าใจกันบ้าง
+
+เค้าอาจไม่ได้เป็นคนที่เก่งเรื่องการพูดความรู้สึก แต่เค้าอยากให้เธอรู้ว่าเธอเป็นคนสำคัญสำหรับเค้ามาก ๆ
+
+เค้าไม่รู้ว่าอนาคตจะเป็นยังไง แต่เค้าอยากค่อย ๆ เรียนรู้กันไป เติบโตไปด้วยกัน และสร้างความทรงจำดี ๆ เพิ่มขึ้นเรื่อย ๆ
+
+ขอให้เราเป็นพื้นที่สบายใจให้กันในวันที่เหนื่อย เป็นรอยยิ้มให้กันในวันที่ไม่ดี และอย่าลืมใส่ใจกัน แม้ในวันที่ทุกอย่างดูธรรมดา
+
+สุดท้ายนี้ ขอบคุณที่เป็นเธอนะ
+ดีใจที่ได้มีเธออยู่ในเรื่องราวของเค้า รักนะ ♡</p>
+        <div class="signature">
+          <div>with all my love,</div>
+          <div class="serif">Your Film ♡</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gift-section" id="gift">
+      <p class="gift-label">SPECIAL FOR YOU ♡</p>
+      <h2 class="serif">A Little Gift For You</h2>
+      <p class="gift-subtitle">ของขวัญชิ้นเล็ก ๆ ที่เค้าตั้งใจทำให้เธอ</p>
+
+      <div class="gift-card" id="giftCard">
+        <div class="gift-icon">🎁</div>
+        <p class="gift-label">MADE WITH LOVE</p>
+        <h3 class="serif">For my Lemon</h3>
+        <p>พร้อมเปิดของขวัญหรือยังคะ ♡</p>
+        <button class="gift-button" onclick="openGift()">OPEN MY GIFT →</button>
+      </div>
+
+    <div class="gift-content hidden" id="giftContent">
+        <div class="gift-photo">
+  <div class="memory-video-frame">
+    <video controls playsinline preload="metadata">
+      <source src="ม่อน.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="photo-caption">
+    <span>NO. 01 — MY FAVORITE MEMORY</span>
+    <p>ความทรงจำที่อยากเก็บไว้ตลอดไป ♡</p>
+  </div>
+</div>
+
+        <div class="love-card">
+          <p class="gift-label">A LITTLE REMINDER</p>
+          <h3 class="serif">♡ LOVE ♡</h3>
+          <p>กดหัวใจที่ชอบ แล้วรับข้อความจากเค้า</p>
+          <div class="heart-list">
+            <button onclick="showLove(0)">💗</button>
+            <button onclick="showLove(1)">💜</button>
+             <button onclick="showLove(2)">💖</button>
+          </div>
+          <p id="heartMessage" class="heart-message">เลือกหัวใจสักดวงสิสิ ♡</p>
+        </div>
+
+        <div class="postcard">
+          <div class="postcard-stamp">♡</div>
+          <p class="postcard-label">A POSTCARD FOR YOU</p>
+          <h3 class="serif">To my favorite person</h3>
+          <p class="postcard-text">ขอบคุณที่อยู่ด้วยกันมาจนถึงวันนี้
+
+ไม่ว่าจะสุขหรือเหนื่อย
+เค้าก็ยังอยากมีเธออยู่ในวันต่อ ๆ ไป
+
+ขอให้เราได้สร้างความทรงจำดี ๆ
+ด้วยกันอีกเยอะเลยนะ
+
+รักนะไออ้วน ♡</p>
+          <p class="postcard-bottom">HAPPY 5 month ♡</p>
+        </div>
+
+        <p class="gift-ending serif">Forever is a beautiful place<br><span>when I'm with you ♡</span></p>
+      </div>
+    </section>
+
+
+    <!-- EXTRA INTERACTIVE ROOMS -->
+    <section class="section extra-section" id="memoryJar">
+      <div class="section-heading"><div class="eyebrow">Chapter 04</div><h2 class="serif">A Jar Full of Love</h2><p>หยิบข้อความหนึ่งใบ เผื่อวันนี้เธอต้องการกำลังใจ ♡</p></div>
+      <div class="feature-card jar-card"><div class="jar-emoji">🫙</div><p id="jarMessage" class="feature-message">มีข้อความน่ารัก ๆ อยู่ในโหลนี้นะ</p><button class="walk-button" onclick="drawMessage()">หยิบข้อความหนึ่งใบ ♡</button></div>
+    </section>
+
+    <section class="section extra-section" id="coupleQuiz">
+      <div class="section-heading"><div class="eyebrow">Chapter 05</div><h2 class="serif">How Well Do You Know Us?</h2><p>เกมทายใจแฟน ตอบตามใจเธอได้เลย</p></div>
+      <div class="feature-card"><p class="quiz-progress" id="quizProgress">QUESTION 1 / 20</p><p class="quiz-question" id="quizQuestion">ฟิล์มจำเรื่องราวของเราได้แค่ไหนนะ?</p><div id="quizOptions" class="quiz-options"></div><p id="quizResult" class="feature-message" aria-live="polite">ตอบให้ครบ 20 ข้อ ถ้าตอบผิดจะมีเฉลยให้ดูนะ ♡</p><button id="quizNext" class="walk-button quiz-next hidden" onclick="nextQuizQuestion()">ข้อต่อไป →</button></div>
+    </section>
+
+    <section class="section extra-section" id="coupons">
+      <div class="section-heading"><div class="eyebrow">Chapter 06</div><h2 class="serif">Coupons for My Favorite Person</h2><p>เลือกคูปองแล้วกดเพื่อพลิกดูข้อความด้านหลัง</p></div>
+      <p class="feature-message">คูปองจะสลับตำแหน่งทุกครั้งที่เปิดเว็บ ลองแตะดูทีละใบ ♡</p><div class="coupon-grid" id="couponGrid"><button class="coupon" onclick="flipCoupon(this,'คูปองกอด 1 ครั้ง','ใช้ได้เมื่อเจอกันจริง ๆ นะ มากอดกันแน่น ๆ เลย ♡')"><span>♡ COUPON 01</span><strong>คูปองกอด</strong><small>แตะเพื่อเปิด</small></button><button class="coupon" onclick="flipCoupon(this,'คูปองดูหนังด้วยกัน','เลือกหนังที่เธออยากดูได้เลย เค้าจะเตรียมขนมให้ด้วย 🍿')"><span>♡ COUPON 02</span><strong>คูปองดูหนัง</strong><small>แตะเพื่อเปิด</small></button><button class="coupon" onclick="flipCoupon(this,'คูปองตามใจ 1 วัน','หนึ่งวันของเธอ อยากกินอะไรหรือทำอะไร เรามาคุยแล้วเลือกด้วยกันนะ 💜')"><span>♡ COUPON 03</span><strong>คูปองตามใจ</strong><small>แตะเพื่อเปิด</small></button></div>
+    </section>
+
+    <section class="section extra-section" id="ourTime">
+      <div class="section-heading"><div class="eyebrow">Chapter 07</div><h2 class="serif">Every Day With You</h2><p>ทุกวันที่มีเธอเป็นอีกหนึ่งความทรงจำของเรา</p></div>
+      <div class="feature-card time-card"><div class="time-number" id="relationshipDays">—</div><div class="time-caption">DAYS OF OUR STORY ♡</div><p>ตั้งแต่วันที่ 28 พฤษภาคม 2026 จนถึงวันนี้</p></div>
+    </section>
+
+    <section class="section extra-section" id="puzzleRoom">
+      <div class="section-heading"><div class="eyebrow">Chapter 08</div><h2 class="serif">Put Our Memory Together</h2><p>เกมจิ๊กซอว์แบบเลื่อนชิ้นส่วน แตะชิ้นที่อยู่ติดช่องว่างเพื่อสลับตำแหน่ง</p></div>
+      <div class="feature-card"><p id="puzzleIntro" class="feature-message">ก่อนเริ่ม เราจะสุ่มเลือกรูปความทรงจำของเรามาหนึ่งรูปนะ ♡</p><img id="puzzlePreview" class="puzzle-preview" src="S__46497834.jpg" alt="รูปตัวอย่างสำหรับเกมจิ๊กซอว์"><button id="puzzleStart" class="gift-button" onclick="startPuzzle()">สุ่มรูปแล้วเริ่มเล่น ♡</button><div id="puzzleBoard" class="puzzle-board hidden" aria-label="เกมจิ๊กซอว์"></div><p id="puzzleStatus" class="feature-message">แตะปุ่มด้านบนเพื่อสุ่มรูปก่อนเล่นนะ</p><button id="puzzleAgain" class="gift-button hidden" onclick="startPuzzle()">สุ่มรูปใหม่ ↻</button></div>
+    </section>
+
+    <section class="section extra-section" id="mysteryDoors">
+      <div class="section-heading"><div class="eyebrow">Chapter 09</div><h2 class="serif">Three Little Doors</h2><p>เลือกเปิดประตูเพื่อค้นพบสิ่งที่ซ่อนไว้</p></div>
+      <div class="door-grid"><button class="door" onclick="openDoor(0)"><span>🚪</span><strong>ประตูที่ 1</strong><small>ความทรงจำ</small></button><button class="door" onclick="openDoor(1)"><span>🚪</span><strong>ประตูที่ 2</strong><small>ภารกิจหัวใจ</small></button><button class="door" onclick="openDoor(2)"><span>🚪</span><strong>ประตูที่ 3</strong><small>ของขวัญลับ</small></button></div><p id="doorMessage" class="feature-message" aria-live="polite"></p>
+    </section>
+
+    <section class="section extra-section" id="songStories">
+      <div class="section-heading"><div class="eyebrow">Chapter 10</div><h2 class="serif">Our Little Soundtrack</h2><p>เพลงหนึ่งเพลงอาจพาเรากลับไปหาความทรงจำเดิม ๆ ได้</p></div>
+      <div class="feature-card song-card"><div class="song-art">♫</div><h3 class="serif">เพลงของเรา</h3><p>เพลงที่เปิดไว้ในเว็บนี้จะพาให้นึกถึงช่วงเวลาที่เราได้ใช้ด้วยกัน ลองกดปุ่มเพลงมุมจอเพื่อฟังนะ</p><button class="gift-button" onclick="document.getElementById('songNote').classList.toggle('hidden')">อ่านเรื่องของเพลง ♡</button><p id="songNote" class="feature-message hidden">บางเพลงไม่ได้พิเศษเพราะทำนอง แต่พิเศษเพราะทำให้นึกถึงคนที่เรารักเสมอ 💜</p></div>
+    </section>
+
+    <section class="section extra-section" id="secretRoom">
+      <div class="section-heading"><div class="eyebrow">Chapter 11</div><h2 class="serif">Find the Hidden Hearts</h2><p>มีหัวใจเล็ก ๆ ซ่อนอยู่ 3 จุด กดให้ครบเพื่อเปิดห้องลับ</p></div>
+      <p class="feature-message">หัวใจทั้ง 3 ดวงถูกซ่อนไว้ตามส่วนต่าง ๆ ของเว็บ บางดวงจะเห็นยากนิดหนึ่ง ลองสังเกตรอบ ๆ รูปและการ์ดนะ ♡</p><p id="secretProgress" class="feature-message">พบแล้ว 0/3 ดวง</p><div id="secretReveal" class="feature-card hidden"><h3 class="serif">A Secret Just for Film ♡</h3><p>ฟิล์ม ขอบคุณที่เป็นส่วนหนึ่งของเรื่องราวของเค้านะ ไม่ต้องเป็นวันที่พิเศษทุกวันก็ได้ แค่เราใส่ใจกันและค่อย ๆ เติบโตไปด้วยกัน เค้าก็ดีใจมากแล้ว 💜</p></div>
+    </section>
+
+    <section class="section extra-section" id="heartQuest">
+      <div class="section-heading"><div class="eyebrow">Chapter 12</div><h2 class="serif">Heart Hunt</h2><p>ภารกิจตามหาหัวใจ: เริ่มจากกลับไปดูรูปแรกของเรา</p></div>
+      <div class="feature-card"><p class="quest-step" id="questStep">MISSION 1 / 3</p><p id="questClue" class="feature-message">คำใบ้ 1: เริ่มจากความทรงจำแรกของเรา ย้อนขึ้นไปที่แกลเลอรี แล้วแตะรูปแรก 💜</p><button id="questGo" class="gift-button" onclick="goQuestTarget()">ไปตามคำใบ้ ↗</button><p id="questReward" class="feature-message">เมื่อเจอสิ่งที่ตามหา คำใบ้ถัดไปจะเปิดให้เองนะ ♡</p></div>
+    </section>
+
+    <section class="section extra-section" id="coupleQuestions">
+      <div class="section-heading"><div class="eyebrow">Chapter 13</div><h2 class="serif">Questions for Two</h2><p>สุ่มคำถามไว้คุยกันทางโทรศัพท์หรือวันที่ได้เจอกัน</p></div>
+      <div class="feature-card"><div class="question-mark">“ ”</div><p id="coupleQuestion" class="feature-message">กดสุ่มคำถามเพื่อเริ่มคุยกันนะ</p><button class="walk-button" onclick="nextCoupleQuestion()">สุ่มคำถาม ♡</button></div>
+    </section>
+
+    <section class="section extra-section" id="finalChapter">
+      <div class="section-heading"><div class="eyebrow">The Final Chapter</div><h2 class="serif">One Last Little Secret</h2><p>เมื่อสำรวจแต่ละห้องแล้ว ลองเปิดบทสุดท้ายดูนะ</p></div>
+      <div class="feature-card final-card"><p>สำรวจเว็บให้ครบ แล้วเปิดข้อความสุดท้ายที่เค้าตั้งใจทำให้เธอ</p><button class="walk-button" onclick="openFinalChapter()">เปิดบทสุดท้าย ♡</button><div id="finalReveal" class="final-reveal hidden"><h3 class="serif">To Film, with all my heart</h3><p>ถ้าเธอมาถึงตรงนี้ แปลว่าเธอค่อย ๆ เดินดูโลกเล็ก ๆ ที่เค้าตั้งใจทำให้จนถึงท้ายเรื่องแล้ว ขอบคุณที่เข้ามาอยู่ในชีวิตของเค้านะ เค้าอยากให้เรามีเรื่องราวดี ๆ ให้ย้อนกลับมาดูด้วยกันอีกเยอะเลย รักนะไออ้วน ♡</p><video class="final-video" controls playsinline preload="metadata"><source src="ม่อน.mp4" type="video/mp4"></video></div></div>
+    </section>
+
+    <div class="dog-helper" id="dogHelper" role="button" tabindex="0" onclick="dogTalk()" aria-label="กดน้องหมาเพื่ออ่านข้อความ"><span class="dog-emoji">🐕</span><span class="dog-label">กดหนูสิ ♡</span></div>
+    <button id="easterEgg" class="easter-egg hidden" onclick="catchEasterEgg()" aria-label="ตัวละครลับ">🐾</button>
+    <div id="toastMessage" class="toast-message" aria-live="polite"></div>
+
+    <footer>MADE WITH LOVE, JUST FOR YOU ♡<br>Museum of Us · 28 May 2026</footer>
+  </main>
+  <script>
+    // เปลี่ยนรหัสผ่านตรงนี้ได้
+    const CORRECT_PIN = "28052026";
+    let enteredPin = "";
+
+    function updateDots() {
+      const dots = document.querySelectorAll("#dots .dot");
+      dots.forEach((dot, index) => {
+        dot.classList.toggle("filled", index < enteredPin.length);
+      });
+    }
+
+    function pressKey(number) {
+      if (enteredPin.length >= 8) return;
+
+      enteredPin += number;
+      updateDots();
+
+      if (enteredPin.length === 8) {
+        setTimeout(checkPin, 180);
+      }
+    }
+
+    function clearPin() {
+      enteredPin = "";
+      updateDots();
+      document.getElementById("lockMessage").textContent =
+        "Hint: วันสำคัญของเรา 💜";
+    }
+
+   function checkPin() {
+  if (enteredPin.length !== 8) return;
+
+  if (enteredPin === CORRECT_PIN) {
+    document.getElementById("lockScreen").classList.add("hidden");
+
+    const museum = document.getElementById("museum");
+    museum.classList.add("unlocked");
+
+    // บังคับให้หน้าเว็บแสดงเนื้อหา
+    museum.style.display = "block";
+    museum.style.visibility = "visible";
+    museum.style.opacity = "1";
+
+    window.scrollTo(0, 0);
+  } else {
+    document.getElementById("lockMessage").textContent =
+      "รหัสยังไม่ถูกนะ ลองอีกครั้งสิ ♡";
+
+    const card = document.querySelector(".lock-card");
+    card.classList.remove("shake");
+    void card.offsetWidth;
+    card.classList.add("shake");
+
+    setTimeout(() => {
+      enteredPin = "";
+      updateDots();
+      card.classList.remove("shake");
+    }, 650);
+  }
+}
+
+    function walkTogether() {
+      const message = document.getElementById("walkMessage");
+      message.textContent =
+        "จับมือกันไว้ แล้วค่อย ๆ สร้างเรื่องราวของเราต่อไปนะ ♡";
+
+      message.style.color = "#d8b4fe";
+      message.style.marginTop = "22px";
+      message.style.lineHeight = "1.9";
+
+      document.getElementById("letter").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+    function openGift() {
+      const content = document.getElementById("giftContent");
+      const card = document.getElementById("giftCard");
+
+      content.classList.remove("hidden");
+      card.classList.add("hidden");
+
+      setTimeout(() => {
+        content.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }, 150);
+    }
+
+    const loveMessages = [
+      "เค้ารักเธอนะที่รัก เค้ามีความสุขที่มีเธอ 💗",
+      "อยู่กับเค้าไปนาน ๆ นะ ตลอดไปเลย 💜",
+      "ขอตังค์หน่อยค่ะที่ร้ากกก💖"
+    ];
+
+    function showLove(index) {
+      document.getElementById("heartMessage").textContent =
+        loveMessages[index];
+    }
+
+    // เอฟเฟกต์หัวใจลอยเมื่อคลิก
+    document.addEventListener("click", function(event) {
+      if (
+        event.target.closest("button") ||
+        event.target.closest(".memory")
+      ) {
+        const heart = document.createElement("span");
+        heart.textContent = ["♡", "♥", "💜", "✨"][
+          Math.floor(Math.random() * 4)
+        ];
+
+        heart.style.position = "fixed";
+        heart.style.left = event.clientX + "px";
+        heart.style.top = event.clientY + "px";
+        heart.style.pointerEvents = "none";
+        heart.style.zIndex = "9999";
+        heart.style.fontSize = "20px";
+        heart.style.color = "#d8b4fe";
+        heart.style.animation = "floatHeart 1s ease-out forwards";
+
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 1000);
+      }
+    });
+
+    const heartStyle = document.createElement("style");
+    heartStyle.textContent = `
+      @keyframes floatHeart {
+        0% {
+          opacity: 1;
+          transform: translateY(0) scale(0.8);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-65px) scale(1.5);
+        }
+      }
+
+      .shake {
+        animation: shakeCard 0.3s ease-in-out;
+      }
+
+      @keyframes shakeCard {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+      }
+    `;
+    document.head.appendChild(heartStyle);
+
+    const jarMessages = [
+      "วันนี้เก่งมากแล้วนะ อย่าลืมพักบ้างนะคนเก่ง 💜",
+      "ขอบคุณที่เข้ามาเป็นความสุขของเค้า ♡",
+      "ไม่ว่าวันนี้จะเป็นยังไง เค้าก็เชื่อในตัวเธอนะ",
+      "อย่าลืมกินข้าว ดื่มน้ำ แล้วก็ยิ้มเยอะ ๆ นะไออ้วน",
+      "เธอไม่จำเป็นต้องเก่งตลอดเวลาก็ได้ เค้าอยู่ข้าง ๆ นะ",
+      "ดีใจที่โลกพาเราให้มาเจอกันจังเลย",
+      "ขอให้วันนี้มีเรื่องเล็ก ๆ ที่ทำให้เธอยิ้มได้นะ ✨",
+      "เธอเป็นหนึ่งในความทรงจำที่ดีที่สุดของเค้าเลย"
+    ];
+    let lastJarMessage = -1;
+    function drawMessage() {
+      let i; do { i = Math.floor(Math.random()*jarMessages.length); } while(i===lastJarMessage);
+      lastJarMessage=i; document.getElementById('jarMessage').textContent=jarMessages[i];
+    }
+    const quizData = [
+      {q:'รูปแรกของเรื่องราวเราเป็นเรื่องอะไร?',o:['แชตแรก','เดตแรก','ร้องคาราโอเกะครั้งแรก'],a:0,e:'รูปแรกที่เก็บไว้คือช่วงแชตแรกของเรา ♡'},
+      {q:'หลังจากแชตแรก ความทรงจำช่วงแรกอีกอย่างคืออะไร?',o:['สายโทรครั้งแรก','ไปทะเลด้วยกัน','กินข้าวกับครอบครัว'],a:0,e:'เป็นสายโทรครั้งแรกของเรานั่นเอง 💜'},
+      {q:'รูปแรกที่ฟิล์มส่งให้เค้าคือความทรงจำแบบไหน?',o:['รูปของฟิล์มที่ส่งมาให้','รูปคู่จากตู้ถ่ายรูป','รูปอาหารหลังเลิกเรียน'],a:0,e:'เป็นรูปแรกที่ฟิล์มส่งให้เค้าเลย'},
+      {q:'ฟิล์มขอคบเค้าตอนไหนในเรื่องราวของเรา?',o:['ก่อนเริ่มคุยกัน','หลังจากเริ่มชอบกัน','หลังเดตครบหนึ่งปี'],a:1,e:'หลังจากเราบอกชอบกัน ฟิล์มก็ขอคบเค้า ♡'},
+      {q:'ฟิล์มเคยทำอะไรให้เค้าประทับใจในช่วงแรก?',o:['ร้องเพลง/เล่นกีตาร์ให้ฟัง','ทำเค้กให้','วาดรูปบ้านให้'],a:0,e:'ฟิล์มเคยร้องเพลงหรือเล่นกีตาร์ให้เค้าฟัง 🎸'},
+      {q:'การเดินทางด้วยกันครั้งแรกเป็นแบบไหน?',o:['นั่งรถไฟ','ซ้อนมอเตอร์ไซค์','นั่งเครื่องบิน'],a:1,e:'ครั้งแรกที่ไปด้วยกันคือการซ้อนมอเตอร์ไซค์ 🛵'},
+      {q:'เดตแรกของเรามีรูปแบบไหนที่จำได้?',o:['ถ่ายโฟโต้บูธ','ถ่ายรูปบนภูเขา','ถ่ายรูปในสวนสัตว์'],a:0,e:'เดตแรกมีรูปจากโฟโต้บูธด้วยนะ'},
+      {q:'ฟิล์มเคยมาที่บ้านเค้าครั้งแรกหรือยัง?',o:['เคยแล้ว','ยังไม่เคย','มาเฉพาะตอนกลางคืน'],a:0,e:'ฟิล์มเคยมาที่บ้านเค้าครั้งแรกแล้ว ♡'},
+      {q:'ความทรงจำเกี่ยวกับอาหารช่วงแรกของเราคืออะไร?',o:['กินมื้อแรกด้วยกัน','ทำอาหารด้วยกันทั้งวัน','ไปกินบุฟเฟต์ทุกสัปดาห์'],a:0,e:'เรามีความทรงจำมื้อแรกที่กินด้วยกัน'},
+      {q:'รูปคู่ที่เค้าชอบมากเป็นรูปแบบไหน?',o:['รูปคู่ที่ชอบที่สุดของเรา','รูปตอนใส่ชุดนักเรียนคนเดียว','รูปอาหารอย่างเดียว'],a:0,e:'มีรูปคู่รูปโปรดที่เค้าอยากเก็บไว้ 💜'},
+      {q:'ฟิล์มเคยทำอะไรให้เค้าเป็นครั้งแรกอีกอย่าง?',o:['วาดรูปให้','แต่งเพลงเต็มอัลบั้ม','ถักผ้าพันคอ'],a:0,e:'ฟิล์มเคยวาดรูปให้เค้าด้วยนะ'},
+      {q:'ตอนฝนตก ฟิล์มเคยให้ของอะไรกับเค้า?',o:['หมวก','ร่มสีทอง','เสื้อกันหนาวสีเขียว'],a:0,e:'ฟิล์มเคยให้หมวกเค้าตอนฝนตก 🧢'},
+      {q:'ฟิล์มเคยกินข้าวกับใครของเค้า?',o:['ครอบครัวของเค้า','เพื่อนที่ต่างประเทศ','คุณครูประจำชั้น'],a:0,e:'ฟิล์มเคยกินข้าวกับครอบครัวเค้าด้วย'},
+      {q:'เรามีความทรงจำทำอะไรด้วยกันที่เกี่ยวกับการเรียน?',o:['อ่านหนังสือ/เรียนด้วยกัน','สอบใบขับขี่ด้วยกัน','เรียนทำอาหารออนไลน์'],a:0,e:'เราเคยเรียนด้วยกัน เป็นอีกหนึ่งความทรงจำ ♡'},
+      {q:'กิจกรรมที่เราเคยทำด้วยกันคืออะไร?',o:['ร้องคาราโอเกะ','ไปดำน้ำลึก','วิ่งมาราธอน'],a:0,e:'เราเคยไปคาราโอเกะด้วยกัน 🎤'},
+      {q:'เค้าเคยรอฟิล์มทำอะไร?',o:['ตัดผม','ซื้อรองเท้า','ซ่อมจักรยาน'],a:0,e:'เค้าเคยรอฟิล์มตอนตัดผม'},
+      {q:'เราเคยถืออะไรในกิจกรรมที่โรงเรียน?',o:['พาน','ถ้วยแชมป์','ป้ายไฟ'],a:0,e:'เรามีรูปความทรงจำตอนถือพานด้วยนะ'},
+      {q:'เดตครบรอบหนึ่งเดือนของเราอยู่ในความทรงจำแบบไหน?',o:['เดตครั้งที่สอง','เดตครั้งที่สิบ','ไปเที่ยวต่างประเทศ'],a:0,e:'เดตครั้งที่สองเป็นช่วงครบรอบหนึ่งเดือนของเรา'},
+      {q:'เดตครั้งที่สามของเราพิเศษเพราะอะไร?',o:['ครบรอบสองเดือน','วันเกิดของทั้งคู่','วันคริสต์มาส'],a:0,e:'เดตครั้งที่สามเป็นช่วงครบรอบสองเดือน ♡'},
+      {q:'ทำไมเค้าถึงทำเว็บ Museum of Us นี้?',o:['เก็บเรื่องราวและความทรงจำของเรา','ส่งการบ้านวิชาคณิต','ขายของออนไลน์'],a:0,e:'เพราะเค้าอยากเก็บเรื่องราวของเราไว้ให้ฟิล์มดู 💜'}
+    ];
+    let quizIndex=0, quizScore=0, quizAnswered=false;
+    function renderQuiz(){const q=quizData[quizIndex];document.getElementById('quizProgress').textContent=`QUESTION ${quizIndex+1} / ${quizData.length} · คะแนน ${quizScore}`;document.getElementById('quizQuestion').textContent=q.q;const box=document.getElementById('quizOptions');box.innerHTML='';const choices=q.o.map((t,i)=>({t,correct:i===q.a})).sort(()=>Math.random()-.5);choices.forEach(item=>{const b=document.createElement('button');b.textContent=item.t;b.onclick=()=>answerQuiz(item.correct,b);box.appendChild(b);});document.getElementById('quizResult').textContent='เลือกคำตอบที่คิดว่าถูกได้เลยนะ ♡';document.getElementById('quizNext').classList.add('hidden');quizAnswered=false;}
+    function answerQuiz(correct,btn){if(quizAnswered)return;quizAnswered=true;const q=quizData[quizIndex];document.querySelectorAll('#quizOptions button').forEach(b=>b.disabled=true);if(correct){quizScore++;btn.classList.add('correct');document.getElementById('quizResult').textContent='ถูกต้องแล้วว 💜 ไปข้อต่อไปกัน!';}else{btn.classList.add('wrong');document.getElementById('quizResult').textContent='ยังไม่ถูกน้า ♡ เฉลย: '+q.e;document.querySelectorAll('#quizOptions button').forEach(b=>{if(b.textContent===q.o[q.a])b.classList.add('correct');});}document.getElementById('quizProgress').textContent=`QUESTION ${quizIndex+1} / ${quizData.length} · คะแนน ${quizScore}`;const next=document.getElementById('quizNext');next.textContent=quizIndex===quizData.length-1?'ดูผลคะแนน ♡':'ข้อต่อไป →';next.classList.remove('hidden');}
+    function nextQuizQuestion(){if(!quizAnswered)return;if(quizIndex<quizData.length-1){quizIndex++;renderQuiz();}else{document.getElementById('quizQuestion').textContent='เล่นครบ 20 ข้อแล้ว ฟิล์มทำได้ '+quizScore+'/20 คะแนน 💜';document.getElementById('quizOptions').innerHTML='';document.getElementById('quizResult').textContent=quizScore>=16?'จำเรื่องราวของเราได้เก่งมากเลย! ♡':'ขอบคุณที่เล่นจนจบนะ ลองกลับมาเล่นใหม่ได้เสมอ ♡';document.getElementById('quizNext').classList.add('hidden');document.getElementById('quizProgress').textContent='FINISHED · 20 / 20';quizIndex=quizData.length-1;}}
+    function flipCoupon(btn,title,message){if(btn.dataset.back==='1'){btn.classList.remove('flipped');btn.dataset.back='0';btn.innerHTML=`<span>♡ COUPON</span><strong>${btn.dataset.title}</strong><small>แตะเพื่อเปิด</small>`;}else{btn.dataset.title=title;btn.dataset.back='1';btn.classList.add('flipped');btn.innerHTML=`<div class="coupon-back"><span>♡ YOUR SPECIAL COUPON</span><strong>${title}</strong><small>${message}</small><small>แตะอีกครั้งเพื่อปิด</small></div>`;}}
+
+    function updateRelationshipDays(){const start=new Date(2026,4,28);const now=new Date();now.setHours(0,0,0,0);const days=Math.max(0,Math.floor((now-start)/86400000));document.getElementById('relationshipDays').textContent=days;}
+    const puzzleImages=['S__46497834.jpg','S__46497833.jpg','S__46497831.jpg','S__46497840.jpg','S__46497843.jpg','S__46497846.jpg']; let puzzleImage=puzzleImages[0], puzzleOrder=[], puzzleStarted=false;
+    function startPuzzle(){puzzleImage=puzzleImages[Math.floor(Math.random()*puzzleImages.length)];const preview=document.getElementById('puzzlePreview');preview.src=puzzleImage;preview.classList.add('hidden');document.getElementById('puzzleIntro').textContent='สุ่มรูปได้แล้ว! ลองเลื่อนชิ้นส่วนที่ติดกับช่องว่างให้รูปกลับมาสมบูรณ์นะ ♡';document.getElementById('puzzleBoard').classList.remove('hidden');document.getElementById('puzzleStart').classList.add('hidden');document.getElementById('puzzleAgain').classList.remove('hidden');puzzleStarted=true;shufflePuzzle();}
+    function shufflePuzzle(){puzzleOrder=[0,1,2,3,4,5,6,7,8];do{for(let i=8;i>0;i--){let j=Math.floor(Math.random()*(i+1));[puzzleOrder[i],puzzleOrder[j]]=[puzzleOrder[j],puzzleOrder[i]];}}while(!isSolvable(puzzleOrder)||puzzleOrder.every((v,i)=>v===i));renderPuzzle();document.getElementById('puzzleStatus').textContent='แตะชิ้นส่วนที่อยู่ติดกับช่องว่างเพื่อเลื่อน ♡';}
+    function isSolvable(a){let inv=0;for(let i=0;i<a.length;i++)for(let j=i+1;j<a.length;j++)if(a[i]&&a[j]&&a[i]>a[j])inv++;return inv%2===0;}
+    function renderPuzzle(){const board=document.getElementById('puzzleBoard');board.innerHTML='';puzzleOrder.forEach((v,pos)=>{const b=document.createElement('button');b.className='puzzle-tile'+(v===8?' empty':'');b.setAttribute('aria-label',v===8?'ช่องว่าง':'ชิ้นส่วน '+(v+1));if(v!==8){const r=Math.floor(v/3),c=v%3;b.style.backgroundImage=`url("${puzzleImage}")`;b.style.backgroundPosition=`${c*50}% ${r*50}%`;}b.onclick=()=>movePuzzle(pos);board.appendChild(b);});}
+    function movePuzzle(pos){const empty=puzzleOrder.indexOf(8);if(Math.abs(Math.floor(pos/3)-Math.floor(empty/3))+Math.abs(pos%3-empty%3)!==1)return;[puzzleOrder[pos],puzzleOrder[empty]]=[puzzleOrder[empty],puzzleOrder[pos]];renderPuzzle();if(puzzleOrder.every((v,i)=>v===i)){document.getElementById('puzzleStatus').textContent='เก่งมากก นี่คือความทรงจำของเรา ♡';showToast('เก่งมากก นี่คือความทรงจำของเรา 💜');advanceQuest(3);}}
+    function openDoor(i){const msgs=["ประตูนี้เก็บความทรงจำของเราไว้ ♡ ลองกลับไปดูแกลเลอรีแล้วเลือกรูปที่ทำให้ยิ้มได้เลย","ภารกิจสำเร็จแล้ว! เธอเปิดประตูแห่งกำลังใจได้แล้ว 💜","ของขวัญลับอยู่ท้ายเว็บนะ เลื่อนลงไปเปิดกล่องของขวัญได้เลย 🎁"];if(i===1&&lastJarMessage===-1){document.getElementById('doorMessage').textContent='ประตูนี้ยังล็อกอยู่ 🔒 ไปหยิบข้อความหนึ่งใบจากโหลก่อน แล้วค่อยกลับมาใหม่นะ';return;}document.getElementById('doorMessage').textContent=msgs[i];if(i===1)document.getElementById('doorMessage').textContent='ภารกิจสำเร็จแล้ว! เธอเปิดประตูแห่งกำลังใจได้แล้ว 💜';if(i===2)document.getElementById('gift').scrollIntoView({behavior:'smooth'});}
+    const secretHearts=new Set();function findSecretHeart(i,btn){if(secretHearts.has(i))return;secretHearts.add(i);btn.classList.add('found');btn.textContent='♥';btn.disabled=true;document.getElementById('secretProgress').textContent=`พบแล้ว ${secretHearts.size}/3 ดวง`;showToast(`เจอหัวใจลับ ${secretHearts.size}/3 แล้ว ♡`);if(secretHearts.size===3){document.getElementById('secretReveal').classList.remove('hidden');showToast('เปิดห้องลับสำเร็จแล้ว ♡');}}
+    function scatterSecretHearts(){const sections=[...document.querySelectorAll('main#museum .section')].filter(sec=>!['secretRoom','finalChapter'].includes(sec.id));const chosen=[];while(chosen.length<3&&sections.length){const idx=Math.floor(Math.random()*sections.length);chosen.push(sections.splice(idx,1)[0]);}chosen.forEach((sec,i)=>{sec.style.position='relative';const b=document.createElement('button');b.className='scattered-heart';b.type='button';b.textContent='♡';b.setAttribute('aria-label','หัวใจลับที่ซ่อนอยู่');b.style.top=(18+Math.floor(Math.random()*60))+'%';b.style.left=(8+Math.floor(Math.random()*75))+'%';b.onclick=()=>findSecretHeart(i,b);sec.appendChild(b);});}
+    let questStage=1;
+    function goQuestTarget(){if(questStage===1){const first=document.querySelector('#memories .memory');if(first){first.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>first.classList.add('quest-glow'),500);}else showToast('ลองเลื่อนกลับไปที่แกลเลอรีความทรงจำ ♡');}else if(questStage===2){document.getElementById('puzzleRoom').scrollIntoView({behavior:'smooth',block:'start'});}else{document.getElementById('secretRoom').scrollIntoView({behavior:'smooth',block:'start'});}}
+    function advanceQuest(stage){if(stage<=questStage)return;questStage=stage;const step=document.getElementById('questStep'),clue=document.getElementById('questClue'),btn=document.getElementById('questGo'),reward=document.getElementById('questReward');if(stage===2){step.textContent='MISSION 2 / 3';clue.textContent='คำใบ้ 2: ความทรงจำถูกแยกเป็นชิ้น ๆ อยู่ในเกมจิ๊กซอว์ ลองต่อรูปให้สำเร็จ 💜';btn.textContent='ไปต่อจิ๊กซอว์ ↗';reward.textContent='เมื่อรูปกลับมาสมบูรณ์ จะได้คำใบ้สุดท้าย ♡';}else{step.textContent='MISSION 3 / 3';clue.textContent='คำใบ้ 3: หัวใจเล็ก ๆ ซ่อนอยู่ตามส่วนต่าง ๆ ของเว็บ ลองหาให้ครบ 3 ดวงเพื่อเปิดห้องลับนะ';btn.textContent='ไปหาหัวใจลับ ↗';reward.textContent='เจอหัวใจครบ 3 ดวงแล้วจะมีข้อความพิเศษรออยู่ ♡';}}
+
+    const coupleQuestions=["ความทรงจำไหนที่ทำให้เธอยิ้มทุกครั้ง?","ถ้าเราได้หยุดด้วยกันหนึ่งวัน อยากทำอะไร?","มีเรื่องอะไรเล็ก ๆ ที่เค้าทำแล้วเธอชอบไหม?","เพลงไหนที่ทำให้นึกถึงเรา?","อยากให้เราสร้างความทรงจำอะไรด้วยกันอีก?","วันแรกที่คุยกัน เธอคิดอะไรอยู่?","มีอะไรที่อยากขอบคุณกันและกันไหม?","ถ้าจะตั้งชื่อบทต่อไปของเรา จะชื่อว่าอะไรดี?"];
+    function nextCoupleQuestion(){document.getElementById('coupleQuestion').textContent=coupleQuestions[Math.floor(Math.random()*coupleQuestions.length)];}
+    function dogTalk(){const lines=["แฟนใครน่ารักจัง 🐶","อย่าลืมดูของขวัญนะ! 🎁","วันนี้เก่งมากแล้วนะมนุษย์ของหนู 💜","อย่าลืมบอกคิดถึงกันด้วยล่ะ ♡","โฮ่ง ๆ ขอให้รักกันและคุยกันดี ๆ น้า","มีหัวใจซ่อนอยู่ ลองหาให้ครบสิ!"];showToast(lines[Math.floor(Math.random()*lines.length)]);}
+    document.getElementById('dogHelper').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();dogTalk();}});
+    function showToast(msg){const el=document.getElementById('toastMessage');el.textContent=msg;el.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.classList.remove('show'),2600);}
+    function catchEasterEgg(){document.getElementById('easterEgg').classList.add('hidden');showToast('เจอตัวละครลับแล้ว! รับหัวใจพิเศษไปเลย 💜');}
+    setInterval(()=>{const egg=document.getElementById('easterEgg');if(Math.random()<0.32)egg.classList.remove('hidden');},18000);
+    function openFinalChapter(){const reveal=document.getElementById('finalReveal');reveal.classList.remove('hidden');reveal.scrollIntoView({behavior:'smooth',block:'center'});}
+    document.querySelectorAll('#memories .memory').forEach((card,index)=>{card.addEventListener('click',()=>{if(index===0){document.getElementById('questReward').textContent='เจอคำใบ้แรกแล้ว! คำใบ้ถัดไปอยู่ในเกมจิ๊กซอว์นะ ♡';card.classList.remove('quest-glow');advanceQuest(2);}});});
+    const couponGrid=document.getElementById('couponGrid');if(couponGrid){[...couponGrid.children].sort(()=>Math.random()-.5).forEach(el=>couponGrid.appendChild(el));}
+    renderQuiz();scatterSecretHearts();updateRelationshipDays();
+    // Randomized puzzle preview image before the game starts
+    puzzleImage=puzzleImages[Math.floor(Math.random()*puzzleImages.length)];document.getElementById('puzzlePreview').src=puzzleImage;
+
+  </script>
+  <!-- เพลงโปรดของเรา 💜 -->
+<div style="
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  z-index: 9999;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6B46C1, #8B5CF6);
+  box-shadow: 0 0 20px #8B5CF688;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+">
+  <button id="music-toggle" aria-label="เปิดเพลง" style="
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+  ">♫</button>
+</div>
+
+<iframe
+  id="love-song"
+  width="1"
+  height="1"
+  src="https://www.youtube.com/embed/iBllY1Z9MsY?autoplay=1&playsinline=1&enablejsapi=1"
+  title="Our song"
+  allow="autoplay; encrypted-media"
+  style="position:fixed; left:-10px; bottom:0; opacity:0.01; pointer-events:none;"
+></iframe>
+
+<script>
+  const musicFrame = document.getElementById("love-song");
+  const musicButton = document.getElementById("music-toggle");
+
+  musicButton.addEventListener("click", function () {
+    musicFrame.contentWindow.postMessage(
+      JSON.stringify({
+        event: "command",
+        func: "playVideo",
+        args: ""
+      }),
+      "https://www.youtube.com"
+    );
+  });
+</script>
+</body>
+</html>
