@@ -1114,7 +1114,148 @@ function openLetter() {
     }, 650);
   }
 }
-   
+
+
+    function walkTogether() {
+      const message = document.getElementById("walkMessage");
+      message.textContent =
+        "จับมือกันไว้ แล้วค่อย ๆ สร้างเรื่องราวของเราต่อไปนะ ♡";
+
+      message.style.color = "#d8b4fe";
+      message.style.marginTop = "22px";
+      message.style.lineHeight = "1.9";
+
+      document.getElementById("letter").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+    function openGift() {
+      const content = document.getElementById("giftContent");
+      const card = document.getElementById("giftCard");
+
+      content.classList.remove("hidden");
+      card.classList.add("hidden");
+
+      setTimeout(() => {
+        content.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }, 150);
+    }
+
+    const loveMessages = [
+      "เค้ารักเธอนะที่รัก เค้ามีความสุขที่มีเธอ 💗",
+      "อยู่กับเค้าไปนาน ๆ นะ ตลอดไปเลย 💜",
+      "ขอตังค์หน่อยค่ะที่ร้ากกก💖"
+    ];
+
+    function showLove(index) {
+      document.getElementById("heartMessage").textContent =
+        loveMessages[index];
+    }
+
+    // เอฟเฟกต์หัวใจลอยเมื่อคลิก
+    document.addEventListener("click", function(event) {
+      if (
+        event.target.closest("button") ||
+        event.target.closest(".memory")
+      ) {
+        const heart = document.createElement("span");
+        heart.textContent = ["♡", "♥", "💜", "✨"][
+          Math.floor(Math.random() * 4)
+        ];
+
+        heart.style.position = "fixed";
+        heart.style.left = event.clientX + "px";
+        heart.style.top = event.clientY + "px";
+        heart.style.pointerEvents = "none";
+        heart.style.zIndex = "9999";
+        heart.style.fontSize = "20px";
+        heart.style.color = "#d8b4fe";
+        heart.style.animation = "floatHeart 1s ease-out forwards";
+
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 1000);
+      }
+    });
+
+    const heartStyle = document.createElement("style");
+    heartStyle.textContent = `
+      @keyframes floatHeart {
+        0% {
+          opacity: 1;
+          transform: translateY(0) scale(0.8);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-65px) scale(1.5);
+        }
+      }
+
+      .shake {
+        animation: shakeCard 0.3s ease-in-out;
+      }
+
+      @keyframes shakeCard {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+      }
+    `;
+    document.head.appendChild(heartStyle);
+  </script>
+  <!-- เพลงโปรดของเรา 💜 -->
+<div style="
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  z-index: 9999;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6B46C1, #8B5CF6);
+  box-shadow: 0 0 20px #8B5CF688;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+">
+  <button id="music-toggle" aria-label="เปิดเพลง" style="
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+  ">♫</button>
+</div>
+
+<iframe
+  id="love-song"
+  width="1"
+  height="1"
+  src="https://www.youtube.com/embed/iBllY1Z9MsY?autoplay=1&playsinline=1&enablejsapi=1"
+  title="Our song"
+  allow="autoplay; encrypted-media"
+  style="position:fixed; left:-10px; bottom:0; opacity:0.01; pointer-events:none;"
+></iframe>
+
+<script>
+  const musicFrame = document.getElementById("love-song");
+  const musicButton = document.getElementById("music-toggle");
+
+  musicButton.addEventListener("click", function () {
+    musicFrame.contentWindow.postMessage(
+      JSON.stringify({
+        event: "command",
+        func: "playVideo",
+        args: ""
+      }),
+      "https://www.youtube.com"
+    );
+  });
+     
 const jarMessages = [
   "ขอบคุณที่เข้ามาเป็นความสุขของเค้านะ 💜",
   "วันนี้เหนื่อยมั้ยอ้วน เก่งมากแล้วนะคนเก่ง ♡",
@@ -1500,146 +1641,6 @@ function drawMessage() {
   messageBox.textContent = jarMessages[index];
   messageBox.hidden = false;
 }
-
-    function walkTogether() {
-      const message = document.getElementById("walkMessage");
-      message.textContent =
-        "จับมือกันไว้ แล้วค่อย ๆ สร้างเรื่องราวของเราต่อไปนะ ♡";
-
-      message.style.color = "#d8b4fe";
-      message.style.marginTop = "22px";
-      message.style.lineHeight = "1.9";
-
-      document.getElementById("letter").scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }
-
-    function openGift() {
-      const content = document.getElementById("giftContent");
-      const card = document.getElementById("giftCard");
-
-      content.classList.remove("hidden");
-      card.classList.add("hidden");
-
-      setTimeout(() => {
-        content.scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-      }, 150);
-    }
-
-    const loveMessages = [
-      "เค้ารักเธอนะที่รัก เค้ามีความสุขที่มีเธอ 💗",
-      "อยู่กับเค้าไปนาน ๆ นะ ตลอดไปเลย 💜",
-      "ขอตังค์หน่อยค่ะที่ร้ากกก💖"
-    ];
-
-    function showLove(index) {
-      document.getElementById("heartMessage").textContent =
-        loveMessages[index];
-    }
-
-    // เอฟเฟกต์หัวใจลอยเมื่อคลิก
-    document.addEventListener("click", function(event) {
-      if (
-        event.target.closest("button") ||
-        event.target.closest(".memory")
-      ) {
-        const heart = document.createElement("span");
-        heart.textContent = ["♡", "♥", "💜", "✨"][
-          Math.floor(Math.random() * 4)
-        ];
-
-        heart.style.position = "fixed";
-        heart.style.left = event.clientX + "px";
-        heart.style.top = event.clientY + "px";
-        heart.style.pointerEvents = "none";
-        heart.style.zIndex = "9999";
-        heart.style.fontSize = "20px";
-        heart.style.color = "#d8b4fe";
-        heart.style.animation = "floatHeart 1s ease-out forwards";
-
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 1000);
-      }
-    });
-
-    const heartStyle = document.createElement("style");
-    heartStyle.textContent = `
-      @keyframes floatHeart {
-        0% {
-          opacity: 1;
-          transform: translateY(0) scale(0.8);
-        }
-        100% {
-          opacity: 0;
-          transform: translateY(-65px) scale(1.5);
-        }
-      }
-
-      .shake {
-        animation: shakeCard 0.3s ease-in-out;
-      }
-
-      @keyframes shakeCard {
-        0%, 100% { transform: translateX(0); }
-        25% { transform: translateX(-5px); }
-        75% { transform: translateX(5px); }
-      }
-    `;
-    document.head.appendChild(heartStyle);
-  </script>
-  <!-- เพลงโปรดของเรา 💜 -->
-<div style="
-  position: fixed;
-  bottom: 18px;
-  right: 18px;
-  z-index: 9999;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #6B46C1, #8B5CF6);
-  box-shadow: 0 0 20px #8B5CF688;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-">
-  <button id="music-toggle" aria-label="เปิดเพลง" style="
-    border: none;
-    background: transparent;
-    color: white;
-    font-size: 25px;
-    cursor: pointer;
-  ">♫</button>
-</div>
-
-<iframe
-  id="love-song"
-  width="1"
-  height="1"
-  src="https://www.youtube.com/embed/iBllY1Z9MsY?autoplay=1&playsinline=1&enablejsapi=1"
-  title="Our song"
-  allow="autoplay; encrypted-media"
-  style="position:fixed; left:-10px; bottom:0; opacity:0.01; pointer-events:none;"
-></iframe>
-
-<script>
-  const musicFrame = document.getElementById("love-song");
-  const musicButton = document.getElementById("music-toggle");
-
-  musicButton.addEventListener("click", function () {
-    musicFrame.contentWindow.postMessage(
-      JSON.stringify({
-        event: "command",
-        func: "playVideo",
-        args: ""
-      }),
-      "https://www.youtube.com"
-    );
-  });
 </script>
 </body>
 </html>
