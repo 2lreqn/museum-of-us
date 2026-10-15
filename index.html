@@ -144,6 +144,8 @@
     }
 
     #museum { display: none; }
+    #lockScreen { display: none; }
+    #letterScreen { display:flex; }
 
     /* แถบด้านบน */
     .topbar {
@@ -458,11 +460,68 @@
   background: #08060C;
   border-radius: 12px;
 }
+
+    /* Envelope and extra interactive rooms */
+    .envelope-screen { min-height:100vh; display:flex; align-items:center; justify-content:center; text-align:center; }
+    .envelope-wrap { max-width:520px; width:100%; padding:30px 18px; }
+    .envelope-glow { font-size:42px; color:var(--purple); margin-bottom:18px; animation:pulse 2s infinite; }
+    .envelope-title { font-size:clamp(38px,8vw,65px); line-height:1.15; margin:18px 0; }
+    .envelope-title span { color:var(--purple); font-style:italic; }
+    .envelope-art { position:relative; width:180px; height:125px; margin:32px auto 28px; background:linear-gradient(145deg,#8b5cf6,#4c1d95); border-radius:8px; box-shadow:0 15px 40px #6d28d955; overflow:hidden; }
+    .envelope-letter { position:absolute; left:25px; right:25px; top:12px; height:90px; display:grid; place-items:center; background:#f2e9ff; color:#7c3aed; font-size:30px; border-radius:5px; }
+    .envelope-flap { position:absolute; inset:0; background:linear-gradient(135deg,#c4b5fd,#7c3aed); clip-path:polygon(0 0,100% 0,50% 65%); }
+    .extra-section { padding-top:50px; }
+    .feature-card { max-width:650px; margin:auto; padding:28px 22px; text-align:center; background:linear-gradient(145deg,#1b1427,#100c18); border:1px solid #493260; border-radius:22px; box-shadow:0 15px 50px #0002; }
+    .feature-message { color:#e9d5ff; line-height:2; min-height:28px; margin:16px 0; white-space:pre-line; }
+    .jar-emoji { font-size:58px; margin:4px 0 12px; }
+    .quiz-question { font-size:19px; margin-bottom:18px; }
+    .quiz-options { display:grid; gap:10px; max-width:390px; margin:auto; }
+    .quiz-options button { padding:13px 15px; color:#f7f3ff; background:#21182e; border:1px solid #62447f; border-radius:14px; }
+    .quiz-options button:hover { background:#392451; }
+    .coupon-grid,.door-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+    .coupon { min-height:150px; padding:18px 10px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; color:#4c355c; border:1px dashed #c5a0df; border-radius:16px; background:linear-gradient(135deg,#fff1fa,#eadbff); transition:transform .35s; }
+    .coupon span,.coupon small { font-size:10px; letter-spacing:1px; }.coupon strong { font-size:18px; font-weight:500; }.coupon.flipped { transform:rotateY(180deg); background:linear-gradient(135deg,#d9c0ff,#f5dcff); }
+    .time-number { font-family:'Playfair Display',serif; font-size:clamp(56px,12vw,90px); color:#d8b4fe; line-height:1.2; }
+    .time-caption { letter-spacing:4px; color:#c4a1ff; font-size:11px; margin:10px 0 16px; }
+    .time-card p { color:var(--muted); font-size:13px; }
+    .puzzle-board { width:min(90vw,330px); aspect-ratio:1; margin:10px auto 18px; display:grid; grid-template-columns:repeat(3,1fr); gap:4px; padding:4px; background:#4b3268; border-radius:12px; }
+    .puzzle-tile { border:0; border-radius:6px; min-width:0; min-height:0; background-size:300% 300%; background-repeat:no-repeat; cursor:pointer; }
+    .puzzle-tile.empty { background:#0b0811!important; border:1px dashed #8b5cf6; }
+    .door { min-height:150px; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:10px; color:#f7f3ff; border:1px solid #62447f; border-radius:18px; background:linear-gradient(180deg,#291b3a,#130d1d); }
+    .door span { font-size:42px; }.door small { color:#c4a1ff; }
+    .song-art { width:90px; height:90px; margin:0 auto 18px; border-radius:50%; display:grid; place-items:center; font-size:42px; color:#e9d5ff; background:radial-gradient(circle,#a78bfa,#4c1d95); box-shadow:0 0 35px #8b5cf655; }
+    .song-card h3 { font-size:24px; margin-bottom:10px; }.song-card>p:not(.feature-message) { color:var(--muted); line-height:1.9; font-size:13px; margin-bottom:20px; }
+    .hidden-heart-row { display:flex; justify-content:center; gap:22px; }
+    .hidden-heart { width:62px; height:62px; border:1px solid #8b5cf6; border-radius:50%; color:#d8b4fe; background:#21182e; font-size:34px; transition:.2s; }
+    .hidden-heart.found { color:white; background:#7c3aed; box-shadow:0 0 22px #8b5cf6; transform:scale(1.1); }
+    .hidden-heart-row button:nth-child(2) { transform:translateY(18px); }.hidden-heart-row button:nth-child(2).found { transform:translateY(18px) scale(1.1); }
+    .question-mark { color:#c4a1ff; font:60px 'Playfair Display',serif; }
+    .final-card>p { color:var(--muted); line-height:1.9; margin-bottom:20px; }.final-reveal { margin-top:25px; padding:24px 12px; border-top:1px solid #493260; }.final-reveal h3 { font-size:27px; color:#d8b4fe; margin-bottom:15px; }.final-reveal p { line-height:2; font-size:14px; color:#e3d8f0; white-space:pre-line; }.final-video { width:100%; max-width:500px; margin-top:20px; border-radius:14px; background:#08060c; }
+    .dog-helper { position:fixed; left:12px; bottom:16px; z-index:9998; display:flex; align-items:center; gap:7px; padding:7px 11px 7px 7px; border:1px solid #8b5cf6; border-radius:30px; background:#171020ed; box-shadow:0 5px 24px #0005; cursor:pointer; animation:dogBob 3s ease-in-out infinite; }
+    .dog-emoji { font-size:30px; filter:drop-shadow(0 2px 4px #0005); }.dog-label { color:#e9d5ff; font-size:11px; }
+    @keyframes dogBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+    .easter-egg { position:fixed; right:22px; top:28%; z-index:9998; font-size:35px; border:1px solid #c4a1ff; border-radius:50%; width:60px; height:60px; background:#21182e; animation:pulse 1s infinite; }
+    .toast-message { position:fixed; left:50%; bottom:90px; transform:translateX(-50%); z-index:10000; width:max-content; max-width:90vw; padding:12px 18px; color:#f7f3ff; text-align:center; background:#2b1b3d; border:1px solid #8b5cf6; border-radius:16px; box-shadow:0 10px 35px #0006; opacity:0; pointer-events:none; transition:opacity .25s; }
+    .toast-message.show { opacity:1; }
+    .quest-glow { outline:2px solid #c4a1ff; box-shadow:0 0 25px #8b5cf6!important; }
+    @media(max-width:520px){.coupon-grid,.door-grid{gap:8px}.coupon{min-height:135px;padding:12px 5px}.coupon strong{font-size:14px}.coupon span,.coupon small{font-size:9px}.door{min-height:125px}.door span{font-size:34px}.dog-label{max-width:85px}.feature-card{padding:23px 15px}}
+
   </style>
 </head>
 <body>
   <div class="glow one"></div>
   <div class="glow two"></div>
+
+  <main id="letterScreen" class="page envelope-screen">
+    <div class="envelope-wrap">
+      <div class="envelope-glow">♡</div>
+      <p class="eyebrow">A LETTER JUST FOR YOU</p>
+      <h1 class="serif envelope-title">Something made<br><span>with love.</span></h1>
+      <p class="subtitle">มีจดหมายเล็ก ๆ รอเธอเปิดอยู่นะ<br>พร้อมเข้าไปในโลกของเราหรือยัง 💜</p>
+      <div class="envelope-art" aria-hidden="true"><div class="envelope-letter">♡</div><div class="envelope-flap"></div></div>
+      <button class="walk-button" onclick="openLetterScreen()">OPEN YOUR LETTER ♡</button>
+    </div>
+  </main>
 
   <main id="lockScreen" class="page">
     <div class="lock-card">
@@ -472,10 +531,8 @@
       <p class="subtitle">พิพิธภัณฑ์เล็ก ๆ ที่เก็บเรื่องราวของเราไว้<br>ใส่รหัสเพื่อเข้ามาดูความทรงจำของเรานะ</p>
 
       <div class="dots" id="dots">
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
       </div>
 
       <div class="keypad">
@@ -795,27 +852,88 @@
       </div>
     </section>
 
+
+    <!-- EXTRA INTERACTIVE ROOMS -->
+    <section class="section extra-section" id="memoryJar">
+      <div class="section-heading"><div class="eyebrow">Chapter 04</div><h2 class="serif">A Jar Full of Love</h2><p>หยิบข้อความหนึ่งใบ เผื่อวันนี้เธอต้องการกำลังใจ ♡</p></div>
+      <div class="feature-card jar-card"><div class="jar-emoji">🫙</div><p id="jarMessage" class="feature-message">มีข้อความน่ารัก ๆ อยู่ในโหลนี้นะ</p><button class="walk-button" onclick="drawMessage()">หยิบข้อความหนึ่งใบ ♡</button></div>
+    </section>
+
+    <section class="section extra-section" id="coupleQuiz">
+      <div class="section-heading"><div class="eyebrow">Chapter 05</div><h2 class="serif">How Well Do You Know Us?</h2><p>เกมทายใจแฟน ตอบตามใจเธอได้เลย</p></div>
+      <div class="feature-card"><p class="quiz-question" id="quizQuestion">ถ้าเลือกได้ เราอยากไปเที่ยวไหนกับเธอ?</p><div id="quizOptions" class="quiz-options"><button onclick="answerQuiz(0)">ทะเล 🌊</button><button onclick="answerQuiz(1)">ภูเขา ⛰️</button><button onclick="answerQuiz(2)">เที่ยวไหนก็ได้ ขอแค่ด้วยกัน 💜</button></div><p id="quizResult" class="feature-message" aria-live="polite"></p></div>
+    </section>
+
+    <section class="section extra-section" id="coupons">
+      <div class="section-heading"><div class="eyebrow">Chapter 06</div><h2 class="serif">Coupons for My Favorite Person</h2><p>เลือกคูปองแล้วกดเพื่อพลิกดูข้อความด้านหลัง</p></div>
+      <div class="coupon-grid"><button class="coupon" onclick="flipCoupon(this,'คูปองกอด 1 ครั้ง','ใช้ได้เมื่อเจอกันจริง ๆ นะ มากอดกันแน่น ๆ เลย ♡')"><span>♡ COUPON 01</span><strong>คูปองกอด</strong><small>แตะเพื่อพลิก</small></button><button class="coupon" onclick="flipCoupon(this,'คูปองดูหนังด้วยกัน','เลือกหนังที่เธออยากดูได้เลย เค้าจะเตรียมขนมให้ด้วย 🍿')"><span>♡ COUPON 02</span><strong>คูปองดูหนัง</strong><small>แตะเพื่อพลิก</small></button><button class="coupon" onclick="flipCoupon(this,'คูปองตามใจ 1 วัน','หนึ่งวันของเธอ อยากกินอะไรหรือทำอะไร เรามาคุยแล้วเลือกด้วยกันนะ 💜')"><span>♡ COUPON 03</span><strong>คูปองตามใจ</strong><small>แตะเพื่อพลิก</small></button></div>
+    </section>
+
+    <section class="section extra-section" id="ourTime">
+      <div class="section-heading"><div class="eyebrow">Chapter 07</div><h2 class="serif">Every Day With You</h2><p>ทุกวันที่มีเธอเป็นอีกหนึ่งความทรงจำของเรา</p></div>
+      <div class="feature-card time-card"><div class="time-number" id="relationshipDays">—</div><div class="time-caption">DAYS OF OUR STORY ♡</div><p>ตั้งแต่วันที่ 28 พฤษภาคม 2026 จนถึงวันนี้</p></div>
+    </section>
+
+    <section class="section extra-section" id="puzzleRoom">
+      <div class="section-heading"><div class="eyebrow">Chapter 08</div><h2 class="serif">Put Our Memory Together</h2><p>เกมจิ๊กซอว์แบบเลื่อนชิ้นส่วน แตะชิ้นที่อยู่ติดช่องว่างเพื่อสลับตำแหน่ง</p></div>
+      <div class="feature-card"><div id="puzzleBoard" class="puzzle-board" aria-label="เกมจิ๊กซอว์"></div><p id="puzzleStatus" class="feature-message">ลองเลื่อนชิ้นส่วนให้รูปกลับมาสมบูรณ์นะ ♡</p><button class="gift-button" onclick="shufflePuzzle()">เริ่มใหม่ ↻</button></div>
+    </section>
+
+    <section class="section extra-section" id="mysteryDoors">
+      <div class="section-heading"><div class="eyebrow">Chapter 09</div><h2 class="serif">Three Little Doors</h2><p>เลือกเปิดประตูเพื่อค้นพบสิ่งที่ซ่อนไว้</p></div>
+      <div class="door-grid"><button class="door" onclick="openDoor(0)"><span>🚪</span><strong>ประตูที่ 1</strong><small>ความทรงจำ</small></button><button class="door" onclick="openDoor(1)"><span>🚪</span><strong>ประตูที่ 2</strong><small>ภารกิจหัวใจ</small></button><button class="door" onclick="openDoor(2)"><span>🚪</span><strong>ประตูที่ 3</strong><small>ของขวัญลับ</small></button></div><p id="doorMessage" class="feature-message" aria-live="polite"></p>
+    </section>
+
+    <section class="section extra-section" id="songStories">
+      <div class="section-heading"><div class="eyebrow">Chapter 10</div><h2 class="serif">Our Little Soundtrack</h2><p>เพลงหนึ่งเพลงอาจพาเรากลับไปหาความทรงจำเดิม ๆ ได้</p></div>
+      <div class="feature-card song-card"><div class="song-art">♫</div><h3 class="serif">เพลงของเรา</h3><p>เพลงที่เปิดไว้ในเว็บนี้จะพาให้นึกถึงช่วงเวลาที่เราได้ใช้ด้วยกัน ลองกดปุ่มเพลงมุมจอเพื่อฟังนะ</p><button class="gift-button" onclick="document.getElementById('songNote').classList.toggle('hidden')">อ่านเรื่องของเพลง ♡</button><p id="songNote" class="feature-message hidden">บางเพลงไม่ได้พิเศษเพราะทำนอง แต่พิเศษเพราะทำให้นึกถึงคนที่เรารักเสมอ 💜</p></div>
+    </section>
+
+    <section class="section extra-section" id="secretRoom">
+      <div class="section-heading"><div class="eyebrow">Chapter 11</div><h2 class="serif">Find the Hidden Hearts</h2><p>มีหัวใจเล็ก ๆ ซ่อนอยู่ 3 จุด กดให้ครบเพื่อเปิดห้องลับ</p></div>
+      <div class="hidden-heart-row"><button class="hidden-heart" onclick="findSecretHeart(0)" aria-label="หัวใจลับหนึ่ง">♡</button><button class="hidden-heart" onclick="findSecretHeart(1)" aria-label="หัวใจลับสอง">♡</button><button class="hidden-heart" onclick="findSecretHeart(2)" aria-label="หัวใจลับสาม">♡</button></div><p id="secretProgress" class="feature-message">พบแล้ว 0/3 ดวง</p><div id="secretReveal" class="feature-card hidden"><h3 class="serif">A Secret Just for Film ♡</h3><p>ฟิล์ม ขอบคุณที่เป็นส่วนหนึ่งของเรื่องราวของเค้านะ ไม่ต้องเป็นวันที่พิเศษทุกวันก็ได้ แค่เราใส่ใจกันและค่อย ๆ เติบโตไปด้วยกัน เค้าก็ดีใจมากแล้ว 💜</p></div>
+    </section>
+
+    <section class="section extra-section" id="heartQuest">
+      <div class="section-heading"><div class="eyebrow">Chapter 12</div><h2 class="serif">Heart Hunt</h2><p>ภารกิจตามหาหัวใจ: เริ่มจากกลับไปดูรูปแรกของเรา</p></div>
+      <div class="feature-card"><p id="questClue" class="feature-message">คำใบ้ 1: ลองกลับไปดูรูปแรกของเราสิ แล้วแตะรูปนั้น 💜</p><button class="gift-button" onclick="document.querySelector('#memories .memory')?.scrollIntoView({behavior:'smooth',block:'center'}); setTimeout(()=>document.querySelector('#memories .memory')?.classList.add('quest-glow'),500);">ไปหารูปแรก ↗</button><p id="questReward" class="feature-message"></p></div>
+    </section>
+
+    <section class="section extra-section" id="coupleQuestions">
+      <div class="section-heading"><div class="eyebrow">Chapter 13</div><h2 class="serif">Questions for Two</h2><p>สุ่มคำถามไว้คุยกันทางโทรศัพท์หรือวันที่ได้เจอกัน</p></div>
+      <div class="feature-card"><div class="question-mark">“ ”</div><p id="coupleQuestion" class="feature-message">กดสุ่มคำถามเพื่อเริ่มคุยกันนะ</p><button class="walk-button" onclick="nextCoupleQuestion()">สุ่มคำถาม ♡</button></div>
+    </section>
+
+    <section class="section extra-section" id="finalChapter">
+      <div class="section-heading"><div class="eyebrow">The Final Chapter</div><h2 class="serif">One Last Little Secret</h2><p>เมื่อสำรวจแต่ละห้องแล้ว ลองเปิดบทสุดท้ายดูนะ</p></div>
+      <div class="feature-card final-card"><p>สำรวจเว็บให้ครบ แล้วเปิดข้อความสุดท้ายที่เค้าตั้งใจทำให้เธอ</p><button class="walk-button" onclick="openFinalChapter()">เปิดบทสุดท้าย ♡</button><div id="finalReveal" class="final-reveal hidden"><h3 class="serif">To Film, with all my heart</h3><p>ถ้าเธอมาถึงตรงนี้ แปลว่าเธอค่อย ๆ เดินดูโลกเล็ก ๆ ที่เค้าตั้งใจทำให้จนถึงท้ายเรื่องแล้ว ขอบคุณที่เข้ามาอยู่ในชีวิตของเค้านะ เค้าอยากให้เรามีเรื่องราวดี ๆ ให้ย้อนกลับมาดูด้วยกันอีกเยอะเลย รักนะไออ้วน ♡</p><video class="final-video" controls playsinline preload="metadata"><source src="ม่อน.mp4" type="video/mp4"></video></div></div>
+    </section>
+
+    <div class="dog-helper" id="dogHelper" role="button" tabindex="0" onclick="dogTalk()" aria-label="กดน้องหมาเพื่ออ่านข้อความ"><span class="dog-emoji">🐕</span><span class="dog-label">กดหนูสิ ♡</span></div>
+    <button id="easterEgg" class="easter-egg hidden" onclick="catchEasterEgg()" aria-label="ตัวละครลับ">🐾</button>
+    <div id="toastMessage" class="toast-message" aria-live="polite"></div>
+
     <footer>MADE WITH LOVE, JUST FOR YOU ♡<br>Museum of Us · 28 May 2026</footer>
   </main>
   <script>
     // เปลี่ยนรหัสผ่านตรงนี้ได้
-    const CORRECT_PIN = "2805";
+    const CORRECT_PIN = "28052026";
     let enteredPin = "";
 
     function updateDots() {
       const dots = document.querySelectorAll("#dots .dot");
       dots.forEach((dot, index) => {
-        dot.classList.toggle("active", index < enteredPin.length);
+        dot.classList.toggle("filled", index < enteredPin.length);
       });
     }
 
     function pressKey(number) {
-      if (enteredPin.length >= 4) return;
+      if (enteredPin.length >= 8) return;
 
       enteredPin += number;
       updateDots();
 
-      if (enteredPin.length === 4) {
+      if (enteredPin.length === 8) {
         setTimeout(checkPin, 180);
       }
     }
@@ -828,7 +946,7 @@
     }
 
    function checkPin() {
-  if (enteredPin.length !== 4) return;
+  if (enteredPin.length !== 8) return;
 
   if (enteredPin === CORRECT_PIN) {
     document.getElementById("lockScreen").classList.add("hidden");
@@ -949,6 +1067,401 @@
       }
     `;
     document.head.appendChild(heartStyle);
+
+    const jarMessages = [
+     "ขอบคุณที่เข้ามาเป็นความสุขของเค้านะ 💜",
+  "วันนี้เหนื่อยมั้ยอ้วน เก่งมากแล้วนะคนเก่ง ♡",
+  "อย่าลืมกินข้าวด้วยนะ เค้าเป็นห่วง",
+  "ถ้าวันนี้อ้วนไม่ไหว พักก่อนได้นะ",
+  "ดีใจที่โลกทำให้เราได้เจอกัน ✨",
+  "ขอให้วันนี้มีเรื่องดี ๆ เกิดขึ้นกับเธอนะอ้วน",
+  "เธอไม่จำเป็นต้องเก่งตลอดเวลาก็ได้",
+  "คิดถึงนะ ถึงจะเพิ่งคุยกันไปก็เถอะ",
+  "ขอกอดผ่านข้อความนี้หนึ่งที 🫂",
+  "วันนี้เธอเป็นคนโปรดของเค้าเหมือนเดิม",
+  "ขอบคุณที่ยังอยู่ข้าง ๆ กันนะ",
+  "รอยยิ้มของเธอเป็นเรื่องโปรดของเค้า",
+  "อยากให้เธอใจดีกับตัวเองเยอะ ๆ",
+  "เธอมีค่ามากกว่าที่เธอคิดนะ",
+  "ไม่ว่าจะวันไหน เค้าก็อยากฟังเรื่องของเธอ",
+  "ถ้าวันนี้โลกใจร้าย ขอให้ข้อความนี้ใจดีกับเธอนะ",
+  "อยากเป็นหนึ่งในเหตุผลที่ทำให้เธอยิ้มได้",
+  "แค่ได้คุยกับเธอ วันธรรมดาก็ดีขึ้นแล้ว",
+  "เธอเก่งมากที่ผ่านเรื่องต่าง ๆ มาได้",
+  "อย่าลืมพักสายตาจากหน้าจอบ้างนะ 👀",
+  "มีคนหนึ่งคนกำลังเอ็นดูเธออยู่ตรงนี้นะ",
+  "เค้าอาจไม่ได้อยู่ข้าง ๆ ทุกนาที แต่เค้าเป็นห่วงเสมอนะ",
+  "วันนี้อย่าลืมดื่มน้ำเยอะ ๆ นะ",
+  "ขอให้เธอหลับฝันดีในทุกคืนเลย",
+  "ขอบคุณสำหรับเรื่องเล็ก ๆ ที่เธอทำให้เค้านะ",
+  "เธอเป็นความบังเอิญที่เค้าอยากเก็บไว้ให้ได้นานที่สุด",
+  "เค้ารักเธอในแบบที่เธอเป็นนะ ไม่ต้องเปลี่ยนอะไรเพื่อเค้า",
+  "ถ้ามีเรื่องอยากเล่า เค้าพร้อมฟังเสมอ",
+  "วันนี้ยิ้มให้ตัวเองสักครั้งนะ ",
+  "เธอทำให้คำว่าคิดถึงมีความหมายขึ้นมา",
+  "ไม่ต้องรีบโตไปทุกเรื่องก็ได้นะ",
+  "เค้าภูมิใจในตัวเธอนะ",
+  "อย่ากดดันตัวเองมากเกินไปนะอ้วน",
+  "หวังว่าวันนี้เธอจะได้กินของอร่อย",
+  "เธอคือหนึ่งในเรื่องดี ๆ ของเค้า",
+  "ถึงไม่ได้พูดบ่อย แต่เค้าใส่ใจเธอมากนะ",
+  "ถ้าวันนี้มีความสุข อย่าลืมเล่าให้เค้าฟังนะ",
+  "ถ้าวันนี้เศร้า ก็เล่าให้เค้าฟังได้นะ",
+  "ขอให้เธอได้เจอคนใจดี รวมถึงตัวเองด้วย",
+  "เธอไม่ต้องสมบูรณ์แบบ เค้าก็ยังชอบเธอ",
+  "คิดถึงเสียงของเธอจังเลย",
+  "อยากรู้ว่าวันนี้มีอะไรทำให้เธอหัวเราะบ้าง",
+  "ขอบคุณที่ให้เค้าเป็นส่วนหนึ่งในชีวิตเธอ",
+  "ส่งกำลังใจเล็ก ๆ ไปให้คนเก่งของเค้า 💌",
+  "วันนี้เธอไม่ต้องทำทุกอย่างให้สำเร็จก็ได้",
+  "ขอให้ความเหนื่อยของเธอมีวันสิ้นสุด",
+  "อย่าลืมให้รางวัลตัวเองบ้างนะ",
+  "เค้าอยากเห็นเธอมีความสุขในแบบของเธอ",
+  "ถึงวันนี้จะไม่ดี พรุ่งนี้ก็เริ่มใหม่ได้",
+  "เธอไม่ใช่ภาระของความรู้สึกใครนะอ้วน",
+  "อยากนั่งคุยกับเธอไปเรื่อย ๆ เลย",
+  "เธอทำให้เค้าอยากเก็บเรื่องเล็ก ๆ มาเล่าให้ฟัง",
+  "ขอให้เพลงที่เธอฟังวันนี้ตรงกับใจนะ 🎧",
+  "ถ้าเจอเรื่องดี ๆ ขอให้เธอได้เจอมันอีก",
+  "เค้าเลือกจะเรียนรู้กันไปทีละวันนะอ้วน",
+  "ขอให้ความรักของเราเป็นพื้นที่ปลอดภัย",
+  "ไม่ต้องตอบข้อความทันทีเสมอไป ดูแลตัวเองก่อนนะ",
+  "ขอให้วันนี้ใจของเธอเบาสบายขึ้น",
+  "อย่าลืมว่าเธอยังมีคนคอยเป็นกำลังใจให้นะ",
+  "เค้าชอบเวลาที่เธอเล่าเรื่องที่เธอสนใจ",
+  "ขอให้เธอได้พักอย่างเต็มที่ในวันนี้",
+  "ถ้าเหนื่อยก็หยุดพัก ไม่ได้แปลว่าแพ้นะ",
+  "ขอให้ความฝันของเธอค่อย ๆ เป็นจริง",
+  "เธอคู่ควรกับความรักที่ดีนะ",
+  "วันนี้ขอให้เจอแต่เรื่องที่ทำให้ยิ้มได้",
+  "ขอบคุณที่เป็นเธอคนเดิมในแบบของเธอ",
+  "เค้ายังอยากเรียนรู้เรื่องใหม่ ๆ เกี่ยวกับเธอ",
+  "มีเรื่องน่ารักอยากบอก แต่เขินจังเลย คือ เค้ารักเธออยากอยู่ด้วยตลอดไป",
+  "วันนี้ขอส่งหัวใจสีม่วงให้หนึ่งดวง 💜",
+  "อยากให้เธอรู้ว่าความพยายามของเธอมีความหมาย",
+  "ถึงเราจะคิดไม่เหมือนกัน เค้าก็ยังอยากคุยกันดี ๆ นะ",
+  "ถ้าเข้าใจผิดกัน ขอให้เรากล้าถามกันตรง ๆ",
+  "ความสัมพันธ์ไม่ต้องสมบูรณ์แบบ แค่ใส่ใจกันก็พอ",
+  "เค้าอยากให้เราหัวเราะด้วยกันได้อีกเยอะ ๆ",
+  "ขอให้วันนี้เธอใจเย็นกับตัวเองหน่อยนะ",
+  "บางวันแค่ผ่านไปได้ก็เก่งแล้ว",
+  "ขอบคุณที่แบ่งเวลามาให้กันนะ",
+  "เธอทำให้เค้ามีเรื่องให้ยิ้มตอนนึกถึง",
+  "ขอให้วันนี้มีของอร่อยรอเธออยู่ 🍰",
+  "อยากให้เธอภูมิใจในตัวเองมากขึ้นอีกนิด",
+  "เธอมีสิทธิ์เปลี่ยนใจและเติบโตได้เสมอ",
+  "ถ้ามีวันที่ไม่เข้าใจกัน เราค่อย ๆ คุยกันนะ",
+  "อย่าลืมฟังความรู้สึกของตัวเองด้วย",
+  "ขอให้เธอมีแรงใจสำหรับสิ่งที่ตั้งใจทำ",
+  "เค้าอยากเป็นกำลังใจ ไม่ใช่แรงกดดันของเธอ",
+  "วันนี้ลองทำอะไรที่เธอชอบสักอย่างนะ",
+  "ขอให้คืนวันนี้สงบและหลับสบาย",
+  "ขอบคุณที่ทำให้เรื่องธรรมดากลายเป็นความทรงจำ",
+  "เธอเป็นคนที่เค้าอยากถามว่า วันนี้เป็นยังไงบ้าง",
+  "อยากให้เธอได้หัวเราะจนปวดแก้มเลย",
+  "ถ้าวันนี้มีเรื่องดีหนึ่งเรื่อง ขอให้เป็นเรื่องของเธอ",
+  "เค้าชอบความทรงจำเล็ก ๆ ที่เราสร้างด้วยกัน",
+  "เธอไม่ต้องเก็บทุกความรู้สึกไว้คนเดียวนะ",
+  "ขอให้เธอเจอความใจดีในวันที่เธอต้องการมัน",
+  "เค้าอยากให้เราพูดขอบคุณกันบ่อย ๆ เลย",
+  "ทุกวันมีอะไรให้เรียนรู้ และเราเรียนรู้ไปด้วยกันนะอ้วน",
+  "ขอให้วันนี้เป็นวันที่เธอภูมิใจในตัวเอง",
+  "ถ้าอ่านข้อความนี้อยู่ ขอให้ยิ้มให้เค้าหน่อยนะ ♡",
+  "ไม่ว่าจะวันไหน เค้าก็ขอให้เธอมีความสุข",
+  "ขอบคุณที่เป็นส่วนหนึ่งของ Museum of Us นะอ้วน",
+  "นี่คือข้อความเตือนว่า มีคนคิดถึงเธออยู่ 💜",
+  "แวะมาบอกว่าแฟนใครน่ารักจังเลย 💜",
+  "รู้ไหมว่ามีคนชอบเธอมาก ๆ อยู่ตรงนี้ ิิ",
+  "วันนี้ขอจองรอยยิ้มของอ้วนได้ม่ะ",
+  "อยากเป็นคนที่เธอนึกถึงเวลาเจอเรื่องสนุก ๆ",
+  "ถ้าเธอเป็นเพลง เค้าคงเปิดฟังซ้ำทุ๊กวัน 🎧",
+  "ขออยู่ในความทรงจำดี ๆ ของเธอไปนาน ๆ นะ",
+  "มีเธอให้คิดถึงก็เป็นเรื่องดีเหมือนกันนะ",
+  "ขอให้วันนี้ไม่มีอะไรทำให้เธอเสียใจนาน ๆ",
+  "ถ้าโลกวุ่นวาย มาหามุมสงบของตัวเองกันนะ",
+  "เธอคือคนที่เค้าอยากเล่าเรื่องไร้สาระให้ฟัง",
+  "อยากฟังเธอพูด เรื่องเดิมซ้ำ ๆ ทุกวันก็ยังได้",
+  "ถึงจะงอแงบ้าง แต่ก็อยากดูแลความรู้สึกกันนะ",
+  "วันนี้มีสิทธิ์อ้อนเค้าได้เต็มที่เยย",
+  "ขอส่งความคิดถึงไปกอดเธอหนึ่งที",
+  "แค่เธอทักมา เค้าก็มีเรื่องให้ยิ้มแล้ว",
+  "เธอเป็นความน่ารักที่ไม่ต้องพยายามเลย",
+  "ขอให้เราเป็นความสบายใจให้กันนะ",
+  "วันนี้อย่าลืมกินของที่ชอบด้วยล่ะไออ้วน",
+  "ถ้ามีวันว่าง เค้าอยากใช้เวลาทำอะไรสนุก ๆ ด้วยกัน",
+  "อยากสร้างความทรงจำกับเธอเพิ่มอีกเยอะ ๆ",
+  "ขอบคุณที่ทำให้เค้าได้รู้จักมุมใหม่ ๆ ของความรัก",
+  "เธอไม่ต้องเดาใจเค้าทุกอย่าง ถามกันได้เสมอนะถึงจะตอบยากแต่ตอบนะ ิิ",
+  "ถ้าเราทำอะไรให้ไม่สบายใจ บอกกันตรง ๆ ได้เลย",
+  "เค้าอยากให้เราคุยกันดี ๆ ในทุกวัน",
+  "ไม่ต้องชนะกันทุกเรื่องก็ได้ เราอยู่ทีมเดียวกันนะ",
+  "ความรักคือการตั้งใจฟังกันด้วยนะ ♡",
+  "ขอให้เราไม่ลืมใส่ใจเรื่องเล็ก ๆ ของกันและกัน",
+  "อยากให้เธอกล้าบอกความรู้สึกกับเค้านะ",
+  "เราอาจพลาดได้ แต่เราก็เรียนรู้และปรับตัวกันนะ",
+  "ขอให้เราเติบโตโดยไม่หยุดเป็นตัวเอง",
+  "อยากเห็นเธอทำสิ่งที่รักได้อย่างมีความสุข",
+  "เธอมีโลกของตัวเองที่น่าสนใจมากเลยนะ",
+  "ขอให้เธอมีเวลาสำหรับเพื่อนและสิ่งที่ชอบด้วย",
+  "ความรักที่ดีควรทำให้เรายิ้มได้และเป็นตัวเองได้นะอ้วน",
+  "ขอให้เราภูมิใจในความพยายามของกันและกัน",
+  "วันนี้ขอให้ทุกอย่างง่ายกว่าที่คิดนะ",
+  "ขอให้การบ้านและงานต่าง ๆ ผ่านไปได้ด้วยดี 📚",
+  "ตั้งใจทำสิ่งที่อยากทำเลย เค้าเป็นกำลังใจให้นะ",
+  "ไม่ต้องเก่งกว่าใคร แค่ได้เรียนรู้ก็มีความหมายแล้ว",
+  "ขอให้เธอเจอคำตอบในเรื่องที่กำลังสงสัย",
+  "ถ้าทำพลาดก็ไม่เป็นไร ทุกคนเริ่มต้นใหม่ได้",
+  "ขอให้เธอมีความมั่นใจในสิ่งที่ตัวเองทำ",
+  "อย่าลืมฉลองให้ความสำเร็จเล็ก ๆ ของตัวเองนะ",
+  "เค้าดีใจทุกครั้งที่เห็นเธอตั้งใจทำอะไร",
+  "วันนี้ขอให้โชคดีเป็นพิเศษเลยนะอ้วนน 🍀",
+  "ขอให้เรื่องยากค่อย ๆ กลายเป็นเรื่องที่เข้าใจได้",
+  "เธอไม่จำเป็นต้องรีบไปถึงเป้าหมายของใคร",
+  "เดินในจังหวะของตัวเองได้เลยนะ",
+  "ขอให้เธอเจอผู้คนที่สนับสนุนความฝันของเธอ",
+  "อย่าลืมว่าความพยายามของเธอก็มีคุณค่า",
+  "ถ้าต้องตัดสินใจอะไร ขอให้ได้เลือกสิ่งที่เหมาะกับตัวเองนะ",
+  "วันนี้ขอให้หัวใจเธอเต็มไปด้วยความหวัง",
+  "เค้าขอเป็นเสียงเล็ก ๆ ที่บอกว่าเธอทำได้",
+  "ไม่เป็นไรเลยถ้าบางวันจะช้ากว่าที่ตั้งใจ",
+  "พักบ้างนะอ้วน ไม่ได้ต้องคิดมากตลอดเวลา",
+  "ขอให้มีเวลาว่างไปทำสิ่งที่ชอบเยอะ ๆ",
+  "ขอให้วันนี้เป็นวันธรรมดาที่อบอุ่น",
+  "ถ้าได้เลือกหนึ่งอย่าง เค้าอยากให้เธอยิ้มเยอะ ๆ",
+  "ขอให้เธอมีเหตุผลให้หัวเราะในวันนี้",
+  "ยิ้มให้ตัวเองหน่อยนะ เธอสมควรได้รับมัน",
+  "อยากให้เธอจำความรู้สึกดี ๆ ในวันนี้ไว้นะ",
+  "บางทีความสุขก็ซ่อนอยู่ในเรื่องเล็กนิดเดียว",
+  "ขอให้เธอได้พักจากความคิดที่ทำให้เหนื่อย",
+  "อย่าลืมเปิดหน้าต่างรับลมและพักใจบ้างนะ",
+  "วันนี้ลองฟังเพลงโปรดแล้วพักสักหน่อยม้าย",
+  "ขอให้คืนนี้ไม่มีเรื่องให้กังวลมากเกินไป",
+  "ขอให้หมอนนุ่ม ผ้าห่มอุ่น และฝันดีนะที่รัก",
+  "ก่อนนอนอย่าลืมชมตัวเองสักหนึ่งเรื่องง",
+  "ขอให้พรุ่งนี้เป็นวันที่ใจดีกับเธอ",
+  "ฝันดีล่วงหน้าเลยนะ ไอเด้กอ้วนน 🌙",
+  "เค้าจะส่งดาวหนึ่งดวงไปเฝ้าฝันให้เธอ ✨",
+  "ขอให้เธอตื่นมาพร้อมพลังดี ๆ ในวันใหม่นะคะ",
+  "คืนนี้พักผ่อนให้เต็มที่นะ ไม่ต้องฝืนน",
+  "ถ้าอ่านข้อความนี้ก่อนนอน ขอให้หลับสบายค่ะทีรัก",
+  "ขอให้เธอฝันถึงเรื่องที่ทำให้ยิ้มได้",
+  "พรุ่งนี้ค่อยเริ่มใหม่ วันนี้ทำดีที่สุดแล้วนะอ้วน",
+  "อยากให้เธอรู้ว่าการพักก็เป็นส่วนหนึ่งของการเติบโต",
+  "ขอให้ความกังวลเบาลงทีละนิดนะ",
+  "วันนี้เก่งมากแล้วจริง ๆ นะ",
+  "อย่าเอาวันที่แย่มาตัดสินตัวเองทั้งชีวิตนะอ้วน",
+  "ทุกความรู้สึกมีสิทธิ์ได้รับการรับฟัง และเค้าจะรับฟังเธอเอง",
+  "ถ้าใจยุ่งเหยิง ลองค่อย ๆ หายใจแล้วพักก่อนนะ",
+  "ขอให้เธอเจอคำพูดที่ช่วยปลอบใจในวันที่เหนื่อย โดยเค้า ิิ",
+  "เธอไม่จำเป็นต้องมีคำตอบให้ทุกอย่างในวันนี้ก็ได้นะอ้วน",
+  "ค่อย ๆ แก้ทีละเรื่องก็ได้นะ",
+  "ขอให้เธอใจดีกับตัวเองเหมือนที่ใจดีกับคนอื่น",
+  "ไม่ต้องเก็บความเศร้าไว้เพื่อทำให้ใครสบายใจนะ",
+  "เค้าอยากให้เธอมีคนที่ไว้ใจและพูดคุยด้วยได้เยอะ ๆ",
+  "ขอให้ความสุขเล็ก ๆ อยู่กับเธอนาน ๆ",
+  "ถ้าวันนี้มีเรื่องดี ขอให้เธอได้เล่ามันอีกครั้งนะ",
+  "เค้าชอบฟังเรื่องที่ทำให้เธอตื่นเต้น",
+  "เค้าอยากเห็นเธอได้ลองสิ่งใหม่ที่ตัวเองสนใจ",
+  "ขอให้เธอมีความกล้าที่จะเป็นตัวเองนะ",
+  "ความแตกต่างของเราเป็นโอกาสให้เรียนรู้กันนะ",
+  "ไม่ต้องเหมือนกันทุกอย่างก็รักและเข้าใจกันได้นะอ้วน",
+  "ขอให้เราเคารพพื้นที่ส่วนตัวของกันและกัน",
+  "อยากให้ความไว้ใจของเราเติบโตไปทีละวัน",
+  "เรามาคุยกันด้วยความเข้าใจแม้เวลาจะผ่านไปนานแค่ไหนนะ",
+  "อยากมีเรื่องราวดี ๆ ให้ย้อนกลับมาอ่านด้วยกันอีก",
+  "เค้าขอให้เธอไม่เปียกฝนในวันที่ฝนตก",
+  "ครบอีกหนึ่งวันแล้วนะ ขอบคุณที่เธอยังอยู่ข้าง ๆ เค้า",
+  "วันนี้ก็ยังขอให้เธอมีความสุขมาก ๆ เหมือนเดิม ♡",
+  "อ้วนนน มาให้เค้ากอดหน่อยเร็วว",
+  "วันนี้เค้าอยากอ้อนแฟนเป็นพิเศษเลย",
+  "ขอความสนใจจากอ้วนสักนิดได้มั้ยย",
+  "คิดถึงอ้วนอีกแล้ว ทำไงดีเนี่ยยย",
+  "ขอคุยด้วยอีกนิดได้ม้าย เค้ายังไม่หายคิดถึงเลย",
+  "อ้วนบอกรักเค้าหน่อยได้ป่าวว",
+  "วันนี้ขอเป็นเด็กน้อยของอ้วนนะ ิิ",
+  "อยากซบไหล่อ้วนจังเลยง่า",
+  "ขอกอดแน่น ๆ หนึ่งทีนะ 🫂",
+  "อ้วนชมเค้าหน่อย วันนี้เค้าอยากโดนแฟนชม",
+  "เค้าอยากได้ยินเสียงอ้วนแล้วว",
+  "ขอให้อ้วนคิดถึงเค้าบ้างนะนะ",
+  "วันนี้ขออ้อนจนกว่าอ้วนจะยิ้มเลยย",
+  "อ้วนมาสนใจเค้าหน่อย เค้าอยู่นี่แล้วว",
+  "อยากเป็นคนที่อ้วนทักหาเยอะ ๆ จังเยยย",
+  "ขอจุ๊บแก้มหน่อยได้ม้ายย",
+  "อ้วนโอ๋เค้าหน่อย วันนี้อยากโดนเอาใจ",
+  "เค้าอยากนั่งข้าง ๆ อ้วนตอนนี้จังเลย",
+  "ขอเป็นคนโปรดของอ้วนทุกวันเลยได้มั้ย",
+  "อ้วนส่งหัวใจมาให้เค้าหน่อยเร็ว 💜",
+  "งื้ออ เค้าคิดถึงแฟนอีกแล้วอะ",
+  "ขอจับมืออ้วนเดินเล่นนาน ๆ เลย",
+  "วันนี้ขอเป็นคนที่อ้วนเอ็นดูที่สุดนะ",
+  "อ้วนเรียกเค้าว่าคนเก่งหน่อยได้มั้ย",
+  "อยากให้อ้วนกอดตอนเค้าเหนื่อยจัง",
+  "เค้าขอเวลาแฟนเพิ่มอีกห้านาทีได้มั้ยง่ะ",
+  "อ้วนอย่าเพิ่งไปไหน อยู่คุยกับเค้าก่อน",
+  "ขออ้อนอีกนิดเดียวจริง ๆ นะ",
+  "เค้าอยากได้คำว่าคิดถึงจากอ้วนนน",
+  "อ้วนรู้มั้ยว่าเค้าอยากอยู่ใกล้แค่ไหน อยากแบบวัดค่าม่ายได้",
+  "วันนี้ขอให้แฟนตามใจเค้าหน่อยน้า",
+  "อยากให้เธอเป็นคนปลอบเค้าในวันที่เหนื่อย",
+  "อ้วนยิ้มให้เค้าหน่อย แค่นี้ก็มีความสุขแล้ว",
+  "ขอเป็นคนที่อ้วนอยากเล่าเรื่องให้ฟังนะ",
+  "เค้าอยากโดนแฟนตามใจบ้างจังเยยย",
+  "ขอจุ๊บก่อนนอนหน่อยจิ",
+  "ถ้าอยู่ด้วยกันตอนนี้ เค้าคงเกาะอ้วนไม่ปล่อย",
+  "อ้วนแบ่งความน่ารักมาให้เค้าหน่อยย",
+  "เค้าอยากเป็นคนที่เธอคิดถึงเวลาเจอเรื่องดี ๆ",
+  "ขอให้คืนนี้อ้วนฝันถึงเค้านะ 🌙",
+  "อ้วนอย่าลืมคิดถึงเค้าก่อนนอนด้วยล่ะ",
+  "วันนี้เค้าอยากได้กำลังใจจากแฟนที่สุด",
+  "ขอเป็นคนที่อ้วนอยากกอดเวลาเหงาได้มั้ยนะ",
+  "เค้าชอบเวลาที่อ้วนตั้งใจฟังเค้าพูดมาก ๆ",
+  "อ้วนทักมาหาเค้าบ่อย ๆ ได้มั้ย เค้าชอบมากก",
+  "ขออ้อนแฟนแบบไม่มีเหตุผลได้ป่าวว",
+  "เค้าอยากให้เธอเอ็นดูเค้าไปนาน ๆ เลย",
+  "อ้วนบอกรักเค้าซ้ำ ๆ เค้าก็ไม่มีทางเบื่อไม่เบื่อหรอกนะ",
+  "ขออยู่ในอ้อมกอดอ้วนสักพักได้มั้ยยย",
+  "สุดท้ายวันนี้เค้าก็ยังรักอ้วนแบบวัดค่าไม้ได้อยู่ดี 💗",
+  "เค้ารักเธอในวันที่สดใสและวันที่เหนื่อยมาก ๆ เค้าก็ยังรัก",
+  "ขอบคุณที่เข้ามาเป็นส่วนหนึ่งในชีวิตเค้านะ",
+  "เค้าอยากดูแลความสัมพันธ์นี้ให้ดีที่สุด",
+  "ค่อย ๆ เรียนรู้กันไปเรื่อย ๆ ทีละวัน เข้าใจกันในทุกวันก็พอนะ",
+  "เธอเป็นคนสำคัญที่เค้าอยากใส่ใจทุกวันเลย",
+  "เค้าชอบเวลาที่ได้เป็นตัวเองเวลาอยู่กับเธอ",
+  "อยากให้ความรักของเราเป็นพื้นที่สบายใจกันและกันนะ",
+  "วันนี้เค้าทำนิสัยยังงาย น่ารักม้าย ถ้าไม่น่ารัก เค้าขอโต้ด",
+  "เค้าอยากรู้จักเธอให้มากขึ้นเรื่อย ๆ ทุก ๆ วันเลย",
+  "ชอบเธอวันนี้มาก ๆ และอยากรู้จักเธอในวันต่อไปเรื่อย ๆ",
+  "เราไม่ต้องสมบูรณ์แบบ แค่ไม่หยุดพยายามเพื่อกันและกันก็พอนะ",
+  "ขอให้เรายังเห็นข้อดีของกันและกันเสมอ",
+  "ความรักสำหรับเค้าคือเธอ ถ้าไม่ใช่เธอเค้าก็ไม่คิดว่ามันคือความรัก",
+  "อยากให้เราคุยกันดี ๆ แม้ในวันที่เราทะเลาะกันหนักมาก ๆ",
+  "ในวันที่เค้าทำตัวไม่ดี ให้อภัยเค้าและใจดีกับเค้าหน่อยนะคะ",
+  "เธอเป็นส่วนหนึ่งของความทรงจำที่เค้าอยากเก็บไว้ตลอดปาย",
+  "ขอให้ยังเป็นเค้าคนนี้ที่อยู่ข้างเธอตลอดไป",
+  "เค้าอยากให้คำว่ารักมาพร้อมกับการใส่ใจนะอ้วน",
+  "ขอบคุณทุกอย่างที่เธอทำให้เค้าเลยนะ",
+  "วันนี้ก็ยังส่งความรักให้เธอเหมือนเดิมนะจ๊ะเด้กอ้วน",
+  "อยากให้มีรูปน่ารัก ๆ ของเราเพิ่มอีกเยอะเลย",
+  "สักวันเรามาอ่านข้อความเหล่านี้ย้อนหลังกันนะ",
+  "เรื่องเล็ก ๆ วันนี้อาจกลายเป็นความทรงจำที่ดีก็ได้นะ",
+  "อยากเก็บเสียงหัวเราะของเราไว้ในความทรงจำจัง",
+  "ทุกบทสนทนาทำให้เค้ามีความสุขตลอดเลย",
+  "ทุกวันธรรมดาที่พิเศษเพราะได้คุยกับเธออ",
+  "ขอให้เรามีเรื่องตลกมาเล่าให้กันฟังเยอะ ๆ",
+  "อยากลองทำกิจกรรมใหม่ ๆ กับเธอจัง",
+  "หวังว่าเราจะมีเรื่องเล่าให้กันฟังอีกมากมาย",
+  "วันนี้มีเรื่องอะไรที่อยากบันทึกไว้ม้าย พิมพ์ไปหาเค้าได้นะ",
+  "อยากมีอัลบั้มที่เต็มไปด้วยรอยยิ้มของเราสองคนน",
+  "ความทรงจำไม่ต้องยิ่งใหญ่ แค่มีความหมายก็พอนะ",
+  "ขอบคุณทุกบทสนทนาที่ทำให้เราใกล้ชิดกันขึ้น",
+  "อยากมีเรื่องให้ย้อนกลับมาอ่านแล้วยิ้มได้",
+  "ขอให้เราได้ลองไปสถานที่ใหม่ ๆ ด้วยกันนะ",
+  "อยากรู้ว่าอีกหลายปีเราจะหัวเราะเรื่องอะไรกันบ้าง",
+  "บางวันไม่มีอะไรพิเศษ แต่ได้คุยกันก็ดีแล้ว",
+  "เก็บวันนี้ไว้เป็นอีกหนึ่งหน้าของ Museum of Us",
+  "เรื่องราวของเรายังเขียนต่อได้อีกหลายหน้าเยย",
+  "ขอบคุณที่ร่วมสร้างความทรงจำกับเค้านะ 📖",
+  "เธอไม่จำเป็นต้องทำให้ทุกคนพอใจนะอ้วน",
+  "ความสำเร็จของเธอไม่จำเป็นต้องเหมือนใคร",
+  "วันนี้ทำได้เท่าไหนก็ชื่นชมตัวเองเท่านั้นพอนะอ้วน",
+  "อย่าลืมว่าตัวเองก็สำคัญเหมือนกันนะที่รัก",
+  "ทุกก้าวเล็ก ๆ ก็พาเธอไปข้างหน้าได้นะรู้ป่าวว",
+  "เหนื่อยก็พัก ไม่ต้องฝืนเพื่อพิสูจน์อะไรเพื่อใครนะ",
+  "เธอมีโอกาสเรียนรู้สิ่งใหม่ได้เสมอ",
+  "ไม่ต้องกลัวว่าเค้าจะไปไหนนะ เค้าอยู่ข้างที่รักตลอดไป",
+  "ความผิดพลาดเป็นบทเรียน ไม่ใช่คำตัดสินนะ",
+  "เค้าจะอยู่กับเธอจนกว่าเธอจะไม่ต้องการเค้า",
+  "ขอให้เธอภูมิใจในตัวเองเยอะ ๆ",
+  "ค่อย ๆ ก้าวไป ไม่ต้องแข่งกับใครหรอก",
+  "ความพยายามในวันนี้มีความหมายเสมอ",
+  "เธอสามารถขอให้เค้าช่วยได้ตลอดนะที่รัก ไม่ว่าเรื่องอะไร",
+  "การพักผ่อนสำคัญพอ ๆ กับความตั้งใจนะ",
+  "ขอให้เธอเจอวิธีที่เหมาะกับตัวเองในทุกด้าน",
+  "ไม่เป็นไรถ้าต้องใช้เวลาเรียนรู้อีกหน่อย",
+  "ขอให้ความมั่นใจของเธอเติบโตทีละนิด",
+  "อย่าลืมเห็นคุณค่าในสิ่งที่ตัวเองทำ",
+  "เค้าจะอยู่ข้าง ๆ เธอในทุกก้าวนะ 💜",
+  "วันนี้ไม่จำเป็นต้องยิ้มตลอดเวลาก็ได้นะ พักแก้มบ้างก้ด้าย",
+  "ถ้าเหนื่อยใจ ลองพักจากความวุ่นวายสักแปปป",
+  "ความรู้สึกของเธอมีความหมายกับเค้าเสมอนะ",
+  "ไม่ต้องรีบหายเศร้านะเธอ ให้เวลากับตัวเองเยอะ ๆ ได้เลย",
+  "วันที่ยากไม่ได้แปลว่าทุกวันจะยากแบบนี้",
+  "ขอให้เธอเจอทางออกทีละขั้นนะ",
+  "ถ้าอยากเงียบสักพัก ก็ไม่เป็นไรเลย เค้าเข้าใจ",
+  "เธอไม่จำเป็นต้องอธิบายทุกอย่างให้ทุกคนเข้าใจ",
+  "ขอให้คืนนี้ใจของเธอสงบลงบ้าง",
+  "อย่าลืมกินข้าวและพักผ่อนเยอะ ๆ แม้วันที่ยุ่งนะ เค้าเป็นห่วง",
+  "ขอให้มีคนรับฟังเธอในวันที่ต้องการ เช่นเค้า ิิ",
+  "ถ้าปัญหาใหญ่ เราค่อย ๆ แบ่งจัดการได้นะ และจะมีเค้าอยู่ข้าง ๆ",
+  "ความรู้สึกแย่ ๆ ไม่ได้อยู่แบบเดิมตลอดไปนะ",
+  "ขอให้เธอเจอความอบอุ่นในแบบที่ต้องการนะ",
+  "วันนี้ไม่ต้องเก่งก็ได้ แค่ดูแลตัวเองก็พอนะ",
+  "เธอสมควรได้รับคำพูดที่อ่อนโยนนะ",
+  "ขอให้พรุ่งนี้มีพื้นที่ให้เริ่มต้นอีกครั้ง",
+  "หายใจลึก ๆ แล้วให้เวลากับตัวเองนะ",
+  "หวังว่าข้อความนี้จะทำให้ใจเธอเบาขึ้นนิดหนึ่ง เค้ารักเธอ",
+  "ส่งความคิดถึงงให้เธอจากตรงนี้นะ 🫂",
+  "ภารกิจวันนี้: ยิ้มหนึ่งครั้งเพื่อข้อความนี้ เร็วเยยย",
+  "คำเตือน: มีคนคิดถึงเธออยู่หนึ่งคน คนนั้นคือเลม่อนน",
+  "ขอให้วันนี้ไม่มีใครแย่งของอร่อยจากเธอ ยกเว้นเค้า ิิ",
+  "ถ้าเจอแมวน่ารัก อย่าลืมเล่าให้เค้าฟัง ",
+  "วันนี้กินของอร่อยที่ชอบบ้างรึยางน้า",
+  "รางวัลของวันนี้คือการได้พักอย่างสบายจายย",
+  "ยินดีด้วย เธอเปิดเจอข้อความที่คนน่ารักพิมพ์อีกแล้ว",
+  "ขอให้อินเทอร์เน็ตไม่งอแงในวันนี้",
+  "หวังว่าจะเจอเพลงโปรดที่ทำให้ยิ้มได้",
+  "ถ้าเจอเรื่องตลก อย่าลืมมาเล่าให้ฟังนะที่รัก",
+  "ขอให้เรากล้าถามเมื่อสงสัย แทนการคิดไปเองนะ",
+  "ขอให้เราไม่ทะเลาะกันข้ามคืนน",
+  "เราไม่ต้องเห็นด้วยทุกเรื่องเพื่อรักกันก็ได้นะ",
+  "ขอให้เราขอโทษเมื่อผิด และให้อภัยเมื่อพร้อม",
+  "อยากให้เราพูดกันตรง ๆ โดยไม่ทำร้ายกัน",
+  "ขอให้เราให้พื้นที่กันเติบโตในแบบของตัวเอง",
+  "ความไว้ใจเกิดจากสิ่งเล็ก ๆ ที่ทำสม่ำเสมอ",
+  "อย่าลืมว่าอีกฝ่ายก็มีความรู้สึกเหมือนกันนะ",
+  "ถ้าไม่เข้าใจ ลองถามกันด้วยความอ่อนโยน",
+  "เราเรียนรู้ที่จะรักกันให้ดีขึ้นได้เสมอ",
+  "อยากให้เราเป็นตัวเองได้โดยไม่ต้องกลัวกัน",
+  "ขอให้เรารักษาคำพูดและความเชื่อใจกัน",
+  "ความสัมพันธ์ที่ดีมีทั้งความรักและความเคารพ",
+  "ขอให้เราฟังกันจนเข้าใจ ไม่ใช่เพื่อโต้กลับ",
+  "ครบ 356 ข้อความแล้วนะ แต่เรื่องราวเค้ากับเธอยังไปต่อเสมอ",
+  "ขอบคุณที่เป็นคนพิเศษใน Museum of Us นะ 💜",
+    ];
+    let lastJarMessage = -1;
+    function drawMessage() {
+      let i; do { i = Math.floor(Math.random()*jarMessages.length); } while(i===lastJarMessage);
+      lastJarMessage=i; document.getElementById('jarMessage').textContent=jarMessages[i];
+    }
+    function answerQuiz(i) {
+      const replies=["ทะเลก็ดีนะ อยากเดินเล่นข้าง ๆ เธอแล้วถ่ายรูปเก็บไว้ 🌊","ภูเขาก็ดี ขอแค่ได้พักและหัวเราะด้วยกัน ⛰️","คำตอบนี้น่ารักที่สุดเลย เพราะที่ไหนก็พิเศษถ้ามีเรา 💜"];
+      document.getElementById('quizResult').textContent=replies[i];
+    }
+    function flipCoupon(btn,title,message) {
+      const isBack=btn.dataset.back==='1';
+      if(!isBack){btn.dataset.front=btn.innerHTML;btn.innerHTML='<span>♡ YOUR SPECIAL COUPON</span><strong>'+title+'</strong><small>'+message+'</small>';btn.dataset.back='1';btn.classList.add('flipped');}
+      else {btn.innerHTML=btn.dataset.front;btn.dataset.back='0';btn.classList.remove('flipped');}
+    }
+    function updateRelationshipDays(){const start=new Date(2026,4,28);const now=new Date();now.setHours(0,0,0,0);const days=Math.max(0,Math.floor((now-start)/86400000));document.getElementById('relationshipDays').textContent=days;}
+    const puzzleImage='S__46497834.jpg'; let puzzleOrder=[];
+    function shufflePuzzle(){puzzleOrder=[0,1,2,3,4,5,6,7,8];do{for(let i=8;i>0;i--){let j=Math.floor(Math.random()*(i+1));[puzzleOrder[i],puzzleOrder[j]]=[puzzleOrder[j],puzzleOrder[i]];}}while(!isSolvable(puzzleOrder)||puzzleOrder.every((v,i)=>v===i));renderPuzzle();document.getElementById('puzzleStatus').textContent='ลองเลื่อนชิ้นส่วนให้รูปกลับมาสมบูรณ์นะ ♡';}
+    function isSolvable(a){let inv=0;for(let i=0;i<a.length;i++)for(let j=i+1;j<a.length;j++)if(a[i]&&a[j]&&a[i]>a[j])inv++;return inv%2===0;}
+    function renderPuzzle(){const board=document.getElementById('puzzleBoard');board.innerHTML='';puzzleOrder.forEach((v,pos)=>{const b=document.createElement('button');b.className='puzzle-tile'+(v===8?' empty':'');b.setAttribute('aria-label',v===8?'ช่องว่าง':'ชิ้นส่วน '+(v+1));if(v!==8){const r=Math.floor(v/3),c=v%3;b.style.backgroundImage=`url("${puzzleImage}")`;b.style.backgroundPosition=`${c*50}% ${r*50}%`;}b.onclick=()=>movePuzzle(pos);board.appendChild(b);});}
+    function movePuzzle(pos){const empty=puzzleOrder.indexOf(8);if(Math.abs(Math.floor(pos/3)-Math.floor(empty/3))+Math.abs(pos%3-empty%3)!==1)return;[puzzleOrder[pos],puzzleOrder[empty]]=[puzzleOrder[empty],puzzleOrder[pos]];renderPuzzle();if(puzzleOrder.every((v,i)=>v===i)){document.getElementById('puzzleStatus').textContent='เก่งมากก นี่คือความทรงจำของเรา ♡';showToast('เก่งมากก นี่คือความทรงจำของเรา 💜');}}
+    function openDoor(i){const msgs=["ประตูนี้เก็บความทรงจำของเราไว้ ♡ ลองกลับไปดูแกลเลอรีแล้วเลือกรูปที่ทำให้ยิ้มได้เลย","ภารกิจสำเร็จแล้ว! เธอเปิดประตูแห่งกำลังใจได้แล้ว 💜","ของขวัญลับอยู่ท้ายเว็บนะ เลื่อนลงไปเปิดกล่องของขวัญได้เลย 🎁"];if(i===1&&lastJarMessage===-1){document.getElementById('doorMessage').textContent='ประตูนี้ยังล็อกอยู่ 🔒 ไปหยิบข้อความหนึ่งใบจากโหลก่อน แล้วค่อยกลับมาใหม่นะ';return;}document.getElementById('doorMessage').textContent=msgs[i];if(i===1)document.getElementById('doorMessage').textContent='ภารกิจสำเร็จแล้ว! เธอเปิดประตูแห่งกำลังใจได้แล้ว 💜';if(i===2)document.getElementById('gift').scrollIntoView({behavior:'smooth'});}
+    const secretHearts=new Set();function findSecretHeart(i){secretHearts.add(i);const b=document.querySelectorAll('.hidden-heart')[i];b.classList.add('found');b.textContent='♥';document.getElementById('secretProgress').textContent=`พบแล้ว ${secretHearts.size}/3 ดวง`;if(secretHearts.size===3){document.getElementById('secretReveal').classList.remove('hidden');showToast('เปิดห้องลับสำเร็จแล้ว ♡');}}
+    const coupleQuestions=["ความทรงจำไหนที่ทำให้เธอยิ้มทุกครั้ง?","ถ้าเราได้หยุดด้วยกันหนึ่งวัน อยากทำอะไร?","มีเรื่องอะไรเล็ก ๆ ที่เค้าทำแล้วเธอชอบไหม?","เพลงไหนที่ทำให้นึกถึงเรา?","อยากให้เราสร้างความทรงจำอะไรด้วยกันอีก?","วันแรกที่คุยกัน เธอคิดอะไรอยู่?","มีอะไรที่อยากขอบคุณกันและกันไหม?","ถ้าจะตั้งชื่อบทต่อไปของเรา จะชื่อว่าอะไรดี?"];
+    function nextCoupleQuestion(){document.getElementById('coupleQuestion').textContent=coupleQuestions[Math.floor(Math.random()*coupleQuestions.length)];}
+    function dogTalk(){const lines=["แฟนใครน่ารักจัง 🐶","อย่าลืมดูของขวัญนะ! 🎁","วันนี้เก่งมากแล้วนะมนุษย์ของหนู 💜","อย่าลืมบอกคิดถึงกันด้วยล่ะ ♡","โฮ่ง ๆ ขอให้รักกันและคุยกันดี ๆ น้า","มีหัวใจซ่อนอยู่ ลองหาให้ครบสิ!"];showToast(lines[Math.floor(Math.random()*lines.length)]);}
+    document.getElementById('dogHelper').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();dogTalk();}});
+    function showToast(msg){const el=document.getElementById('toastMessage');el.textContent=msg;el.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.classList.remove('show'),2600);}
+    function catchEasterEgg(){document.getElementById('easterEgg').classList.add('hidden');showToast('เจอตัวละครลับแล้ว! รับหัวใจพิเศษไปเลย 💜');}
+    setInterval(()=>{const egg=document.getElementById('easterEgg');if(Math.random()<0.32)egg.classList.remove('hidden');},18000);
+    function openFinalChapter(){const reveal=document.getElementById('finalReveal');reveal.classList.remove('hidden');reveal.scrollIntoView({behavior:'smooth',block:'center'});}
+    document.querySelectorAll('#memories .memory').forEach((card,index)=>{card.addEventListener('click',()=>{if(index===0){document.getElementById('questReward').textContent='เจอคำใบ้แรกแล้ว! ไปค้นหาหัวใจลับทั้ง 3 ดวงต่อได้เลย ♡';card.classList.remove('quest-glow');}});});
+    updateRelationshipDays(); shufflePuzzle();
+
   </script>
   <!-- เพลงโปรดของเรา 💜 -->
 <div style="
