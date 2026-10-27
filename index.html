@@ -1938,3 +1938,60 @@
     .section-heading .eyebrow::after { content: ' ✦'; color: #6bb9e7; }
 
 </style>
+
+<style id="latest-memory-card-refinement">
+/* Latest requested polish: opened memory cards fit their photo, fewer hearts, softer scrapbook styling */
+#memories .gallery { align-items: start; gap: 16px; }
+#memories .memory {
+  align-self: start;
+  padding: 9px;
+  border: 2px solid #b8e3f7;
+  border-radius: 25px;
+  background: linear-gradient(160deg,#ffffff 0%,#f8fcff 100%);
+  box-shadow: 0 8px 22px rgba(88,169,211,.15);
+  transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+}
+#memories .memory.is-flipped {
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 8px;
+  background: #fff;
+  border-color: #9ed5f0;
+}
+#memories .memory.is-flipped img {
+  display: block !important;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 17px;
+  margin: 0;
+}
+#memories .memory.is-flipped .memory-back { display:none !important; }
+#memories .memory:not(.is-flipped) { min-height: 300px; }
+#memories .memory:not(.is-flipped)::before {
+  content: "MEMORY NOTE";
+  display: block;
+  width: fit-content;
+  margin: 5px auto 0;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #edf8ff;
+  color: #75b9dc;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+}
+#memories .memory h3 { color:#285b78; font-weight:700; }
+#memories .memory > p { color:#638ba2; }
+/* Keep the playful click effect, but use fewer/smaller hearts and more subtle sparkles */
+.memory::after { content:none !important; }
+.heart-list button { animation:none !important; }
+.hero-heart { animation:pulse 3s ease-in-out infinite; }
+@media(max-width:520px) {
+  #memories .gallery { gap: 12px; }
+  #memories .memory { padding: 7px; border-radius: 21px; }
+  #memories .memory.is-flipped { padding: 6px; }
+  #memories .memory.is-flipped img { border-radius: 15px; aspect-ratio: 4 / 5; }
+  #memories .memory:not(.is-flipped) { min-height: 280px; }
+}
+</style>
