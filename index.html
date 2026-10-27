@@ -7,7 +7,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Mali:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -26,8 +26,8 @@
     body {
       background: var(--bg);
       color: var(--white);
-      font-family: 'Mali', sans-serif;
-      font-weight: 300;
+      font-family: 'Itim', 'Mali', sans-serif;
+      font-weight: 400;
       overflow-x: hidden;
     }
 
@@ -1192,7 +1192,7 @@
 
     <section class="section extra-section" id="finalChapter">
       <div class="section-heading"><div class="eyebrow">The Final Chapter</div><h2 class="serif">One Last Little Secret</h2><p>เมื่อสำรวจแต่ละห้องแล้ว ลองเปิดบทสุดท้ายดูนะ</p></div>
-      <div class="feature-card final-card"><p>สำรวจเว็บให้ครบ แล้วเปิดข้อความสุดท้ายที่เค้าตั้งใจทำให้เธอ</p><button class="walk-button" onclick="openFinalChapter()">เปิดบทสุดท้าย ♡</button><div id="finalReveal" class="final-reveal hidden"><h3 class="serif">To Film, with all my heart</h3><p>ถ้าเธอมาถึงตรงนี้ แปลว่าเธอค่อย ๆ เดินดูโลกเล็ก ๆ ที่เค้าตั้งใจทำให้จนถึงท้ายเรื่องแล้ว ขอบคุณที่เข้ามาอยู่ในชีวิตของเค้านะ เค้าอยากให้เรามีเรื่องราวดี ๆ ให้ย้อนกลับมาดูด้วยกันอีกเยอะเลย รักนะไออ้วน ♡</p><video class="final-video" controls playsinline preload="metadata"><source src="เลม่อนแอนฟิล์ม.mp4" type="video/mp4"></video></div></div>
+      <div class="feature-card final-card"><p>สำรวจเว็บให้ครบ แล้วเปิดข้อความสุดท้ายที่เค้าตั้งใจทำให้เธอ</p><button class="walk-button" onclick="openFinalChapter()">เปิดบทสุดท้าย ♡</button><div id="finalReveal" class="final-reveal hidden"><h3 class="serif">To Film, with all my heart</h3><p>ถ้าเธอมาถึงตรงนี้ แปลว่าเธอค่อย ๆ เดินดูโลกเล็ก ๆ ที่เค้าตั้งใจทำให้จนถึงท้ายเรื่องแล้ว ขอบคุณที่เข้ามาอยู่ในชีวิตของเค้านะ เค้าอยากให้เรามีเรื่องราวดี ๆ ให้ย้อนกลับมาดูด้วยกันอีกเยอะเลย รักนะไออ้วน ♡</p><video class="final-video" controls playsinline preload="metadata"><source src="ม่อน.mp4" type="video/mp4"></video></div></div>
     </section>
 
     <div class="dog-helper" id="dogHelper" role="button" tabindex="0" onclick="dogTalk()" aria-label="กดน้องหมาเพื่ออ่านข้อความ"><span class="dog-emoji">🐕</span><span class="dog-label">กดหนูสิ ♡</span></div>
@@ -1686,7 +1686,7 @@
   "ไม่ต้องรีบหายเศร้านะเธอ ให้เวลากับตัวเองเยอะ ๆ ได้เลย",
   "วันที่ยากไม่ได้แปลว่าทุกวันจะยากแบบนี้",
   "ขอให้เธอเจอทางออกทีละขั้นนะ",
-  "ถ้าอยากเงียบสักพัก ก็ไม่เป็นไรเลย เค้าเข้าใจ", 
+  "ถ้าอยากเงียบสักพัก ก็ไม่เป็นไรเลย เค้าเข้าใจ",
   "เธอไม่จำเป็นต้องอธิบายทุกอย่างให้ทุกคนเข้าใจ",
   "ขอให้คืนนี้ใจของเธอสงบลงบ้าง",
   "อย่าลืมกินข้าวและพักผ่อนเยอะ ๆ แม้วันที่ยุ่งนะ เค้าเป็นห่วง",
@@ -1765,7 +1765,7 @@
     function startPuzzle(){puzzleImage=puzzleImages[Math.floor(Math.random()*puzzleImages.length)];const preview=document.getElementById('puzzlePreview');preview.src=puzzleImage;preview.classList.add('hidden');document.getElementById('puzzleIntro').textContent='สุ่มรูปได้แล้ว! ลองเลื่อนชิ้นส่วนที่ติดกับช่องว่างให้รูปกลับมาสมบูรณ์นะ ♡';document.getElementById('puzzleBoard').classList.remove('hidden');document.getElementById('puzzleStart').classList.add('hidden');document.getElementById('puzzleAgain').classList.remove('hidden');puzzleStarted=true;shufflePuzzle();}
     function shufflePuzzle(){puzzleOrder=[0,1,2,3,4,5,6,7,8];do{for(let i=8;i>0;i--){let j=Math.floor(Math.random()*(i+1));[puzzleOrder[i],puzzleOrder[j]]=[puzzleOrder[j],puzzleOrder[i]];}}while(!isSolvable(puzzleOrder)||puzzleOrder.every((v,i)=>v===i));renderPuzzle();document.getElementById('puzzleStatus').textContent='แตะชิ้นส่วนที่อยู่ติดกับช่องว่างเพื่อเลื่อน ♡';}
     function isSolvable(a){let inv=0;for(let i=0;i<a.length;i++)for(let j=i+1;j<a.length;j++)if(a[i]&&a[j]&&a[i]>a[j])inv++;return inv%2===0;}
-    function renderPuzzle(){const board=document.getElementById('puzzleBoard');board.innerHTML='';puzzleOrder.forEach((v,pos)=>{const b=document.createElement('button');b.className='puzzle-tile'+(v===8?' empty':'');b.setAttribute('aria-label',v===8?'ช่องว่าง':'ชิ้นส่วน '+(v+1));if(v!==8){const r=Math.floor(v/3),c=v%3;b.style.backgroundImage=`url("${puzzleImage}")`;b.style.backgroundPosition=`${c*50}% ${r*50}%`;}b.onclick=()=>movePuzzle(pos);board.appendChild(b);});}
+    function renderPuzzle(){const board=document.getElementById('puzzleBoard');board.innerHTML='';puzzleOrder.forEach((v,pos)=>{const b=document.createElement('button');b.className='puzzle-tile'+(v===8?' empty':'');b.setAttribute('aria-label',v===8?'ช่องว่าง':'ชิ้นส่วน '+(v+1));if(v!==8){const r=Math.floor(v/3),c=v%3;b.style.setProperty("--puzzle-image", `url("${puzzleImage}")`);b.style.setProperty("--puzzle-position", `${c*50}% ${r*50}%`);}b.onclick=()=>movePuzzle(pos);board.appendChild(b);});}
     function movePuzzle(pos){const empty=puzzleOrder.indexOf(8);if(Math.abs(Math.floor(pos/3)-Math.floor(empty/3))+Math.abs(pos%3-empty%3)!==1)return;[puzzleOrder[pos],puzzleOrder[empty]]=[puzzleOrder[empty],puzzleOrder[pos]];renderPuzzle();if(puzzleOrder.every((v,i)=>v===i)){document.getElementById('puzzleStatus').textContent='เก่งมากก นี่คือความทรงจำของเรา ♡';showToast('เก่งมากก นี่คือความทรงจำของเรา 🩵');advanceQuest(3);}}
     function openDoor(i){const msgs=["ประตูนี้เก็บความทรงจำของเราไว้ ♡ ลองกลับไปดูแกลเลอรีแล้วเลือกรูปที่ทำให้ยิ้มได้เลย","ภารกิจสำเร็จแล้ว! เธอเปิดประตูแห่งกำลังใจได้แล้ว 🩵","ของขวัญลับอยู่ท้ายเว็บนะ เลื่อนลงไปเปิดกล่องของขวัญได้เลย 🎁"];if(i===1&&lastJarMessage===-1){document.getElementById('doorMessage').textContent='ประตูนี้ยังล็อกอยู่ 🔒 ไปหยิบข้อความหนึ่งใบจากโหลก่อน แล้วค่อยกลับมาใหม่นะ';return;}document.getElementById('doorMessage').textContent=msgs[i];if(i===1)document.getElementById('doorMessage').textContent='ภารกิจสำเร็จแล้ว! เธอเปิดประตูแห่งกำลังใจได้แล้ว 🩵';if(i===2)document.getElementById('gift').scrollIntoView({behavior:'smooth'});}
     const secretHearts=new Set();function findSecretHeart(i,btn){if(secretHearts.has(i))return;secretHearts.add(i);btn.classList.add('found');btn.textContent='♥';btn.disabled=true;document.getElementById('secretProgress').textContent=`พบแล้ว ${secretHearts.size}/3 ดวง`;showToast(`เจอหัวใจลับ ${secretHearts.size}/3 แล้ว ♡`);if(secretHearts.size===3){document.getElementById('secretReveal').classList.remove('hidden');showToast('เปิดห้องลับสำเร็จแล้ว ♡');}}
@@ -1877,7 +1877,7 @@
 
 <script>
   const musicFrame = document.getElementById("love-song");
-  const musicButton  = document.getElementById("music-toggle");
+  const musicButton = document.getElementById("music-toggle");
 
   musicButton.addEventListener("click", function () {
     musicFrame.contentWindow.postMessage(
@@ -1901,4 +1901,40 @@
 #coupons .coupon.flipped .coupon-back, #coupons .coupon.flipped .coupon-back span, #coupons .coupon.flipped .coupon-back strong, #coupons .coupon.flipped .coupon-back small { color:#286a93 !important; text-shadow:none !important; }
 #mysteryDoors .door { background:linear-gradient(135deg,#398fc4,#57b0e2) !important; color:#ffffff !important; border-color:#d9f2ff !important; }
 #mysteryDoors .door strong, #mysteryDoors .door small { color:#ffffff !important; text-shadow:0 1px 2px rgba(20,74,112,.22); }
+
+    /* Puzzle image fix: keep the global blue button styling from covering photo tiles */
+    #puzzleBoard .puzzle-tile:not(.empty) {
+      background-image: var(--puzzle-image) !important;
+      background-position: var(--puzzle-position) !important;
+      background-size: 300% 300% !important;
+      background-repeat: no-repeat !important;
+      background-color: #8bcbed !important;
+      border: 1px solid rgba(255,255,255,.8) !important;
+      box-shadow: inset 0 0 0 1px rgba(16,77,120,.12) !important;
+      padding: 0 !important;
+    }
+    #puzzleBoard .puzzle-tile.empty {
+      background: #f7fcff !important;
+      border: 2px dashed #7bc3e9 !important;
+      box-shadow: inset 0 0 0 3px #e1f4ff !important;
+    }
+    #puzzleBoard.puzzle-board {
+      padding: 6px !important;
+      gap: 5px !important;
+      background: linear-gradient(135deg,#bce7ff,#6bb9e7) !important;
+      border: 2px solid #fff !important;
+      box-shadow: 0 10px 24px rgba(44,139,194,.2) !important;
+    }
+    /* A little extra cute stationery detail, without changing the layout */
+    .section-heading h2, .section-heading h3 { letter-spacing: .2px; }
+    .feature-card, .question-card, .final-card, .memory, .letter-card {
+      box-shadow: 0 10px 28px rgba(65,153,202,.13), 0 2px 0 rgba(255,255,255,.9) !important;
+    }
+    .gift-button, .walk-button, .action-button, .next-button, .restart-button {
+      font-family: 'Itim', 'Mali', sans-serif !important;
+      letter-spacing: .2px;
+    }
+    .section-heading .eyebrow::before { content: '✦ '; color: #6bb9e7; }
+    .section-heading .eyebrow::after { content: ' ✦'; color: #6bb9e7; }
+
 </style>
