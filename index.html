@@ -1202,7 +1202,7 @@
   </main>
   <script>
     // เปลี่ยนรหัสผ่านตรงนี้ได้
-    const CORRECT_PIN = "28052026";
+    const CORRECT_PIN = "23052026";
     let enteredPin = "";
 
    function openGiftBoxScreen() {
@@ -1776,7 +1776,7 @@
 
     const coupleQuestions=["ความทรงจำไหนที่ทำให้เธอยิ้มทุกครั้ง?","ถ้าเราได้หยุดด้วยกันหนึ่งวัน อยากทำอะไร?","มีเรื่องอะไรเล็ก ๆ ที่เค้าทำแล้วเธอชอบไหม?","เพลงไหนที่ทำให้นึกถึงเรา?","อยากให้เราสร้างความทรงจำอะไรด้วยกันอีก?","วันแรกที่คุยกัน เธอคิดอะไรอยู่?","มีอะไรที่อยากขอบคุณกันและกันไหม?","ถ้าจะตั้งชื่อบทต่อไปของเรา จะชื่อว่าอะไรดี?"];
     function nextCoupleQuestion(){document.getElementById('coupleQuestion').textContent=coupleQuestions[Math.floor(Math.random()*coupleQuestions.length)];}
-    function dogTalk(){const lines=["แฟนใครน่ารักจัง 🐶","อย่าลืมดูของขวัญนะ! 🎁","วันนี้เก่งมากแล้วนะมนุษย์ของหนู 🩵","อย่าลืมบอกคิดถึงกันด้วยล่ะ ♡","โฮ่ง ๆ ขอให้รักกันและคุยกันดี ๆ น้า","มีหัวใจซ่อนอยู่ ลองหาให้ครบสิ!"];showToast(lines[Math.floor(Math.random()*lines.length)]);}
+    function dogTalk(){const lines=["แฟนใครน่ารักจัง 🐶","อย่าลืมดูของขวัญนะ! 🎁","วันนี้เก่งมากแล้วนะแฟนของหนู 🩵","อย่าลืมบอกคิดถึงกันด้วยล่ะ ♡","โฮ่ง ๆ ขอให้รักกันและคุยกันดี ๆ น้า","มีหัวใจซ่อนอยู่ ลองหาให้ครบสิ!","อยู่ง้อกันไปนาน ๆ นะ"];showToast(lines[Math.floor(Math.random()*lines.length)]);}
     document.getElementById('dogHelper').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();dogTalk();}});
     function showToast(msg){const el=document.getElementById('toastMessage');el.textContent=msg;el.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.classList.remove('show'),2600);}
     function catchEasterEgg(){document.getElementById('easterEgg').classList.add('hidden');showToast('เจอตัวละครลับแล้ว! รับหัวใจพิเศษไปเลย 🩵');}
